@@ -1,0 +1,3 @@
+[submodule "cluster-cd/system/base/synology-csi/upstream/synology-csi-talos"]
+	path = cluster-cd/system/base/synology-csi/upstream/synology-csi-talos
+	url = git@github.com:zebernst/synology-csi-talos.git

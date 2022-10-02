@@ -1,0 +1,13 @@
+---
+creation_rules:
+  - path_regex: provision/.*\.sops.ya?ml
+    unencrypted_regex: "^(kind)$"
+    # Ubuntu WSL (Desk)
+    pgp: >-
+      9599A14A0CE3A67ACD77531A82D94DECD2849F32
+  - path_regex: cluster-cd/.*\.x86\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    # x86 flux, Ubuntu WSL (desk)
+    pgp: >-
+      BD7CEAC2062FB535D2A4C13C5C114E8036FD70D3,
+      9599A14A0CE3A67ACD77531A82D94DECD2849F32
