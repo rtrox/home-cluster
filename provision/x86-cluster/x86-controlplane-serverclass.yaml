@@ -1,3 +1,4 @@
+---
 apiVersion: metal.sidero.dev/v1alpha1
 kind: ServerClass
 metadata:
@@ -9,7 +10,7 @@ spec:
   qualifiers:
     systemInformation:
       - manufacturer: "Intel(R) Client Systems"
-        version: "K61339-306" 
+        version: "K61339-306"
       - manufacturer: LENOVO
         version: "ThinkCentre M715q"
   bootFromDiskMethod: ipxe-sanboot
