@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://metallb.github.io/metallb
       chart: metallb
-      version: 0.12.1
+      version: 0.13.5
       sourceRef:
         kind: HelmRepository
         name: metallb-charts
@@ -23,6 +23,11 @@ spec:
           peer-asn: 64512
           my-asn: 64512
       address-pools: []
+    prometheus:
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
     speaker:
       tolerations:
         - effect: "NoExecute"
