@@ -24,6 +24,9 @@ spec:
           my-asn: 64512
       address-pools: []
     prometheus:
+      rbacPrometheus: false
+      podMonitor:
+        enabled: true
       serviceMonitor:
         enabled: true
       prometheusRule:

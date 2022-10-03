@@ -90,6 +90,7 @@
       ],
       "datasourceTemplate": "github-releases"
     }
+
   ],
   "packageRules": [
     // setup datasources
