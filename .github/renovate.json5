@@ -17,10 +17,14 @@
   "helm-values": {
     "fileMatch": ["cluster/.+/helm-release\\.yaml$"]
   },
+  "kustomize": {
+    "fileMatch": [
+      "(^|/)kustomization\.ya?ml$"
+    ]
+  },
   "kubernetes": {
     "fileMatch": [
-      "cluster/.+\\.yaml$",
-      "server/.+\\.yaml$"
+      "cluster-cd/.+\\.yaml$",
     ],
     "ignorePaths": [
       "cluster/base/"
