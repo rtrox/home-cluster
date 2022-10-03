@@ -2,5 +2,5 @@
 apiVersion: metallb.io/v1beta1
 kind: BGPAdvertisement
 metadata:
-  name: EdgeRouter
+  name: edge-router
   namespace: metallb-system
