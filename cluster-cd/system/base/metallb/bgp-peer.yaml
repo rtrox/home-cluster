@@ -5,6 +5,6 @@ metadata:
   name: edge-router
   namespace: metallb-system
 spec:
-  myASN: 64513
+  myASN: 64512
   peerASN: 64512
   peerAddress: 172.16.254.1
