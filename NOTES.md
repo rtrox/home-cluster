@@ -88,6 +88,6 @@ no need to adjust endpoint, it uses the one we specified in our ClusterConfig.
 172.16.3.0/24 Rockkube
 
 ## Loadbalancers
-172.16.10.0/24 Pi Load Balancers
-172.16.20.0/24 ThinkKube Load Balancers
-172.16.30.0/24 Rockkube Load Balancers
+172.17.1.0/24 Pi Load Balancers
+172.17.2.0/24 ThinkKube Load Balancers
+172.17.3.0/24 Rockkube Load Balancers

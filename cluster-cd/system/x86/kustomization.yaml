@@ -6,5 +6,5 @@ resources:
   - ../namespaces
   - ../base
 
-# patchesStrategicMerge:
-#   - nfs-subdir-external-provisioner-values.yaml:w
+patchesStrategicMerge:
+  - metallb-values.yaml
