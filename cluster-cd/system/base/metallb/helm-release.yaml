@@ -17,12 +17,12 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    configInline:
-      peers:
-        - peer-address: 172.16.254.1
-          peer-asn: 64512
-          my-asn: 64512
-      address-pools: []
+    # configInline:
+    #   peers:
+    #     - peer-address: 172.16.254.1
+    #       peer-asn: 64512
+    #       my-asn: 64512
+    #   address-pools: []
     # prometheus:
     #   rbacPrometheus: false
     #   podMonitor:

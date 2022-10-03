@@ -5,6 +5,4 @@ kind: Kustomization
 resources:
   - ../namespaces
   - ../base
-
-patchesStrategicMerge:
-  - metallb-values.yaml
+  - metallb-address-pool.yaml
