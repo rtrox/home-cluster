@@ -23,11 +23,6 @@ spec:
           peer-asn: 64512
           my-asn: 64512
       address-pools: []
-    prometheus:
-      podMonitor:
-        enabled: true
-      prometheusRule:
-        enabled: true
     speaker:
       tolerations:
         - effect: "NoExecute"
