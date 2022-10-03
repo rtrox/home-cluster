@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: metallb-system
 
 resources:
-  - github.com/metallb/metallb/config/native?ref=v0.13.5
+  - helm-release.yaml
   - bgp-peer.yaml
   - bgp-advertisement.yaml
