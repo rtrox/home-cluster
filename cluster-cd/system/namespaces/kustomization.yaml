@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - synology-csi.yaml
   - metallb-system.yaml
+  - ingress-nginx.yaml
