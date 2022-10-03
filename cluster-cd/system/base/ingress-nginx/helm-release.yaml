@@ -1,0 +1,29 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://kubernetes.github.io/ingress-nginx
+      chart: ingress-nginx
+      version: 4.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    controller:
+      ingressClassResource:
+        default: true
+      enableTLSPassthrough: true
+      extraArgs:
+        enable-ssl-passthrough: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true

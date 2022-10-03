@@ -21,7 +21,7 @@
     "fileMatch": [
       "(^|/)kustomization\.ya?ml$"
     ]
-  },
+  }
   "kubernetes": {
     "fileMatch": [
       "cluster-cd/.+\\.yaml$",
@@ -34,7 +34,7 @@
     // regexManager to read and process HelmRelease files
     {
       "fileMatch": [
-        "cluster/.+\\.yaml$"
+        "cluster-cd/.+\\.yaml$"
       ],
       "matchStrings": [
         // helm releases
