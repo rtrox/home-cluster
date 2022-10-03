@@ -6,4 +6,4 @@ kind: Kustomization
 namespace: metallb-system
 
 resources:
-  - github.com/metallb/metallb/config/crd?ref=v0.13.5
+  - https://github.com/metallb/metallb/config/crd/?ref=v0.13.5
