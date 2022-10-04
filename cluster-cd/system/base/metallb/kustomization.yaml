@@ -6,5 +6,6 @@ namespace: metallb-system
 
 resources:
   - helm-release.yaml
-  - bgp-peer.yaml
-  - bgp-advertisement.yaml
+    #  - bgp-peer.yaml
+    #- bgp-advertisement.yaml
+  - l2advertisement.yaml
