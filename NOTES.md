@@ -73,12 +73,12 @@ no need to adjust endpoint, it uses the one we specified in our ClusterConfig.
 ```bash
 kubectx admin@rpi4-sidero
 kubectl delete cluster x86
-kubectl apply -f provision/clusters/x86/x86-cluster.yaml
+kubectl apply -f provision/clusters/x86-cluster/x86-cluster.yaml
 ```
 2. Collect TalosConfig & KubeConfig as outlined above
 3. reapply sops-age secret
 ```bash
-sops -d cluster-cd/clusters/x86/flux-system/sops-age.x86.yaml | kubectl apply -f -
+sops -d cluster-cd/clusters/x86/sops-age.x86.yaml | kubectl apply -f -
 ```
 4. Rebootstrap cluster from this repo using [Flux's Instructions](https://fluxcd.io/flux/installation/#github-and-github-enterprise)
 ```bash
@@ -90,11 +90,6 @@ flux bootstrap github \
   --personal \
   --reconcile
 ```
-
-
-
-
-
 
 
 # Network
