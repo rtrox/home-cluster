@@ -17,6 +17,7 @@ spec:
       interval: 5m
   values:
     controller:
+      replicaCount: 2
       ingressClassResource:
         default: true
       enableTLSPassthrough: true
