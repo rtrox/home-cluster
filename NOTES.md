@@ -68,7 +68,34 @@ talosctl -n 172.16.2.1 kubeconfig
 ```
 no need to adjust endpoint, it uses the one we specified in our ClusterConfig.
 
-## Talos
+## Bootstrapping Work Cluster
+1. Delete & Recreate Talos Cluster
+```bash
+kubectx admin@rpi4-sidero
+kubectl delete cluster x86
+kubectl apply -f provision/clusters/x86/x86-cluster.yaml
+```
+2. Collect TalosConfig & KubeConfig as outlined above
+3. reapply sops-age secret
+```bash
+sops -d cluster-cd/clusters/x86/flux-system/sops-age.x86.yaml | \
+     kubectl create secret generic sops-age \
+     --namespace=flux-system \
+     --from-file=age.agekey=/dev/stdin
+```
+4. Rebootstrap cluster from this repo using [Flux's Instructions](https://fluxcd.io/flux/installation/#github-and-github-enterprise)
+```bash
+export GITHUB_TOKEN=<personal-access-token>
+flux bootstrap github \
+  --owner=rtrox \
+  --repository=home-cluster \
+  --path=cluster-cd/clusters/x86 \
+  --personal
+```
+
+
+
+
 
 
 
