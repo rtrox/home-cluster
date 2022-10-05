@@ -1,0 +1,13 @@
+---
+creation_rules:
+  - path_regex: provision/.*\.sops.ya?ml
+    unencrypted_regex: "^(kind)$"
+    # Ubuntu WSL (Desk)
+    age: >-
+      age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m
+  - path_regex: cluster-cd/.*\.x86\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    # x86 flux, Ubuntu WSL (desk)
+    age: >-
+      age1f4q0ptkg5hlwh3gvm66ts5hvfnjej7a3tsu3rrdt6qs44vkwfqyq3x4gts,
+      age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m

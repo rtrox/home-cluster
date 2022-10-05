@@ -1,0 +1,42 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: serverclass-x86-worker
+spec:
+  selector:
+    matchExpressions:
+      - key: controlplane
+        operator: NotIn
+        values: ["true"]
+  qualifiers:
+    systemInformation:
+      - manufacturer: "Intel(R) Client Systems"
+        version: "K61339-306"
+      - manufacturer: LENOVO
+        version: "ThinkCentre M715q"
+  bootFromDiskMethod: ipxe-sanboot
+  configPatches:
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/sda
+    - op: replace
+      path: /machine/install/bootloader
+      value: true
+    - op: replace
+      path: /cluster/allowSchedulingOnControlPlanes
+      value: true
+    - op: replace
+      path: /cluster/network/cni
+      value:
+        name: custom
+        urls:
+          - https://docs.projectcalico.org/archive/v3.24/manifests/canal.yaml
+    - op: add
+      path: /machine/sysctls
+      value:
+        vm.nr_hugepages: "1024"
+    - op: add
+      path: /machine/kubelet/extraArgs
+      value:
+        node-labels: "openebs.io/engine-mayastor"

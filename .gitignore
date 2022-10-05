@@ -1,0 +1,5 @@
+# Ignore any talosconfigs
+**/*talosconfig.yaml
+
+# .age-keys contains decrypted private keys for age
+**/.age-keys
