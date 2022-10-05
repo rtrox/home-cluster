@@ -30,18 +30,18 @@ providers:
 ```
 ### Accepting a server
 In Sidero, a server must be accepted before it can be provisioned. If it's not accepted, sidero will do nothing to it. Once accepted, it will be immediately wiped, and it will be made available for provisioning to a cluster.
-```
+```bash
  kubectl patch server e5d4686c-23df-1631-71e1-1c697a6e861f --type='json' -p='[{"op": "add", "path": "/spec/accepted", "value": true}]'
 ```
 ### Labeling Servers as controlplane
 We're using `ServerClasses` to put nodes into groups for each cluster by hardware type. For controlplane, we're using a label selector. To label a server:
-```
+```bash
 kubectl label server 5265c900-2516-11e7-9ea4-f8fe6d592f00 controlplane=true
 ```
 
 ### Server Specific Changes
 For right now, you can only specific one `ServerClass` for Workers, and one for Control Plane. As such, it's tough to override settings for specific servers (but not impossible). When you need to do this, edit the server object directly. Our NUC, for example, needs to be told to install to the nvme drive:
-```
+```yaml
 spec:
   accepted: true
   configPatches:
@@ -52,7 +52,7 @@ spec:
 I applied this via `kubectl edit server <id>`, but you can also built and apply a patch file.
 
 ### Collecting TalosConfig
-   ```
+   ```bash
    # Retrieve the TalosConfig from the Sidero Cluster
    kubectl get secret x86-talosconfig -o jsonpath='{.data.talosconfig}' | base64 -d > x86-talosconfig
    # Merge the new talos config into our local talos config
@@ -63,7 +63,7 @@ I applied this via `kubectl edit server <id>`, but you can also built and apply 
 
 ### Retrieving KubeConfig
 Using your new TalosConfig:
-```
+```bash
 talosctl -n 172.16.2.1 kubeconfig
 ```
 no need to adjust endpoint, it uses the one we specified in our ClusterConfig.

@@ -1,0 +1,21 @@
+---
+hubble:
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+  tls:
+    auto:
+      method: cert-mangaer
+
+kubeProxyReplacement: "strict"
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+ipam:
+  mode: kubernetes
+k8sServiceHost: 172.16.2.254
+k8sServicePort: 6443
+
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
