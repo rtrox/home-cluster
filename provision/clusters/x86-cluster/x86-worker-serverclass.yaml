@@ -23,15 +23,18 @@ spec:
     - op: replace
       path: /machine/install/bootloader
       value: true
+    - op: add
+      path: /machine/install/extensions
+      value: ghcr.io/siderolabs/iscsi-tools:v0.1.2
     - op: replace
       path: /cluster/allowSchedulingOnControlPlanes
       value: true
-    - op: replace
+    - op: add
       path: /cluster/network/cni
       value:
         name: custom
         urls:
-          - https://docs.projectcalico.org/archive/v3.24/manifests/canal.yaml
+          - https://raw.githubusercontent.com/rtrox/home-cluster/main/provision/custom/cni/cilium-base-install.yaml
     - op: add
       path: /machine/sysctls
       value:
