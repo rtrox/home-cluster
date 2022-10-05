@@ -37,7 +37,7 @@ spec:
       value:
         name: custom
         urls:
-          - https://raw.githubusercontent.com/rtrox/home-cluster/provision/custom/cni/cilium-base-install.yaml
+          - https://raw.githubusercontent.com/rtrox/home-cluster/main/provision/custom/cni/cilium-base-install.yaml
     - op: add
       path: /cluster/proxy/disabled
       value: true
