@@ -78,10 +78,7 @@ kubectl apply -f provision/clusters/x86/x86-cluster.yaml
 2. Collect TalosConfig & KubeConfig as outlined above
 3. reapply sops-age secret
 ```bash
-sops -d cluster-cd/clusters/x86/flux-system/sops-age.x86.yaml | \
-     kubectl create secret generic sops-age \
-     --namespace=flux-system \
-     --from-file=age.agekey=/dev/stdin
+sops -d cluster-cd/clusters/x86/flux-system/sops-age.x86.yaml | kubectl apply -f -
 ```
 4. Rebootstrap cluster from this repo using [Flux's Instructions](https://fluxcd.io/flux/installation/#github-and-github-enterprise)
 ```bash
@@ -90,7 +87,8 @@ flux bootstrap github \
   --owner=rtrox \
   --repository=home-cluster \
   --path=cluster-cd/clusters/x86 \
-  --personal
+  --personal \
+  --reconcile
 ```
 
 
