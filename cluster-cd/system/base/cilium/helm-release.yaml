@@ -76,17 +76,9 @@ spec:
           labelValue: "1"
       ui:
         enabled: true
-        ingress:
-          enabled: true
-          annotations:
-            kubernetes.io/ingress.class: nginx
-            cert-manager.io/cluster-issuer: letsencrypt-prod
-          hosts:
-            - hubble.${SECRET_DOMAIN}
       relay:
         enabled: true
         rollOutPods: true
-      // TODO: Add in UI/Ingress once cert-manager/ingress are configured
     bgp:
       enabled: true
       announce:
