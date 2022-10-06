@@ -6,3 +6,4 @@ resources:
   - ../namespaces
   - ../base
   - cilium-configmap.yaml
+  - cloudflare-token-secret.x86.yaml

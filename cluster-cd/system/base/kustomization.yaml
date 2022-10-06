@@ -5,3 +5,4 @@ resources:
   - synology-csi
   - ingress-nginx
   - cilium
+  - cert-manager
