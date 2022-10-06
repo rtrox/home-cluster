@@ -81,8 +81,8 @@ spec:
           annotations:
             kubernetes.io/ingress.class: nginx
             kubernetes.io/tls-acme: "true"
-            hosts:
-              - hubble.${SECRET_DOMAIN}
+          hosts:
+            - hubble.${SECRET_DOMAIN}
       relay:
         enabled: true
         rollOutPods: true
