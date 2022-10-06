@@ -25,7 +25,8 @@ spec:
       value: true
     - op: add
       path: /machine/install/extensions
-      value: ghcr.io/siderolabs/iscsi-tools:v0.1.2
+      value:
+        image: ghcr.io/siderolabs/iscsi-tools:v0.1.2
     - op: replace
       path: /cluster/allowSchedulingOnControlPlanes
       value: true

@@ -91,7 +91,6 @@ flux bootstrap github \
   --reconcile
 ```
 
-
 # Network
 
 ## Management
