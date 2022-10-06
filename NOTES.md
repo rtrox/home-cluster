@@ -91,6 +91,21 @@ flux bootstrap github \
   --reconcile
 ```
 
+## CNI Setup Hack
+I need to find a better way to do this, but right now, this is a little hacky. Since we're installing Cilium during the install, it's already present on the machine, but without all the proper configs (quick install is stripped down to prevent leaking certificates via this repo). In gitops, there is a helm chart which deploys cilium with all the right options. This is done because the Talos docs say that the talos machines will reboot every 10 minutes if the nodes don't become `Ready`, and `Ready` state relies on an initialized CNI.  So once Flux is bootstrapped, it's necessary to:
+1. Uninstall Cilium
+```bash
+cilium uninstall
+```
+2. The Helm Chart likely failed to deploy due to resources with the same name already being present, so delete the helm release:
+```bash
+flux delete hr -n kube-system cilium
+```
+3. Trigger a reconcile
+```
+flux reconcile kustomization system
+```
+
 # Network
 
 ## Management
