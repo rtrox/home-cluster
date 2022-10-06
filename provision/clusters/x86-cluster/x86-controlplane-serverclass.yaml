@@ -28,8 +28,7 @@ spec:
       value: /dev/sda
     - op: add
       path: /machine/install/extensions
-      value:
-        image: ghcr.io/siderolabs/iscsi-tools:v0.1.2
+      value: [{"image": "ghcr.io/siderolabs/iscsi-tools:v0.1.2"}]
     - op: replace
       path: /machine/install/bootloader
       value: true
