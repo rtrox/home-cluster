@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - prometheus-rule.yaml
-  - letsencrypt-issuer-prod.yaml
-  - letsencrypt-issuer-staging.yaml
+  # - letsencrypt-issuer-prod.yaml
+  # - letsencrypt-issuer-staging.yaml

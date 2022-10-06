@@ -32,5 +32,3 @@ spec:
       enabled: true
       servicemonitor:
         enabled: true
-    networkPolicy:
-      enabled: true
