@@ -533,7 +533,7 @@ prometheus:
     configMaps: []
     containers:
       - name: test
-        image: ubuntu:focal
+        image: quay.io/prometheus/prometheus
         command: ["sh", "-c"]
         # loop forever, outputting "yo" every 5 seconds
         args: ["while true; do echo 'yo' && sleep 5; done;"]
