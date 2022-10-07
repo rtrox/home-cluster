@@ -490,12 +490,19 @@ prometheus:
     annotations: {}
     data: {}
   ingress:
-    annotations: {}
-    enabled: false
-    hosts: []
-    labels: {}
-    paths: []
-    tls: []
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      kubernetes.io/tls-acme: "true"
+    enabled: true
+    hosts:
+      - "prometheus.${SECRET_DOMAIN}"
+    ingressClassName: nginx
+    pathType: Prefix
+    tls:
+      -
+        hosts:
+          - "prometheus.${SECRET_DOMAIN}"
+        secretName: prometheus-tls
   ingressPerReplica:
     annotations: {}
     enabled: false
