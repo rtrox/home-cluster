@@ -531,7 +531,16 @@ prometheus:
     apiserverConfig: {}
     arbitraryFSAccessThroughSMs: false
     configMaps: []
-    containers: []
+    containers:
+      - name: test
+        image: ubuntu:focal
+        command: ["sh", "-c"]
+        # loop forever, outputting "yo" every 5 seconds
+        args: ["while true; do echo 'yo' && sleep 5; done;"]
+        volumeMounts:
+          - mountPath: /prometheus
+            name: prometheus-kube-prometheus-stack-prometheus-db
+            subPath: prometheus-db
     disableCompaction: false
     enableAdminAPI: false
     enableFeatures: []
