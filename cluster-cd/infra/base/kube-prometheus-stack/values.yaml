@@ -211,7 +211,7 @@ defaultRules:
     nodeExporterRecording: true
     prometheus: true
     prometheusOperator: true
-fullnameOverride: ""
+fullnameOverride: "prometheus"
 global:
   rbac:
     create: true
