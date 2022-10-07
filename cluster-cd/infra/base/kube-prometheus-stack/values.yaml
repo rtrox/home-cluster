@@ -531,16 +531,6 @@ prometheus:
     apiserverConfig: {}
     arbitraryFSAccessThroughSMs: false
     configMaps: []
-    containers:
-      - name: test
-        image: quay.io/prometheus/prometheus
-        command: ["sh", "-c"]
-        # loop forever, outputting "yo" every 5 seconds
-        args: ["while true; do echo 'yo' && sleep 5; done;"]
-        volumeMounts:
-          - mountPath: /prometheus
-            name: prometheus-kube-prometheus-stack-prometheus-db
-            subPath: prometheus-db
     disableCompaction: false
     enableAdminAPI: false
     enableFeatures: []
@@ -603,10 +593,10 @@ prometheus:
     scrapeTimeout: ""
     secrets: []
     securityContext:
-      fsGroup: 2000
-      runAsGroup: 2000
-      runAsNonRoot: true
-      runAsUser: 1000
+      runAsUser: 0
+      runAsNonRoot: false
+      runAsGroup: 0
+      fsGroup: 0
     serviceMonitorNamespaceSelector: {}
     serviceMonitorSelector: {}
     serviceMonitorSelectorNilUsesHelmValues: true
