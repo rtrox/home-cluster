@@ -126,13 +126,13 @@ alertmanager:
       kubernetes.io/tls-acme: "true"
     enabled: true
     hosts:
-      - "alert-manager.${SECRET_DOMAIN}"
+      - "alerts.${SECRET_DOMAIN}"
     ingressClassName: nginx
     pathType: Prefix
     tls:
       -
         hosts:
-          - "alert-manager.${SECRET_DOMAIN}"
+          - "alerts.${SECRET_DOMAIN}"
         secretName: alertmanager-tls
   service:
     additionalPorts: []
@@ -231,11 +231,11 @@ grafana:
       kubernetes.io/tls-acme: "true"
     enabled: true
     hosts:
-      - "grafana.${SECRET_DOMAIN}"
+      - "graphs.${SECRET_DOMAIN}"
     tls:
       -
         hosts:
-          - "grafana.${SECRET_DOMAIN}"
+          - "graphs.${SECRET_DOMAIN}"
         secretName: grafana-tls
   namespaceOverride: ""
   rbac:
