@@ -10,6 +10,7 @@ spec:
     - name: cluster-secrets
     - name: sources
     - name: crds
+    - name: system
   path: ./cluster-cd/infra/x86
   prune: false
   sourceRef:

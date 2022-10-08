@@ -122,7 +122,7 @@ alertmanager:
     data: {}
   ingress:
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: letsencrypt-prod
       kubernetes.io/tls-acme: "true"
     enabled: true
     hosts:
@@ -227,7 +227,7 @@ grafana:
   forceDeployDatasources: false
   ingress:
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: letsencrypt-prod
       kubernetes.io/tls-acme: "true"
     enabled: true
     hosts:
@@ -491,7 +491,7 @@ prometheus:
     data: {}
   ingress:
     annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: letsencrypt-prod
       kubernetes.io/tls-acme: "true"
     enabled: true
     hosts:
