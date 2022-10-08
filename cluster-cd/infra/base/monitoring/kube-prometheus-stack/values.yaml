@@ -216,7 +216,11 @@ global:
   rbac:
     create: true
 grafana:
-  additionalDataSources: []
+  additionalDataSources:
+    - access: proxy
+      name: Loki
+      type: loki
+      url: http://loki-gateway.monitoring.svc.cluster.local:3100
   adminPassword: prom-operator
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: utc
