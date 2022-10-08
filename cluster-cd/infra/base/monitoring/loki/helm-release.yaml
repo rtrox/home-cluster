@@ -97,7 +97,7 @@ spec:
 
     gateway:
       enabled: true
-      replicas: 2
+      replicas: 1
       ingress:
         enabled: true
         ingressClassName: "nginx"
@@ -116,7 +116,7 @@ spec:
         size: 10Gi
 
     read:
-      replicas: 1
+      replicas: 2
       extraVolumeMounts:
         - name: loki-rules
           mountPath: /rules/fake
