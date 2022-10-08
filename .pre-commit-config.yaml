@@ -27,22 +27,22 @@ repos:
     rev: v2.1.1
     hooks:
       - id: forbid-secrets
-  - repo: https://github.com/rtrox/pre-commit-docker-kustomize
-    rev: 572c9bc
+  - repo: https://github.com/rtrox/pre-commit-kustomize-check
+    rev: 77cf547
     hooks:
-      - id: kustomize
+      - id: kustomize_check
         name: kustomize-crds
         args: [cluster-cd/crds]
         verbose: false
-      - id: kustomize
+      - id: kustomize_check
         name: kustomize-sources
         args: [cluster-cd/sources]
         verbose: false
-      - id: kustomize
+      - id: kustomize_check
         name: kustomize-x86-system
         args: [cluster-cd/system/x86]
         verbose: false
-      - id: kustomize
+      - id: kustomize_check
         name: kustomize-x86-infra
         args: [cluster-cd/infra/x86]
         verbose: false
