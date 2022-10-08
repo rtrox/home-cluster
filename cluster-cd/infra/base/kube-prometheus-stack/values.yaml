@@ -194,11 +194,11 @@ defaultRules:
     kubeApiserverBurnrate: true
     kubeApiserverHistogram: true
     kubeApiserverSlos: true
-    kubeControllerManager: true
+    kubeControllerManager: false
     kubePrometheusGeneral: true
     kubePrometheusNodeRecording: true
-    kubeProxy: true
-    kubeScheduler: true
+    kubeProxy: false
+    kubeScheduler: false
     kubeStateMetrics: true
     kubelet: true
     kubernetesApps: true
