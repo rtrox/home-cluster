@@ -8,3 +8,4 @@ resources:
   - nfs-subdir-external-provisioner-charts.yaml
   - grafana-charts.yaml
   - prometheus-community-charts.yaml
+  - stakater-charts.yaml
