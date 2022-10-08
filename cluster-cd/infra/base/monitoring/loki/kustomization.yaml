@@ -5,3 +5,4 @@ namespace: monitoring
 
 resources:
   - helm-release.yaml
+  - loki-secrets.x86.yaml
