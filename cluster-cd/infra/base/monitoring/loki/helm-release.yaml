@@ -97,7 +97,7 @@ spec:
 
     gateway:
       enabled: true
-      replicas: 1
+      replicas: 2
       ingress:
         enabled: true
         ingressClassName: "nginx"
@@ -111,7 +111,7 @@ spec:
               - *host
 
     write:
-      replicas: 1
+      replicas: 2
       persistence:
         size: 10Gi
 
