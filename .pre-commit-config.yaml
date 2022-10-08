@@ -28,7 +28,7 @@ repos:
     hooks:
       - id: forbid-secrets
   - repo: https://github.com/rtrox/pre-commit-kustomize-check
-    rev: 77cf547
+    rev: v4.5.7
     hooks:
       - id: kustomize_check
         name: kustomize-crds
