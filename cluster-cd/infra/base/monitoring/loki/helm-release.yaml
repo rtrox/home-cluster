@@ -16,6 +16,11 @@ spec:
       interval: 30m
   values:
     loki:
+      podSecurityContext:
+        fsGroup: 0
+        runAsNonRoot: false
+        runAsUser: 0
+
       structuredConfig:
         auth_enabled: false
 

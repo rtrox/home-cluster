@@ -38,11 +38,6 @@ spec:
           type: vector
           version: "2"
 
-        vyos_logs:
-          address: 0.0.0.0:6001
-          type: vector
-          version: "2"
-
         journal_logs:
           type: vector
           address: 0.0.0.0:6002
