@@ -150,10 +150,10 @@ spec:
       name: loki-secrets
       valuesKey: S3_BUCKET_NAME
       targetPath: loki.structuredConfig.common.storage.s3.bucketnames
-    # - kind: Secret
-    #   name: loki-secrets
-    #   valuesKey: S3_BUCKET_HOST
-    #   targetPath: loki.structuredConfig.common.storage.s3.endpoint
+    - kind: Secret
+      name: loki-secrets
+      valuesKey: S3_BUCKET_HOST
+      targetPath: loki.structuredConfig.common.storage.s3.endpoint
     - kind: Secret
       name: loki-secrets
       valuesKey: S3_ACCESS_KEY
