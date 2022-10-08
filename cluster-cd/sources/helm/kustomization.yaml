@@ -9,3 +9,4 @@ resources:
   - grafana-charts.yaml
   - prometheus-community-charts.yaml
   - stakater-charts.yaml
+  - kubernetes-sigs-descheduler-charts.yaml
