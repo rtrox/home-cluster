@@ -16,6 +16,8 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
+    service:
+      loadBalancerIP: ${INGRESS_NGINX_IP}
     controller:
       replicaCount: 2
       ingressClassResource:
