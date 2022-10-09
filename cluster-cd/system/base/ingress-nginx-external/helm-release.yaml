@@ -29,7 +29,6 @@ spec:
         enable-ssl-passthrough: true
         ingress-class: nginx-external
         controller-class: k8s.io/nginx-external
-        election-id: nginx-external
       metrics:
         enabled: true
         serviceMonitor:
