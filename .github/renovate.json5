@@ -37,6 +37,16 @@
         "datasource=(?<datasource>.*?)\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "github-releases"
+    },
+    {
+      "fileMatch": [
+        "cluster-cd/sources/git/.+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        "url:\\s+(?<depName>.*)\\s+ref:\\s+tag:\\s+(?<currentValue>.*)\\n"
+      ],
+      datasourceTemplate: "git-tags",
+      versioningTemplate: "semver",
     }
   ],
   "packageRules": [
