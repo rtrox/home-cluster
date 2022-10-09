@@ -8,3 +8,4 @@ resources:
   - cert-manager
   - reloader
   - descheduler
+  - node-feature-discovery
