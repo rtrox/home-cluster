@@ -19,7 +19,7 @@
   },
   "flux": {
     "fileMatch": ["cluster-cd/"]
-  }
+  },
   "kustomize": {
     "fileMatch": [
       "(^|/)kustomization\.ya?ml$"
