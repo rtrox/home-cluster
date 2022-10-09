@@ -22,11 +22,11 @@
       "(^|/)kustomization\\.ya?ml$"
     ]
   },
-  "kubernetes": {
-    "fileMatch": [
-      "cluster-cd/.+\\.yaml$",
-    ]
-  },
+  // "kubernetes": {
+  //   "fileMatch": [
+  //     "cluster-cd/.+\\.yaml$",
+  //   ]
+  // },
   "regexManagers": [
     {
       "fileMatch": [
