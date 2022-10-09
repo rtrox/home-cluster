@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: ingress-nginx-external
-  namespace: ingress-nginx
+  namespace: ingress-nginx-external
 spec:
   interval: 5m
   chart:
@@ -22,10 +22,14 @@ spec:
       replicaCount: 2
       ingressClassResource:
         default: false
+        name: nginx-external
+        controllerValue: k8s.io/nginx-external
       enableTLSPassthrough: true
       extraArgs:
         enable-ssl-passthrough: true
         ingress-class: nginx-external
+        controller-class: k8s.io/nginx-external
+        election-id: nginx-external
       metrics:
         enabled: true
         serviceMonitor:

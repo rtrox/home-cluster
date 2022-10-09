@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - synology-csi.yaml
   - ingress-nginx.yaml
+  - ingress-nginx-external.yaml
   - cert-manager.yaml
   - reloader.yaml
