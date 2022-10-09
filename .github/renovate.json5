@@ -11,26 +11,20 @@
   "commitMessageExtra": "to {{newVersion}}",
   "commitMessageSuffix": "",
   // set up Renovate Managers
-  "helmv3": {
-    "fileMatch": ["charts/.+/Chart\\.yaml$"]
-  },
   "helm-values": {
     "fileMatch": ["cluster-cd/.+/helm-release\\.yaml$"]
   },
   "flux": {
-    "fileMatch": ["cluster-cd/"]
+    "fileMatch": ["cluster-cd/.+\\.yaml$"]
   },
   "kustomize": {
     "fileMatch": [
-      "(^|/)kustomization\.ya?ml$"
+      "(^|/)kustomization\\.ya?ml$"
     ]
   },
   "kubernetes": {
     "fileMatch": [
       "cluster-cd/.+\\.yaml$",
-    ],
-    "ignorePaths": [
-      "cluster-cd/base/"
     ]
   },
   "regexManagers": [
@@ -44,7 +38,6 @@
       ],
       "datasourceTemplate": "github-releases"
     }
-
   ],
   "packageRules": [
     // setup datasources
