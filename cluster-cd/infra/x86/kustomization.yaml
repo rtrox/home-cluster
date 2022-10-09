@@ -6,3 +6,4 @@ resources:
   - ../namespaces
   - ../base
   - ./yaddu
+  - thanos-objstore-secret.x86.yaml

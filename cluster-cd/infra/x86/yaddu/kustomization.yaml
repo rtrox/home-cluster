@@ -6,6 +6,7 @@ namespace: yaddu
 
 resources:
   - deployment.yaml
+  - yaddu-config-secret.x86.yaml
 
 images:
   - name: swyytch/yaddu
