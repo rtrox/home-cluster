@@ -125,3 +125,5 @@ flux reconcile kustomization system
 172.17.1.0/24 Pi Load Balancers
 172.17.2.0/24 ThinkKube Load Balancers
 172.17.3.0/24 Rockkube Load Balancers
+
+# Ingresses
