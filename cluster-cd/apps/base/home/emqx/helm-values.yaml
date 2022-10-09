@@ -46,6 +46,15 @@ resources:
     cpu: 100m
     memory: 150Mi
 
+podSecurityContext:
+  allowPrivilegeEscalation: falose
+  seccompProfile:
+    type: RuntimeDefault
+
+containerSecurityContext:
+  capabilities:
+    drop: ["ALL"]
+
 ingress:
   dashboard:
     enabled: true
