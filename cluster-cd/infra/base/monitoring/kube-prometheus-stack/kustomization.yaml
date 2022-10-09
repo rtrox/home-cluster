@@ -5,6 +5,7 @@ namespace: monitoring
 
 resources:
   - helm-release.yaml
+  - thanos-objstore-secret.x86.yaml
 
 configMapGenerator:
   - name: kube-prometheus-stack-values.yaml
