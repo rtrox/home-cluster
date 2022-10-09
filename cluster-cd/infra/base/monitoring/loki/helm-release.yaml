@@ -161,7 +161,7 @@ spec:
       name: loki-secrets
       valuesKey: S3_SECRET_KEY
       targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
-    - kind: Secret
-      name: loki-secrets
-      valuesKey: S3_FULL_URL
-      targetPath: loki.structuredConfig.common.storage.s3.s3
+    # - kind: Secret
+    #   name: loki-secrets
+    #   valuesKey: S3_FULL_URL
+    #   targetPath: loki.structuredConfig.common.storage.s3.s3
