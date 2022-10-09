@@ -127,3 +127,7 @@ flux reconcile kustomization system
 172.17.3.0/24 Rockkube Load Balancers
 
 # Ingresses
+
+Two ingresses are configured:
+- `IngressClass` `nginx` (default) is only accessible from the local network.
+- `IngressClass` `nginx-external` is accessible to the internet.
