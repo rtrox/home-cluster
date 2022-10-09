@@ -60,10 +60,4 @@ ingress:
     tls:
       - hosts:
           - *host
-        secretName: emqx-dashboard-tlx
-
-ssl:
-  enabled: true
-  issuer:
-    name: letsencryt-prod
-    kind: ClusterIssuer
+        secretName: emqx-dashboard-tls
