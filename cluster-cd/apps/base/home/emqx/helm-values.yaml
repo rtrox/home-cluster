@@ -47,11 +47,11 @@ resources:
     memory: 150Mi
 
 podSecurityContext:
-  allowPrivilegeEscalation: falose
   seccompProfile:
     type: RuntimeDefault
 
 containerSecurityContext:
+  allowPrivilegeEscalation: false
   capabilities:
     drop: ["ALL"]
 
