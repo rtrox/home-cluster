@@ -2,17 +2,16 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: emqx
+  name: ./deploy/charts/emqx
   namespace: home
 spec:
   interval: 5m
   chart:
     spec:
       chart: emqx
-      version: 5.0.8
       sourceRef:
-        kind: HelmRepository
-        name: emqx-charts
+        kind: GitRepository
+        name: emqx-github
         namespace: flux-system
       interval: 5m
   install:
