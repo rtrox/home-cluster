@@ -15,3 +15,11 @@ creation_rules:
       age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m,
       age1ns2r38fd24cpfmhmn3qeu8x28nrq6ehjdc72yz4q44sxk8aej9vqtr5jue,
       age15pw0dy5kn2pqs6hxy9g9g8x60trqxlcj6sdv3uveu8wlc23uya6ssunxp7
+  - path_regex: cluster-cd/.*\.x86-raw\.ya?ml
+    # Encrypts any supported file type in place, with all leaves encrypted.
+    # x86 flux, Ubuntu WSL (desk), work macbook, Ubuntu WSL (laptop)
+    age: >-
+      age1f4q0ptkg5hlwh3gvm66ts5hvfnjej7a3tsu3rrdt6qs44vkwfqyq3x4gts,
+      age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m,
+      age1ns2r38fd24cpfmhmn3qeu8x28nrq6ehjdc72yz4q44sxk8aej9vqtr5jue,
+      age15pw0dy5kn2pqs6hxy9g9g8x60trqxlcj6sdv3uveu8wlc23uya6ssunxp7

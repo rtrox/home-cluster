@@ -46,3 +46,7 @@ repos:
         name: kustomize-x86-infra
         args: [cluster-cd/infra/x86]
         verbose: false
+      - id: kustomize_check
+        name: kustomize-x86-apps
+        args: [cluster-cd/apps/x86]
+        verbose: false

@@ -4,6 +4,7 @@ ignore: |
   gotk-components.yaml
   provision/custom/cni/cilium-base-install.yaml
   *.x86.yaml
+  *.x86-raw.yaml
 extends: default
 rules:
   truthy:

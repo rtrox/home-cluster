@@ -7,9 +7,14 @@ resources:
   - helm-release.yaml
 
 configMapGenerator:
-  - name: kube-prometheus-stack-values
+  - name: emqx-helm-values
     files:
-      - values.yaml=values.yaml
+      - values.yaml=helm-values.yaml
+
+secretGenerator:
+  - name: emqx-helm-values-secret
+    files:
+      - values.yaml=helm-values-secret.x86-raw.yaml
 
 configurations:
   - kustomizeconfig.yaml

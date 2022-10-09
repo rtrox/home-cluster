@@ -101,12 +101,12 @@ prometheus:
       kubernetes.io/tls-acme: 'true'
     enabled: true
     hosts:
-      - 'prometheus.${SECRET_DOMAIN}'
+      - &host 'prometheus.${SECRET_DOMAIN}'
     ingressClassName: nginx
     pathType: Prefix
     tls:
       - hosts:
-          - 'prometheus.${SECRET_DOMAIN}'
+          - *host
         secretName: prometheus-tls
   prometheusSpec:
     retention: 12h
