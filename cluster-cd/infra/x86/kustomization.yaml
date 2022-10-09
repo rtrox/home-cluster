@@ -6,4 +6,5 @@ resources:
   - ../namespaces
   - ../base
   - ./yaddu
+  - ./flux-webhook
   - thanos-objstore-secret.x86.yaml
