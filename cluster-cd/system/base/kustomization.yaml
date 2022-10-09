@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - synology-csi
   - ingress-nginx
+  - ingress-nginx-external
   - cilium
   - cert-manager
   - reloader
