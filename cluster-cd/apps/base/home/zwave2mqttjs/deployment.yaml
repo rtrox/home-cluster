@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zwave
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zwave
+  template:
+    metadata:
+      labels:
+        name: zwave
+    spec:
+      containers:
+        - name: zwave
+          image: zwavejs/zwave-js-ui:8.1.0
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              httpHeaders:
+                - name: Accept
+                  value: text/plain
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          ports:
+            - containerPort: 8091
+              name: http
+              protocol: TCP
+            - containerPort: 3000
+              name: ws
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
+            requests:
+              cpu: "1"
+              memory: 400Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+          volumeMounts:
+            - mountPath: /dev/zwave
+              name: zwavestick
+            - mountPath: /usr/src/app/store
+              name: zwave-data
+      volumes:
+        - name: zwavestick
+          hostPath:
+            path: /dev/serial/by-id/usb-0658_0200-if00
+            type: CharDevice
+        - name: zwave-data
+          persistentVolumeClaim:
+            claimName: zwave-data
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "feature.node.kubernetes.io/zwave"
+                    operator: In
+                    values:
+                      - "true"
