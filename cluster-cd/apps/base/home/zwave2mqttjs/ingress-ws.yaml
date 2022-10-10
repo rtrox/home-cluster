@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v11
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: zwave-ws
@@ -19,6 +19,10 @@ spec:
     - host: *host
       http:
         paths:
-          - backend:
-              serviceName: zwave
-              servicePort: ws
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: zwave
+                port:
+                  name: ws
