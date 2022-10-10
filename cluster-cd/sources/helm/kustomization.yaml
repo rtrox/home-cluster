@@ -11,4 +11,4 @@ resources:
   - stakater-charts.yaml
   - kubernetes-sigs-descheduler-charts.yaml
   - vector.yaml
-  - emqx-charts.yaml
+  - t3n-charts.yaml

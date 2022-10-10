@@ -1,0 +1,19 @@
+---
+service:
+  type: LoadBalancer
+  loadBalancerIP: ${MOSQUITTO_IP}
+
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: ["ALL"]
+
+monitoring:
+  podMonitor:
+    enabled: true
+  sidercar:
+    enabled: true

@@ -2,9 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: emqx-charts
+  name: t3n-charts
   namespace: flux-system
 spec:
   interval: 10m
-  url: https://repos.emqx.io/charts
+  url: https://storage.googleapis.com/t3n-helm-charts
   timeout: 3m

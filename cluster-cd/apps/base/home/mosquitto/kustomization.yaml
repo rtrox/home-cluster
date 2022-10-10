@@ -7,12 +7,12 @@ resources:
   - helm-release.yaml
 
 configMapGenerator:
-  - name: emqx-helm-values
+  - name: mosquitto-helm-values
     files:
       - values.yaml=helm-values.yaml
 
 secretGenerator:
-  - name: emqx-helm-values-secret
+  - name: mosquitto-helm-values-secret
     files:
       - values.yaml=helm-values-secret.x86-raw.yaml
 

@@ -2,16 +2,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: emqx
+  name: mosquitto
   namespace: home
 spec:
   interval: 5m
   chart:
     spec:
-      chart: ./deploy/charts/emqx
+      chart: mosquitto
+      version: 2.4.1
       sourceRef:
-        kind: GitRepository
-        name: emqx-github
+        kind: HelmRepository
+        name: t3n-charts
         namespace: flux-system
       interval: 5m
   install:
@@ -24,8 +25,8 @@ spec:
 
   valuesFrom:
     - kind: ConfigMap
-      name: "emqx-helm-values"
+      name: "mosquitto-helm-values"
       optional: false
     - kind: Secret
-      name: "emqx-helm-values-secret"
+      name: "mosquitto-helm-values-secret"
       optional: false
