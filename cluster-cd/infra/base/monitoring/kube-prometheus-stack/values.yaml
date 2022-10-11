@@ -102,6 +102,7 @@ grafana:
   persistence:
     enabled: true
     size: 1Gi
+
 kubeProxy:
   enabled: false
 nodeExporter:

@@ -12,7 +12,7 @@ spec:
     - name: crds
     - name: system
   path: ./cluster-cd/infra/x86
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
