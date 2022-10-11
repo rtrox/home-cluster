@@ -99,7 +99,9 @@ grafana:
       - hosts:
           - 'graphs.${SECRET_DOMAIN}'
         secretName: grafana-tls
-
+  persistence:
+    enabled: true
+    size: 1Gi
 kubeProxy:
   enabled: false
 nodeExporter:
