@@ -5,7 +5,7 @@ query:
   replicaLabels:
     - replica
   dnsDiscovery:
-    sidecarsService: kube-prometheus-stack-thanos-discovery
+    sidecarsService: prometheus-thanos-discovery
     sidecarsNamespace: monitoring
   ingress:
     enabled: true
