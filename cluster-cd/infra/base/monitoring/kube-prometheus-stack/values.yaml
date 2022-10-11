@@ -76,10 +76,17 @@ grafana:
       auth_url: https://accounts.google.com/o/oauth2/auth
       token_url: https://accounts.google.com/o/oauth2/token
       allowed_domains: ${GRAFANA_GOOGLE_ALLOWED_DOMAINS}
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: false
   additionalDataSources:
-    - access: proxy
-      name: Loki
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      url: http://thanos-query:9090/
+    - name: Loki
       type: loki
+      access: proxy
       url: 'http://loki-gateway.monitoring.svc.cluster.local'
   ingress:
     annotations:
@@ -107,6 +114,10 @@ nodeExporter:
         targetLabel: kubernetes_node
 
 prometheus:
+  thanosService:
+    enabled: true
+  thanosServiceMonitor:
+    enabled: true
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -142,7 +153,3 @@ prometheus:
       # renovate: datasource=docker depName=quay.io/thanos/thanos
       version: "v0.28.1"
     walCompression: true
-  thanosService:
-    enabled: true
-  thanosServiceMonitor:
-    enabled: true

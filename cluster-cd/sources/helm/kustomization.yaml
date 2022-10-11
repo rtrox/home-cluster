@@ -12,3 +12,4 @@ resources:
   - kubernetes-sigs-descheduler-charts.yaml
   - vector.yaml
   - t3n-charts.yaml
+  - bitnami-charts.yaml
