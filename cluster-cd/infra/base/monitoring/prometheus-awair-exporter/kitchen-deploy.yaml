@@ -37,7 +37,7 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: AWAIR_HOSTNAME
-              value: "192.168.3.107"
+              value: "192.168.3.106"
           resources:
             limits:
               memory: 256Mi

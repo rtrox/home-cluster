@@ -117,6 +117,8 @@ nodeExporter:
         targetLabel: kubernetes_node
 
 prometheus:
+  monitor:
+    honorLabels: true
   thanosService:
     enabled: true
   thanosServiceMonitor:
