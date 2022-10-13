@@ -148,6 +148,8 @@ prometheus:
           resources:
             requests:
               storage: 50Gi
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
     thanos:
       image: quay.io/thanos/thanos:v0.28.1
       objectStorageConfig:
