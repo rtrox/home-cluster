@@ -8,3 +8,4 @@ resources:
   - loki
   - vector
   - thanos
+  - prometheus-awair-exporter
