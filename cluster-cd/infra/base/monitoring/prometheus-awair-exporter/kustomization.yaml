@@ -5,8 +5,13 @@ kind: Kustomization
 namespace: monitoring
 
 resources:
-  - https://github.com/rtrox/prometheus-awair-exporter//kubernetes/kustomize/multi-device-service-monitor
+  - service.yaml
+  - service-monitor.yaml
   - bedroom-deploy.yaml
   - kitchen-deploy.yaml
   - office-1-deploy.yaml
   - office-2-deploy.yaml
+
+images:
+  - name: rtrox/prometheus-awair-exporter
+    newTag: v0.0.1
