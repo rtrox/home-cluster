@@ -58,10 +58,6 @@ alertmanager:
   serviceAccount:
     create: true
     name: alertmanager
-  rules:
-    kubeControllerManager: false
-    kubeProxy: false
-    kubeScheduler: false
 
 grafana:
   adminPassword: ${GRAFANA_ADMIN_PASSWORD}
@@ -84,6 +80,7 @@ grafana:
       type: prometheus
       access: proxy
       url: http://thanos-query:9090/
+      isDefault: true
     - name: Loki
       type: loki
       access: proxy
@@ -104,6 +101,8 @@ grafana:
     size: 1Gi
 
 kubeProxy:
+  enabled: false
+kubeControllerManager:
   enabled: false
 nodeExporter:
   enabled: true
