@@ -79,7 +79,7 @@ metadata:
   namespace: default
 spec:
   clusterName: x86
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels: null
   template:

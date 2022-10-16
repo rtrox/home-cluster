@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app.kubernetes.io/instance: app-daemon
+    app.kubernetes.io/name: app-daemon-code
+  name: app-daemon-code
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host appdaemon-code.x86.rtrox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: app-daemon
+                port:
+                  name: vscode
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - *host
+      secretName: app-daemon-code-tls

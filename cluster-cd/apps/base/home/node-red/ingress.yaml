@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app.kubernetes.io/instance: node-red
+    app.kubernetes.io/name: &name node-red
+  name: *name
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host red.x86.rtrox.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: node-red
+                port:
+                  name: api
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - *host
+      secretName: node-red-tls

@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: &name home-assistant
+  labels:
+    app.kubernentes.io/component: metrics
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/name: *name
+    jobLabel: *name
+spec:
+  endpoints:
+    - port: api
+      scheme: http
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+      app.kubernentes.io/name: *name
+      app.kubernentes.io/instance: *name
