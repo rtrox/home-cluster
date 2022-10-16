@@ -30,7 +30,7 @@ spec:
         fsGroup: 0
       containers:
         - name: node-red
-          image: nodered/node-red:2.2.3-12
+          image: nodered/node-red:3.0.1
           imagePullPolicy: IfNotPresent
           resources:
             limits:
