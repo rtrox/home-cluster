@@ -16,6 +16,7 @@ spec:
     - port: http-metrics
       scheme: http
       interval: 30m
+      scrapeTimeout: 30s
   jobLabel: jobLabel
   selector:
     matchLabels:
