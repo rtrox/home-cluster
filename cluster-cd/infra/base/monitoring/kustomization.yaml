@@ -9,3 +9,4 @@ resources:
   - vector
   - thanos
   - prometheus-awair-exporter
+  - prometheus-speedtest-exporter
