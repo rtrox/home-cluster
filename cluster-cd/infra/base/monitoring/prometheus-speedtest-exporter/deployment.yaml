@@ -31,6 +31,8 @@ spec:
       containers:
         - name: speedtest-exporter
           image: 'rtrox/prometheus-speedtest-exporter:v0.0.2'
+          args:
+            - -debug
           imagePullPolicy: IfNotPresent
           resources:
             limits:
