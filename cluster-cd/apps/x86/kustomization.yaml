@@ -4,3 +4,4 @@ kind: Kustomization
 
 resources:
   - ../base/home
+  - ../base/heimdall
