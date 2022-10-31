@@ -10,3 +10,4 @@ resources:
   - thanos
   - prometheus-awair-exporter
   - prometheus-speedtest-exporter
+  - prometheus-snmp-exporter

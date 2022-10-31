@@ -1,0 +1,11 @@
+---
+serviceMonitor:
+  enabled: true
+  relabelings:
+    - sourceLabels: [__param_target]
+      targetLabel: instance
+  params:
+    - module:
+        - edgerouter
+      name: edgerouter
+      target: ${EDGE_ROUTER_IP}
