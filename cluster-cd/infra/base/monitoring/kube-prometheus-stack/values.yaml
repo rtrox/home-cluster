@@ -154,7 +154,7 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
     thanos:
-      image: quay.io/thanos/thanos:v0.28.1
+      image: quay.io/thanos/thanos:v0.29.0
       objectStorageConfig:
         name: thanos-objstore-secret
         key: objstore.yml
