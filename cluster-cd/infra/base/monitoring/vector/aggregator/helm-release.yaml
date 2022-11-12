@@ -75,7 +75,17 @@ spec:
               r'(?x)^\s*(?P<level>\w)(?P<timestamp>(\d{4})?\d{2}\d{2}\s\d{2}:\d{2}:\d{2}\.\d{6})\s+(?P<id>\d+)\s(?P<file>.+):(?P<line>\d+)\]\s(?P<message>.*?)\s*$'
             )
             if err == null {
+              .raw_message = .message
               . = merge(., glog_parsed)
+              if .level == "I" {
+                .level = "info"
+              } else if .level == "W" {
+                .level = "warning"
+              } else if .level == "E" {
+                .level = "error"
+              } else if .level == "F" {
+                .level = "fatal"
+              }
               .parser = "custom_glog"
               .parsed = true
             }
