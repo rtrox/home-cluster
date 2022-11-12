@@ -109,6 +109,12 @@ spec:
         tls:
           - hosts:
               - *host
+      nginxConfig:
+        logFormat: '{"timestamp": "$time_iso8601", "requestID": "$req_id", "httpRequest":{"requestMethod":
+        "$request_method", "requestUrl": "$host$request_uri", "status": $status,"requestSize":
+        "$request_length", "responseSize": "$upstream_response_length", "userAgent": "$http_user_agent",
+        "remoteIp": "$remote_addr", "referer": "$http_referer", "latency": "$upstream_response_time s",
+        "protocol":"$server_protocol"}}'
 
     write:
       replicas: 2
