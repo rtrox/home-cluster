@@ -135,10 +135,10 @@ spec:
         size: 10Gi
 
     monitoring:
-      lokiCanary:
-        enabled: false
       selfMonitoring:
         enabled: false
+        lokiCanary:
+          enabled: false
         grafanaAgent:
           installOperator: false
 
