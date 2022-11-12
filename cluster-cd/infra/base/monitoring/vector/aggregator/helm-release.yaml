@@ -72,8 +72,7 @@ spec:
           source: |-
             structured =
               parse_json(.message) ??
-              parse_nginx_log(.message) ??
-              abort
+              parse_nginx_log!(.message)
 
       # Sinks
       sinks:
