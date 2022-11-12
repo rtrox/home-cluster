@@ -70,11 +70,22 @@ spec:
           inputs:
             - kubernetes_logs
           source: |-
-            structured =
-              parse_json(.message) ??
-              parse_glog!(.message)
-            . = merge!(., structured)
-            .parsed = true
+            glog_parsed, err = parse_regex(
+              .message,
+              r'(?x)^\s*(?P<level>\w)(?P<timestamp>(\d{4})?\d{2}\d{2}\s\d{2}:\d{2}:\d{2}\.\d{6})\s+(?P<id>\d+)\s(?P<file>.+):(?P<line>\d+)\]\s(?P<message>.*?)\s*$'
+            )
+            if err == null {
+              . = merge(., glog_parsed)
+              .parser = "custom_glog"
+              .parsed = true
+            }
+
+            json_parsed, err = parse_json(.message)
+            if err == null {
+              . = merge!(., json_parsed)
+              .parser = "json"
+              .parsed = true
+            }
 
       # Sinks
       sinks:
