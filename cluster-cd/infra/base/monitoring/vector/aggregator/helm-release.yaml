@@ -99,12 +99,12 @@ spec:
 
               if exists(.httpRequest) {
                 httpRequest, err = parse_json(.httpRequest)
-                if err == nil {
+                if err == null {
                   .httpRequest = httpRequest
                 }
                 .remoteIp = .httpRequest.remoteIp
-                .x-forwarded-for = .httpRequest.x-forwarded-for
-                .x-real-ip = .httpRequest.x-real-ip
+                ."x-forwarded-for" = .httpRequest."x-forwarded-for"
+                ."x-real-ip" = .httpRequest."x-real-ip"
               }
               .parser = "json"
               .parsed = true
