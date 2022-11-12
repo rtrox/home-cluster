@@ -72,7 +72,9 @@ spec:
           source: |-
             structured =
               parse_json(.message) ??
-              parse_nginx_log!(.message)
+              parse_glog(.message) ??
+              parse_nginx_log!(.message, "combined")
+            . = merge!(., structured)
 
       # Sinks
       sinks:
