@@ -89,6 +89,22 @@ spec:
               .parser = "custom_glog"
               .parsed = true
             }
+            ingress_nginx_parsed, err = parse_regex(
+              .message,
+              r'(?x)\s*(-|(?P<client>\S+))\s+(-|(?P<user>\S+))\s+\-\s+\[(?P<timestamp>.+?)\]\s\\?"(?P<request>(?P<method>\w+)\s+(?P<path>\S+)\s+(?P<protocol>\S+)\\?")\s+(?P<status>\d+)\s+(?P<size>\d+)\s+\\?"(-|(?P<referer>.+?))\\?"\s\\?"(-|(?P<agent>.+?))\\?"\s+ (-|(?P<request_length>\d+?))\s+(-|(?P<request_time>(\.|\d)+))\s+\[(?P<proxy_upstream>.+)?\]\s\[(?P<proxy_upstream_alternate_name>.+?)?\]\s+(?P<upstream_addr>\S+)\s+(-|(?P<upstream_request_length>\d+?))\s+(-|(?P<upstream_request_time>(\.|\d)+))\s+(?P<upstream_status>\d+)\s+(?P<req_id>\w+)\s*'
+            )
+            if err == null {
+              . = merge(., ingress_nginx_parsed)
+              .status = parse_int(.status) ?? .status
+              .request_length = parse_int(.request_length) ?? .request_length
+              .request_time = parse_float(.request_time) ?? .request_time
+              .upstream_status = parse_int(.upstream_status) ?? .upstream_status
+              .upstream_request_length = parse_int(.upstream_request_length) ?? .upstream_request_length
+              .upstream_request_time = parse_float(.upstream_request_time) ?? .upstream_request_time
+              .referer = decode_percent(.referer)
+              .parser = "ingress_nginx"
+              .parsed = true
+            }
 
             json_parsed, err = parse_json(.message)
             if err == null {
