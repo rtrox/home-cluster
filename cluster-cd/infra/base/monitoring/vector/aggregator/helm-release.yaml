@@ -88,6 +88,8 @@ spec:
               }
               .parser = "custom_glog"
               .parsed = true
+            } else {
+              .glog_parser_failed = true
             }
             ingress_nginx_parsed, err = parse_regex(
               .message,
@@ -97,18 +99,23 @@ spec:
               . = merge(., ingress_nginx_parsed)
               .status = parse_int(.status) ?? .status
               .request_length = parse_int(.request_length) ?? .request_length
-              .request_time = parse_float(.request_time) ?? .request_time
+              .request_time = to_float(.request_time) ?? .request_time
               .upstream_status = parse_int(.upstream_status) ?? .upstream_status
               .upstream_request_length = parse_int(.upstream_request_length) ?? .upstream_request_length
-              .upstream_request_time = parse_float(.upstream_request_time) ?? .upstream_request_time
-              .referer = decode_percent(.referer)
+              .upstream_request_time = to_float(.upstream_request_time) ?? .upstream_request_time
+              .referer = decode_percent(.referer) ?? .referer
               .parser = "ingress_nginx"
               .parsed = true
+            } else {
+              .ingress_parser_failed = true
             }
 
             json_parsed, err = parse_json(.message)
             if err == null {
-              . = merge!(., json_parsed)
+              ., err = merge(., json_parsed)
+              if err != null {
+                .json_parser_failed = true
+              }
               .parser = "json"
               .parsed = true
             }
