@@ -133,7 +133,8 @@ spec:
           emptyDir: {}
       persistence:
         size: 10Gi
-
+    test:
+      enabled: false
     monitoring:
       selfMonitoring:
         enabled: false
