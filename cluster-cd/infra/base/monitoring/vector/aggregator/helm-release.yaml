@@ -96,11 +96,15 @@ spec:
               if err != null {
                 log("Unable to parse JSON: " + err, level: "error")
               }
+
               if exists(.httpRequest) {
                 httpRequest, err = parse_json(.httpRequest)
                 if err == nil {
                   .httpRequest = httpRequest
                 }
+                .remoteIp = .httpRequest.remoteIp
+                .x-forwarded-for = .httpRequest.x-forwarded-for
+                .x-real-ip = .httpRequest.x-real-ip
               }
               .parser = "json"
               .parsed = true
