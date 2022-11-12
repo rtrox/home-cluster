@@ -70,21 +70,12 @@ spec:
           inputs:
             - kubernetes_logs
           source: |-
-            if .k8s_app == "loki" && .k8s_container == "nginx" {
-              structured = parse_nginx_log!(.message, "combined")
-              . = merge(., structured)
-            } else if .k8s_app == "ingress-nginx" {
-              structured =
-                parse_glog(.message) ??
-                parse_nginx_log!(.message, "combined")
-              . = merge(., structured)
-            } else {
-              structured =
-                parse_json(.message) ??
-                parse_glog(.message) ??
-                parse_key_value!(.message)
-              . = merge!(., structured)
-            }
+            structured =
+              parse_json(.message) ??
+              parse_glog(.message) ??
+              parse_nginx_log(.message, "combined") ??
+              parse_key_value!(.message, key_value_delimiter: "=", accept_standalone_key: false)
+            . = merge!(., structured)
             .parsed = true
 
       # Sinks
