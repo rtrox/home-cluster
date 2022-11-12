@@ -136,6 +136,9 @@ spec:
     test:
       enabled: false
     monitoring:
+      serviceMonitor:
+        metricsInstance:
+          enabled: false
       selfMonitoring:
         enabled: false
         lokiCanary:
