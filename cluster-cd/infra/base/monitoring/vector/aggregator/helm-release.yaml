@@ -64,12 +64,23 @@ spec:
             codec: json
           host_key: __host
 
+      transforms:
+        kubernetes_parsed:
+          type: remap
+          inputs:
+            - kubernetes_logs
+          source: |-
+            structured =
+              parse_json(.message) ??
+              parse_nginx_log(.message) ??
+              abort
+
       # Sinks
       sinks:
         loki_kubernetes:
           type: loki
           inputs:
-            - kubernetes_logs
+            - kubernetes_parsed
           endpoint: http://loki-gateway.monitoring
           encoding:
             codec: json
