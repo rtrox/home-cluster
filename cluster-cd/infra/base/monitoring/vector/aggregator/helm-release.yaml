@@ -96,6 +96,12 @@ spec:
               if err != null {
                 log("Unable to parse JSON: " + err, level: "error")
               }
+              if exists(.httpRequest) {
+                httpRequest, err = parse_json(.httpRequest)
+                if err == nil {
+                  .httpRequest = httpRequest
+                }
+              }
               .parser = "json"
               .parsed = true
             }
