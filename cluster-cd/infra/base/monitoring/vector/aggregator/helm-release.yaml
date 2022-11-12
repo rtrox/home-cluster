@@ -73,8 +73,7 @@ spec:
             structured =
               parse_json(.message) ??
               parse_glog(.message) ??
-              parse_nginx_log(.message, "combined") ??
-              parse_key_value!(.message, key_value_delimiter: "=", accept_standalone_key: false)
+              parse_nginx_log!(.message, "combined")
             . = merge!(., structured)
             .parsed = true
 
