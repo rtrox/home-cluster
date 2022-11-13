@@ -105,23 +105,24 @@ spec:
             if err == null {
               ., err = merge(., json_parsed)
               if err != null {
-                log("Unable to parse JSON: " + err, level: "error")
+                log("Unable to merge parsed json: " + err, level: "error")
               }
 
               if exists(.httpRequest) {
-                httpRequest, err = parse_json(.httpRequest)
-                if err == null {
-                  .httpRequest = httpRequest
-                  .httpRequest.requestSize = to_int(.httpRequest.requestSize) ?? .httpRequest.requestSize
-                  .httpRequest.responseSize = to_int(.httpRequest.responseSize) ?? .httpRequest.responseSize
-                  if exists(.upstreamStatus) { .upstreamStatus = to_int(.upstreamStatus) ?? .upstreamStatus }
-                }
+                .httpRequest.requestSize = to_int(.httpRequest.requestSize) ?? .httpRequest.requestSize
+                .httpRequest.responseSize = to_int(.httpRequest.responseSize) ?? .httpRequest.responseSize
+                if exists(.upstreamStatus) { .upstreamStatus = to_int(.upstreamStatus) ?? .upstreamStatus }
                 .remoteIp = .httpRequest.remoteIp
                 ."x-forwarded-for" = .httpRequest."x-forwarded-for"
                 ."x-real-ip" = .httpRequest."x-real-ip"
               }
               .parser = "json"
               .parsed = true
+            }
+
+            if .k8s_app == "loki" && (.k8s_container == "read" || .k8s_container == "write") {
+              parsed = parse_key_value!(.message, key_value_delimiter: "=", accept_standalone_key: false)
+              . = merge(., parsed)
             }
 
       # Sinks
