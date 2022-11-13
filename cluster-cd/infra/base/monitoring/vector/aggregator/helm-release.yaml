@@ -65,10 +65,21 @@ spec:
           host_key: __host
 
       transforms:
-        kubernetes_parsed:
+        kubernetes_labels:
           type: remap
           inputs:
             - kubernetes_logs
+          source: |-
+            .k8s_app = .kubernetes.pod_labels."app.kubernetes.io/name"
+            .k8s_container = .kubernetes.container_name
+            .k8s_filename = .kubernetes.file
+            .k8s_instance = .kubernetes.pod_labels."app.kubernetes.io/instance"
+            .k8s_namespace = .kubernetes.pod_namespace
+            .k8s_node = .kubernetes.pod_node_name
+        kubernetes_parsed:
+          type: remap
+          inputs:
+            - kubernetes_labels
           source: |-
             glog_parsed, err = parse_regex(
               .message,
@@ -126,19 +137,19 @@ spec:
           remove_timestamp: true
           labels:
             k8s_app: >-
-              {{`{{ kubernetes.pod_labels."app.kubernetes.io/name" }}`}}
+              {{`{{ k8s_app }}`}}
             k8s_container: >-
-              {{`{{ kubernetes.container_name }}`}}
+              {{`{{ k8s_container }}`}}
             k8s_filename: >-
-              {{`{{ kubernetes.file }}`}}
+              {{`{{ k8s_filename }}`}}
             k8s_instance: >-
-              {{`{{ kubernetes.pod_labels."app.kubernetes.io/instance" }}`}}
+              {{`{{ k8s_instance }}`}}
             k8s_namespace: >-
-              {{`{{ kubernetes.pod_namespace }}`}}
+              {{`{{ k8s_namespace }}`}}
             k8s_node: >-
-              {{`{{ kubernetes.pod_node_name }}`}}
+              {{`{{ k8s_node }}`}}
             k8s_pod: >-
-              {{`{{ kubernetes.pod_name }}`}}
+              {{`{{ k8s_pod }}`}}
         loki_journal:
           type: loki
           inputs:
