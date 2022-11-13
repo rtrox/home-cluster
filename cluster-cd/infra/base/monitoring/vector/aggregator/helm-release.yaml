@@ -125,6 +125,10 @@ spec:
               . = merge(., parsed)
             }
 
+            if .k8s_namespace == "home" && .k8s_container == "zwave" {
+              .message = strip_ansi_escape_codes!(.message)
+            }
+
       # Sinks
       sinks:
         loki_kubernetes:
