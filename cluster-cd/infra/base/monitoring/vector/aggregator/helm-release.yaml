@@ -112,6 +112,9 @@ spec:
                 httpRequest, err = parse_json(.httpRequest)
                 if err == null {
                   .httpRequest = httpRequest
+                  .httpRequest.requestSize = to_int(.httpRequest.requestSize) ?? .httpRequest.requestSize
+                  .httpRequest.responseSize = to_int(.httpRequest.responseSize) ?? .httpRequest.responseSize
+                  if exists(.upstreamStatus) { .upstreamStatus = to_int(.upstreamStatus) ?? .upstreamStatus }
                 }
                 .remoteIp = .httpRequest.remoteIp
                 ."x-forwarded-for" = .httpRequest."x-forwarded-for"
