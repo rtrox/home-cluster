@@ -8,3 +8,7 @@ bases:
   - deployment.yaml
   - service.yaml
   - servicemonitor.yaml
+
+images:
+  - name: rtrox/prometheus-speedtest-exporter
+    newTag: v0.0.2
