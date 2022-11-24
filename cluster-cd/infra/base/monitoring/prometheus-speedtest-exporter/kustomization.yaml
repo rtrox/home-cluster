@@ -11,4 +11,4 @@ bases:
 
 images:
   - name: rtrox/prometheus-speedtest-exporter
-    newTag: v0.0.3
+    newTag: v0.1.0
