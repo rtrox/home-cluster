@@ -15,8 +15,6 @@ spec:
   endpoints:
     - port: http-metrics
       scheme: http
-      interval: 120m
-      scrapeTimeout: 30s
   jobLabel: jobLabel
   selector:
     matchLabels:
