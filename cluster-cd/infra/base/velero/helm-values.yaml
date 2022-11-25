@@ -3,6 +3,7 @@ image:
   repository: velero/velero
   tag: v1.9.3
 configuration:
+  defaultVolumesToRestic: true
   provider: aws
   backupStorageLocation:
     name: default

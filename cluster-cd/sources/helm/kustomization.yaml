@@ -14,3 +14,4 @@ resources:
   - t3n-charts.yaml
   - bitnami-charts.yaml
   - vmware-tanzu-charts.yaml
+  - bitsbeats-charts.yaml

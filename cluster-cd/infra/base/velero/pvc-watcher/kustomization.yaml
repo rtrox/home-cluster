@@ -4,20 +4,13 @@ kind: Kustomization
 namespace: velero
 
 resources:
-  - namespace.yaml
   - helm-release.yaml
-  - pvc-watcher
-  - rules/velero.yaml
+  - servicemonitor.yaml
 
 configMapGenerator:
-  - name: velero-helm-values
+  - name: velero-pvc-watcher-helm-values
     files:
       - values.yaml=helm-values.yaml
-
-secretGenerator:
-  - name: velero-helm-values-secret
-    files:
-      - values.yaml=helm-values-secret.x86-raw.yaml
 
 configurations:
   - kustomizeconfig.yaml
