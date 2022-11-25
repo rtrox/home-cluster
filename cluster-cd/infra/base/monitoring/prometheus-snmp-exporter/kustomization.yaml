@@ -10,6 +10,14 @@ configMapGenerator:
   - name: prometheus-snmp-exporter-values
     files:
       - values.yaml=values.yaml
+  - name: flux-snmp-dashboards
+    files:
+      - dashboards/edgerouter.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: prometheus-snmp-exporter
+        app.kubernetes.io/component: monitoring
 
 configurations:
   - kustomizeconfig.yaml
