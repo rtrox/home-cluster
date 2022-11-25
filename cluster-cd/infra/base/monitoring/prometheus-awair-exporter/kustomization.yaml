@@ -12,6 +12,16 @@ resources:
   - office-1-deploy.yaml
   - office-2-deploy.yaml
 
+configMapGenerator:
+  - name: prometheus-awair-grafana-dashboards
+    files:
+      - dashboards/awair-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: prometheus-awair-exporter
+        app.kubernetes.io/component: monitoring
+
 images:
   - name: rtrox/prometheus-awair-exporter
     newTag: v0.1.0
