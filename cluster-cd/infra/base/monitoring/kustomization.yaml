@@ -11,3 +11,4 @@ resources:
   - prometheus-awair-exporter
   - prometheus-speedtest-exporter
   - prometheus-snmp-exporter
+  - fluxcd-monitoringconfig
