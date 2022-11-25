@@ -8,6 +8,7 @@ namespace: monitoring
 
 resources:
   - podmonitor.yaml
+  - prometheusrule.yaml
 
 configMapGenerator:
   - name: flux-grafana-dashboards
