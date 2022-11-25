@@ -9,6 +9,16 @@ bases:
   - service.yaml
   - servicemonitor.yaml
 
+configMapGenerator:
+  - name: prometheus-speedtest-grafana-dashboards
+    files:
+      - dashboards/speedtest-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: prometheus-awair-exporter
+        app.kubernetes.io/component: monitoring
+
 images:
   - name: rtrox/prometheus-speedtest-exporter
     newTag: v0.1.0
