@@ -13,3 +13,4 @@ resources:
   - vector.yaml
   - t3n-charts.yaml
   - bitnami-charts.yaml
+  - vmware-tanzu-charts.yaml

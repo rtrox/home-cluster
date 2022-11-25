@@ -1,0 +1,72 @@
+---
+image:
+  repository: velero/velero
+  tag: v1.9.3
+configuration:
+  provider: aws
+  backupStorageLocation:
+    name: default
+    bucket: ${REVERSED_DOMAIN}.velero
+    config:
+      region: us-west-2
+  volumeSnapshotLocation:
+    name: aws
+    config:
+      region: us-west-2
+  resticTimeout: 6h
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.5.2@sha256:bf1afac0fd6e8c269be4d059c99b7142d1501629782e97a920607185bb48b5e9
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+resources:
+  requests:
+    memory: 300Mi
+    cpu: 25m
+  limits:
+    memory: 1500Mi
+# tolerations:
+# - key: "arm"
+#   operator: "Exists"
+# enableHelmHooks: false
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+snapshotsEnabled: true
+deployRestic: true
+restic:
+  podVolumePath: /var/lib/kubelet/pods
+  privileged: false
+  tolerations:
+    - key: "arm"
+      operator: "Exists"
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+  resources:
+    requests:
+      memory: 200Mi
+      cpu: 15m
+    limits:
+      memory: 3000Mi
+      cpu: null
+schedules:
+  weekly-backup:
+    schedule: "0 3 * * 0"
+    template:
+      ttl: "840h"
+  daily-backup:
+    schedule: "0 6 * * *"
+    template:
+      ttl: "120h"
+# six-hour-targeted:
+#   schedule: "0 */6 * * *"
+#   template:
+#     labelSelector:
+#       matchLabels:
+#         app: mc-minecraft
+#     ttl: "120h"
+#     includedNamespaces:
+#     - default
