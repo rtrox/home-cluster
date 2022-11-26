@@ -8,7 +8,7 @@ metadata:
   name: prometheus-velero-rules
 spec:
   groups:
-    - name: VeleroPVCWatcher
+    - name: Velero
       rules:
         - alert: VeleroPVCCheck
           for: 10m

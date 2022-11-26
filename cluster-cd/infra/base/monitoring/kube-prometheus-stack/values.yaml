@@ -43,7 +43,7 @@ alertmanager:
           receiver: 'null'
         - continue: true
           match_re:
-            severity: critical
+            severity: warning|critical
           receiver: discord
   ingress:
     annotations:
