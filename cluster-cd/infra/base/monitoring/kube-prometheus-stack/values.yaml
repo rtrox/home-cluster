@@ -25,23 +25,22 @@ alertmanager:
             send_resolved: true
             color: '{{ template "slack.monzo.color" . }}'
             title: '{{ template "slack.monzo.title" . }}'
-            text: '{{ template "slack.monzo.text" . }}'
-            actions:
-              - type: button
-                text: 'Runbook :green_book:'
-                url: '{{ (index .Alerts 0).Annotations.runbook }}'
-              - type: button
-                text: 'Query :mag:'
-                url: '{{ (index .Alerts 0).GeneratorURL }}'
-              - type: button
-                text: 'Dashboard :grafana:'
-                url: '{{ (index .Alerts 0).Annotations.dashboard }}'
-              - type: button
-                text: 'Silence :no_bell:'
-                url: '{{ template "__alert_silence_link" . }}'
-              - type: button
-                text: '{{ template "slack.monzo.link_button_text" . }}'
-                url: '{{ .CommonAnnotations.link_url }}'
+            text: >-
+              {{ range .Alerts -}}
+                **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+              **Description:**
+                  {{- if .Annotations.message }}
+                  {{ .Annotations.message }}
+              {{- end }}
+              {{- else if .Annotations.description }}
+                  {{ .Annotations.description }}
+              {{- else }}
+                  N/A
+              {{- end }}
+              **Details:**
+                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                {{ end }}
+              {{ end }}
     route:
       routes:
         - matchers:
