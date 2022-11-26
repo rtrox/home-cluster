@@ -8,7 +8,7 @@ metadata:
   name: prometheus-velero-rules
 spec:
   groups:
-    - name: Velero
+    - name: VeleroPVCWatcher
       rules:
         - alert: VeleroPVCCheck
           for: 10m
@@ -22,6 +22,8 @@ spec:
               The pvc {{ $labels.pvc_name }} in namespace {{ $labels.namespace }} has no backup annotation.
               Either configure a backup or exclude the volume from backup. For more
               information visit https://github.com/bitsbeats/velero-pvc-watcher
+    - name: Velero
+      rules:
         - alert: VeleroBackupPartialFailures
           annotations:
             summary: Velero Backup Partial Failure
