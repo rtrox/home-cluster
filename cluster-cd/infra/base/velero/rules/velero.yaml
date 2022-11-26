@@ -17,14 +17,15 @@ spec:
           labels:
             severity: warning
           annotations:
-            text: >-
+            summary: PVC missing backup annotation
+            description: >-
               The pvc {{ $labels.pvc_name }} in namespace {{ $labels.namespace }} has no backup annotation.
-            action: >-
               Either configure a backup or exclude the volume from backup. For more
               information visit https://github.com/bitsbeats/velero-pvc-watcher
         - alert: VeleroBackupPartialFailures
           annotations:
-            message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+            summary: Velero Backup Partial Failure
+            description: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
           expr: |-
             velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
           for: 15m
@@ -32,7 +33,8 @@ spec:
             severity: warning
         - alert: VeleroBackupFailures
           annotations:
-            message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+            summary: Velero Backup Failed
+            description: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
           expr: |-
             velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
           for: 15m
