@@ -42,8 +42,8 @@ alertmanager:
             - alertname =~ "InfoInhibitor|Watchdog"
           receiver: 'null'
         - continue: true
-          match_re:
-            severity: warning|critical
+          matchers:
+            - severity =~ "warning|critical"
           receiver: discord
   ingress:
     annotations:
@@ -90,6 +90,10 @@ grafana:
       type: loki
       access: proxy
       url: 'http://loki-gateway.monitoring.svc.cluster.local'
+    - name: AlertManager
+      type: alertmanager
+      url: 'http://alertmanager.monitoring.svc.cluster.local'
+      access: proxy
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
