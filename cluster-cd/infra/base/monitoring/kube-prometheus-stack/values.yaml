@@ -3,6 +3,9 @@ fullnameOverride: prometheus
 
 alertmanager:
   alertmanagerSpec:
+    podMetadata:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: alertmanager-prometheus-alertmanager-db
     storage:
       volumeClaimTemplate:
         spec:
@@ -61,6 +64,8 @@ alertmanager:
 
 grafana:
   adminPassword: ${GRAFANA_ADMIN_PASSWORD}
+  podAnnotations:
+    backup.velero.io/backup-volumes: storage
   grafana.ini:
     server:
       root_url: https://graphs.${SECRET_DOMAIN}/
@@ -138,6 +143,9 @@ prometheus:
           - *host
         secretName: prometheus-tls
   prometheusSpec:
+    podMetadata:
+      annotations:
+        backup.velero.io/backup-volumes-excludes: prometheus-prometheus-prometheus-db
     retention: 12h
     replicaExternalLabelName: replica
     securityContext:

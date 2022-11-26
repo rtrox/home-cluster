@@ -23,6 +23,8 @@ compactor:
   persistence:
     enabled: false
 storegateway:
+  podAnnotations:
+    backup.velero.io/backup-volumes-excludes: data
   podSecurityContext:
     enabled: true
     fsGroup: 0

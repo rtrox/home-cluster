@@ -16,6 +16,8 @@ spec:
       interval: 10m
   values:
     loki:
+      podAnnotations:
+        backup.velero.io/backup-volumes-excludes: data
       podSecurityContext:
         fsGroup: 0
         runAsGroup: 0

@@ -11,6 +11,12 @@ spec:
     metadata:
       labels:
         name: zwave
+        app: zwavejs
+        app.kubernetes.io/instance: zwavejs
+        app.kubernetes.io/name: zwavejs
+        app.kubernetes.io/part-of: zwavejs
+      annotations:
+        backup.velero.io/backup-volumes: zwave-data
     spec:
       containers:
         - name: zwave
