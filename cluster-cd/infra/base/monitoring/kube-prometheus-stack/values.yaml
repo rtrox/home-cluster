@@ -41,6 +41,11 @@ alertmanager:
                 {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                 {{ end }}
               {{ end }}
+      - name: alertmanager-discord-webhook
+        webhook_configs:
+          - url: 'http://alertmanager-discord-webhook'
+            send_resolved: true
+            max_alerts: 10
     route:
       routes:
         - matchers:
@@ -50,6 +55,10 @@ alertmanager:
           matchers:
             - severity =~ "warning|critical"
           receiver: discord
+        - matchers:
+            - severity =~ "warning|critical"
+          receiver: alertmanager-discord-webhook
+          continue: true
   templateFiles:
     alert-silence.tmpl: |-
       # This builds the silence URL.  We exclude the alertname in the range

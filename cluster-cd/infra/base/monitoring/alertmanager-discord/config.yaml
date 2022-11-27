@@ -1,0 +1,37 @@
+---
+listen_port: 8080
+log_level: debug
+template_files:
+  - ./templates/*.tmpl
+receivers:
+  - name: 'discord-webhook'
+    discord_configs:
+      - bot_token: ${ALERTMANAGER_DISCORD_BOT_TOKEN}
+        channel_id: ${ALERTMANAGER_DISCORD_CHANNEL_ID}
+        username: Prometheus (Test)
+        avatar_url: https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/2066px-Prometheus_software_logo.svg.png
+        buttons:
+          - label: "Silence"
+            url: '{{ template "__alert_silence_link" . }}'
+            emoji: "🔕"
+          - label: "Runbook"
+            url: '{{ (index .Alerts 0).Annotations.runbook }}'
+            emoji: "📗"
+          - label: "Query"
+            url: '{{ (index .Alerts 0).GeneratorURL }}'
+            emoji: "🔍"
+          - label: "Dashboard"
+            url: '{{ (index .Alerts 0).Annotations.dashboard }}'
+            emoji: "📉"
+          - label: '{{ template "discord.link_button_text" . }}'
+            url: '{{ .CommonAnnotations.link_url }}'
+            emoji: "🔗"
+        title: '{{ template "discord.title" . }}'
+        text: '{{ template "discord.text" . }}'
+        color: '{{ template "discord.color" . }}'
+        footer: "Alert Footer"
+        fields_from:
+          alertmanager_var_name: "commonLabels"
+          name_template: "{{ .Name }}"
+          value_template: "{{ .Value }}"
+          inline: true

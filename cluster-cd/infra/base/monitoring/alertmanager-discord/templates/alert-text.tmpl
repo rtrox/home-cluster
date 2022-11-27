@@ -1,0 +1,11 @@
+{{/* The test to display in the alert */}}
+{{ define "discord.text" -}}
+    {{ range .Alerts }}
+        {{- if .Annotations.message }}
+            {{ .Annotations.message }}
+        {{- end }}
+        {{- if .Annotations.description }}
+            {{ .Annotations.description }}
+        {{- end }}
+    {{- end }}
+{{- end }}

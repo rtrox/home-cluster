@@ -1,0 +1,36 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: monitoring
+
+bases:
+  - deployment.yaml
+  - service.yaml
+  # - servicemonitor.yaml
+
+configMapGenerator:
+  - name: alertmanager-discord-config
+    files:
+      - config.yaml
+    options:
+      labels:
+        app.kubernetes.io/part-of: alertmanager-discord
+        app.kubernetes.io/component: alerts
+  - name: alertmanager-discord-template-files
+    files:
+      - templates/alert-color.tmpl
+      - templates/alert-severity-prefix-title.tmpl
+      - templates/alert-silence.tmpl
+      - templates/alert-title.tmpl
+      - templates/alert-text.tmpl
+      - templates/link-button-text.tmpl
+    options:
+      labels:
+        app.kubernetes.io/part-of: alertmanager-discord
+        app.kubernetes.io/component: alerts
+
+
+images:
+  - name: 'rtrox/alertmanager-discord'
+    newTag: v0.0.1-devel

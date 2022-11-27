@@ -12,3 +12,4 @@ resources:
   - prometheus-speedtest-exporter
   - prometheus-snmp-exporter
   - fluxcd-monitoringconfig
+  - alertmanager-discord
