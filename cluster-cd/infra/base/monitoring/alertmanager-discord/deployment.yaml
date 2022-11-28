@@ -32,8 +32,6 @@ spec:
       containers:
         - name: alertmanager-discord
           image: 'rtrox/alertmanager-discord:v0.0.2-devel'
-          args:
-            - -debug
           imagePullPolicy: IfNotPresent
           resources:
             limits:

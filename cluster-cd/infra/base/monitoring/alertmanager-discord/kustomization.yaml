@@ -33,4 +33,4 @@ configMapGenerator:
 
 images:
   - name: 'rtrox/alertmanager-discord'
-    newTag: v0.0.1-devel
+    newTag: v0.0.2-devel
