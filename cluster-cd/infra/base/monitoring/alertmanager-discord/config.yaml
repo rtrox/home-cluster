@@ -4,7 +4,7 @@ log_level: trace
 template_files:
   - ./templates/*.tmpl
 receivers:
-  - name: 'discord-webhook'
+  - name: 'alertmanager-discord-webhook'
     discord_configs:
       - bot_token: ${ALERT_MANAGER_DISCORD_BOT_TOKEN}
         channel_id: ${ALERT_MANAGER_DISCORD_CHANNEL_ID}

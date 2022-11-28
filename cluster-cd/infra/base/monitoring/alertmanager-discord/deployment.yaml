@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: &name alertmanager-discord
     app.kubernetes.io/instance: &instance alertmanager-discord
-    app.kubernetes.io/component: exporter
+    app.kubernetes.io/component: &component alerts
     app.kubernetes.io/part-of: *instance
     k8s-app: *name
   name: *name
@@ -14,7 +14,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: *name
       app.kubernetes.io/instance: *instance
-      app.kubernetes.io/component: metrics
+      app.kubernetes.io/component: *component
   strategy:
     type: Recreate
   template:
@@ -22,7 +22,7 @@ spec:
       labels:
         app.kubernetes.io/name: *name
         app.kubernetes.io/instance: *instance
-        app.kubernetes.io/component: metrics
+        app.kubernetes.io/component: *component
     spec:
       replicas: 2
       securityContext:

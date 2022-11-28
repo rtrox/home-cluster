@@ -29,13 +29,11 @@ alertmanager:
               {{ range .Alerts -}}
                 **Alert:** {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
               **Description:**
-                  {{- if .Annotations.message }}
+              {{- if .Annotations.message }}
                   {{ .Annotations.message }}
               {{- end }}
-              {{- else if .Annotations.description }}
+              {{- if .Annotations.description }}
                   {{ .Annotations.description }}
-              {{- else }}
-                  N/A
               {{- end }}
               **Details:**
                 {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
@@ -43,7 +41,7 @@ alertmanager:
               {{ end }}
       - name: alertmanager-discord-webhook
         webhook_configs:
-          - url: 'http://alertmanager-discord-webhook'
+          - url: 'http://alertmanager-discord.monitoring.svc.cluster.local/alerts'
             send_resolved: true
             max_alerts: 10
     route:
