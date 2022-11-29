@@ -21,6 +21,8 @@ configMapGenerator:
         grafana_dashboard: "1"
         app.kubernetes.io/part-of: prometheus-awair-exporter
         app.kubernetes.io/component: monitoring
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
 
 images:
   - name: rtrox/prometheus-awair-exporter

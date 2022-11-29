@@ -18,6 +18,8 @@ configMapGenerator:
         grafana_dashboard: "1"
         app.kubernetes.io/part-of: prometheus-speedtest-exporter
         app.kubernetes.io/component: monitoring
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
 
 images:
   - name: rtrox/prometheus-speedtest-exporter
