@@ -18,6 +18,9 @@ alertmanager:
     receivers:
       - name: 'null'
       - name: discord
+        group_by:
+          - alertname
+          - severity
         slack_configs:
           - channel: '#x86kube-alarms'
             username: Prometheus
@@ -40,6 +43,9 @@ alertmanager:
                 {{ end }}
               {{ end }}
       - name: alertmanager-discord-webhook
+        group_by:
+          - alertname
+          - severity
         webhook_configs:
           - url: 'http://alertmanager-discord.monitoring.svc.cluster.local/alerts'
             send_resolved: true
@@ -74,7 +80,7 @@ alertmanager:
     alert-severity.tmpl: |-
       {{ define "__alert_severity_prefix" -}}
       {{ if ne .Status "firing" -}}
-      :lgtm:
+        :thumbsup:
       {{- else if eq .Labels.severity "critical" -}}
       :fire:
       {{- else if eq .Labels.severity "warning" -}}
