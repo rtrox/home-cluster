@@ -7,7 +7,7 @@ namespace: monitoring
 bases:
   - deployment.yaml
   - service.yaml
-  # - servicemonitor.yaml
+  - servicemonitor.yaml
 
 configMapGenerator:
   - name: alertmanager-discord-config
@@ -33,4 +33,4 @@ configMapGenerator:
 
 images:
   - name: 'rtrox/alertmanager-discord'
-    newTag: v0.0.2-devel
+    newTag: v0.0.8
