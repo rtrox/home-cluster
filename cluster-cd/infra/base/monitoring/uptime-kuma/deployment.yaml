@@ -34,11 +34,6 @@ spec:
             - name: http
               containerPort: 3001
               protocol: TCP
-          livenessProbe:
-            exec:
-              command:
-                - node
-                - extra/healthcheck.js
           volumeMounts:
             - mountPath: /app/data
               name: data
