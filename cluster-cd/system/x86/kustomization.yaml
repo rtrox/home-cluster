@@ -6,3 +6,9 @@ resources:
   - ../base
   - cilium-configmap.yaml
   - cloudflare-token-secret.x86.yaml
+
+secretGenerator:
+  - name: client-info-secret
+    namespace: synology-csi
+    files:
+      - client-info.yml=client-info.x86-raw.yaml

@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: &component metrics
+    app.kubernetes.io/instance: &name uptime-kuma
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/part-of: *name
+    jobLabel: *name
+  name: *name
+spec:
+  endpoints:
+    - port: http
+      scheme: http
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: *name
+      app.kubernetes.io/name: *name

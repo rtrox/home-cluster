@@ -12,8 +12,3 @@ resources:
   - https://raw.githubusercontent.com/zebernst/synology-csi-talos/main/deploy/kubernetes/v1.20/storage-class.yml
   # - upstream/synology-csi-talos/deploy/kubernetes/v1.20/snapshotter/snapshotter.yaml
   # - upstream/synology-csi-talos/deploy/kubernetes/v1.20/snapshotter/volume-snapshot-class.yml
-
-secretGenerator:
-  - name: client-info-secret
-    files:
-      - client-info.yml=client-info.x86-raw.yaml
