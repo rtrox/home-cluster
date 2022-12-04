@@ -54,3 +54,7 @@ repos:
         name: kustomize-sid-system
         args: [cluster-cd/system/rpi4-sidero]
         verbose: false
+      - id: kustomize_check
+        name: kustomize-sid-apps
+        args: [cluster-cd/apps/rpi4-sidero]
+        verbose: false
