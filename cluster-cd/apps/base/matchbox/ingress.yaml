@@ -1,0 +1,58 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: &name matchbox
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/name: *name
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &httphost matchbox.${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: matchbox
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - *httphost
+      secretName: matchbox-tls
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: &rpcname matchbox-rpc
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app.kubernetes.io/instance: *rpcname
+    app.kubernetes.io/name: *rpcname
+spec:
+  ingressClassName: public
+  rules:
+    - host: &rpchost matchbox-rpc.${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: matchbox
+                port:
+                  number: 8081
+  tls:
+    - hosts:
+        - *rpchost
+      secretName: matchbox-rpc-tls
