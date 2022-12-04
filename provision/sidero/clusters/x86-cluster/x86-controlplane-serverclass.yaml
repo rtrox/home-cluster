@@ -1,0 +1,46 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: serverclass-x86-controlplane
+spec:
+  selector:
+    matchLabels:
+      controlplane: "true"
+  qualifiers:
+    systemInformation:
+      - manufacturer: "Intel(R) Client Systems"
+        version: "K61339-306"
+      - manufacturer: LENOVO
+        version: "ThinkCentre M715q"
+  bootFromDiskMethod: ipxe-sanboot
+  configPatches:
+    - op: add
+      path: /machine/network
+      value:
+        interfaces:
+          - interface: eth0
+            dhcp: true
+            vip:
+              ip: 172.16.2.254
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/sda
+    - op: add
+      path: /machine/install/extensions
+      value: [{"image": "ghcr.io/siderolabs/iscsi-tools:v0.1.1"}]
+    - op: replace
+      path: /machine/install/bootloader
+      value: true
+    - op: replace
+      path: /cluster/allowSchedulingOnControlPlanes
+      value: true
+    - op: add
+      path: /cluster/network/cni
+      value:
+        name: custom
+        urls:
+          - https://raw.githubusercontent.com/rtrox/home-cluster/main/provision/sidero/custom/cni/cilium-base-install.yaml
+    - op: add
+      path: /cluster/proxy/disabled
+      value: true

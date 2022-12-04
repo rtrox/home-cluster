@@ -38,7 +38,7 @@ metadata:
     app.kubernetes.io/instance: *rpcname
     app.kubernetes.io/name: *rpcname
 spec:
-  ingressClassName: public
+  ingressClassName: nginx
   rules:
     - host: &rpchost matchbox-rpc.${SECRET_DOMAIN}
       http:
