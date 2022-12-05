@@ -108,24 +108,40 @@ flux reconcile kustomization system
 
 # Network
 ## Management
+
+```
 172.16.254.1 Router
 172.16.254.2 CloudKey
 172.16.254.3 Sidero
 
 172.16.254.11 NAS
 172.16.254.21 Ender3
+```
 
 ## Cluster IPs
+
+```
 172.16.1.0/24 Pi Cluster
 172.16.2.0/24 ThinkKube
 172.16.3.0/24 Rockkube
+```
 
 ## Loadbalancers
+
+```
 172.17.1.0/24 Pi Load Balancers
 172.17.2.0/24 ThinkKube Load Balancers
 172.17.3.0/24 Rockkube Load Balancers
+```
 
 # Ingresses
 Two ingresses are configured:
 - `IngressClass` `nginx` (default) is only accessible from the local network.
 - `IngressClass` `nginx-external` is accessible to the internet.
+
+# TODO
+
+- rpi4-sidero -> flatcar, cilium.
+- cloudflare provisioning in terraform
+- sops for terraform secrets, clear history, and make public again.
+-

@@ -39,3 +39,19 @@ creation_rules:
       age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m,
       age1ns2r38fd24cpfmhmn3qeu8x28nrq6ehjdc72yz4q44sxk8aej9vqtr5jue,
       age15pw0dy5kn2pqs6hxy9g9g8x60trqxlcj6sdv3uveu8wlc23uya6ssunxp7
+  - path_regex: cluster-cd/.*\.cho\.ya?ml
+    encrypted_regex: "^(data|stringData)$"
+    # chongus flux, Ubuntu WSL (desk), work macbook, Ubuntu WSL (laptop)
+    age: >-
+      age1ay8ky5ce59vkz740uzp2tr2r22sqwez9804wdv32rrd6q5tawc3q0ugvp3,
+      age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m,
+      age1ns2r38fd24cpfmhmn3qeu8x28nrq6ehjdc72yz4q44sxk8aej9vqtr5jue,
+      age15pw0dy5kn2pqs6hxy9g9g8x60trqxlcj6sdv3uveu8wlc23uya6ssunxp7
+  - path_regex: cluster-cd/.*\.cho-raw\.ya?ml
+    # Encrypts any supported file type in place, with all leaves encrypted.
+    # chongus flux, Ubuntu WSL (desk), work macbook, Ubuntu WSL (laptop)
+    age: >-
+      age1ay8ky5ce59vkz740uzp2tr2r22sqwez9804wdv32rrd6q5tawc3q0ugvp3,
+      age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m,
+      age1ns2r38fd24cpfmhmn3qeu8x28nrq6ehjdc72yz4q44sxk8aej9vqtr5jue,
+      age15pw0dy5kn2pqs6hxy9g9g8x60trqxlcj6sdv3uveu8wlc23uya6ssunxp7

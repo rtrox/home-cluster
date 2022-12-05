@@ -3,8 +3,11 @@ ignore: |
   .vscode/
   gotk-components.yaml
   provision/sidero/custom/cni/cilium-base-install.yaml
+  provision/terraform/modules/k3s_cluster/templates/kube-vip.yaml
   *.x86.yaml
   *.x86-raw.yaml
+  *.cho.yaml
+  *.cho-raw.yaml
 extends: default
 rules:
   truthy:

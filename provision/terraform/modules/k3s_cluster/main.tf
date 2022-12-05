@@ -40,13 +40,43 @@ data "ct_config" "worker" {
     content = templatefile("${path.module}/butane/flatcar.yaml", {
         ssh_authorized_keys = jsonencode(var.ssh_authorized_keys)
         node_name = var.machines[count.index].name
-        cluster_name = var.cluster_name
-        cluster_domain = var.cluster_domain
+        cluster_fqdn = local.cluster_fqdn
         bootstrap = count.index == 0 ? true : false
         k3s_token = var.k3s_token
-        k3s_config = file("${path.module}/templates/k3s_config.yaml")
+        k3s_config = data.template_file.k3s-config.rendered
+        cilium_install = data.template_file.cilium-install.rendered
+        api_vip = var.api_vip
+        api_vip_iface = var.api_vip_iface
+        kube_vip = data.template_file.kube-vip[count.index].rendered
     })
     strict = true
+}
+
+data "template_file" "kube-vip" {
+    count = length(var.machines)
+    template = file("${path.module}/templates/kube-vip.yaml")
+    vars = {
+        api_vip = var.api_vip
+        api_vip_iface = var.api_vip_iface
+        router_id = var.machines[count.index].ip
+        cluster_domain = local.cluster_fqdn
+    }
+}
+
+data "template_file" "k3s-config" {
+    template = file("${path.module}/templates/k3s-config.yaml")
+    vars = {
+        api_vip = var.api_vip
+        api_fqdn = local.api_fqdn
+    }
+}
+
+data "template_file" "cilium-install" {
+    template = file("${path.module}/templates/cilium-install.yaml")
+    vars = {
+        api_vip = var.api_vip
+        cluster_name = var.cluster_name
+    }
 }
 
 // Install Group
@@ -70,4 +100,9 @@ resource "matchbox_group" "worker" {
         os = "installed"
         node = var.machines[count.index].name
     }
+}
+
+locals {
+    cluster_fqdn = "${substr(var.cluster_name, 0, 3)}.${var.cluster_domain}"
+    api_fqdn = "api.${local.cluster_fqdn}"
 }
