@@ -1,0 +1,11 @@
+---
+tls-san:
+  - api.chongus.rtrox.com
+  - 172.18.3.254
+# Disable Default CNI & Network Policy Enforcer
+flannel-backend: none
+disable-network-policy: true
+disable:
+  - servicelb
+  - traefik
+  - local-storage

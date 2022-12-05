@@ -1,0 +1,43 @@
+---
+variant: flatcar
+version: 1.0.0
+storage:
+  files:
+    - path: "/etc/hostname"
+      mode: 0644
+      overwrite: true
+      contents:
+        source: "data:,${node_name}.${cluster_name}.${cluster_domain}"
+    - path: /opt/k3s-install.sh
+      mode: 0777
+      contents:
+        source: https://get.k3s.io
+    - path: /etc/rancher/k3s/config.yaml
+      mode: 0644
+      contents:
+        source: "data:text/plain;charset=utf-8;base64,${base64encode(k3s_config)}"
+systemd:
+  units:
+    - name: k3s-install.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Install k3s
+        Wants = network-online.target
+        After = network.target network-online.target
+        ConditionPathExists=/opt/k3s-install.sh
+        ConditionPathExists=!/opt/bin/k3s
+        [Service]
+        Type=forking
+        TimeoutStartSec=180
+        RemainAfterExit=yes
+        KillMode=process
+        Environment="K3S_TOKEN=${k3s_token}"
+        Environment="INSTALL_K3S_EXEC=%{ if bootstrap }--cluster-init%{ else }'--server' 'https://172.18.2.1:6443'%{ endif }"
+        ExecStart=/usr/bin/sh -c "/opt/k3s-install.sh"
+        [Install]
+        WantedBy=multi-user.target
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys: ${ssh_authorized_keys}

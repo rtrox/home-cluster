@@ -21,15 +21,16 @@ storage:
       contents:
         inline: |
           #!/bin/bash -ex
-          curl --retry 10 "${matchbox_http_endpoint}/ignition?os=installed" -o ignition.json
+          curl --retry 10 "${matchbox_http_endpoint}/ignition?os=installed&node=${node_name}" -o ignition.json
           flatcar-install \
-            -d /dev/vda \
-            -b ${matchbox_http_endpoint}/assets/flatcar \
+            -d ${install_device} \
             -i ignition.json
           udevadm settle
           systemctl reboot
+    - path: /etc/hostname
+      contents:
+        inline: ${node_name}-installer
 passwd:
   users:
     - name: core
-      ssh_authorized_keys:
-        - ${ssh_authorized_key}
+      ssh_authorized_keys: ${ssh_authorized_keys}
