@@ -54,14 +54,14 @@ systemd:
         Type=oneshot
         RemainAfterExit=yes
         KillMode=process
-        ExecStart="/usr/bin/rm" "-rf" "/var/lib/rancher/k3s/server/manifests/runonce/*"
+        ExecStart=/usr/bin/rm -rf /var/lib/rancher/k3s/server/manifests/runonce
     - name: remove-runonce-manifests.timer
       enabled: true
       contents: |
         [Unit]
         Description=Remove runonce manifests
         [Timer]
-        OnBootSec=5min
+        OnBootSec=10min
         [Install]
         WantedBy=timers.target
 passwd:
