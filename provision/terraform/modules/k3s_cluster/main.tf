@@ -56,6 +56,7 @@ data "template_file" "kube-vip" {
     count = length(var.machines)
     template = file("${path.module}/templates/kube-vip.yaml")
     vars = {
+        id = count.index
         api_vip = var.api_vip
         api_vip_iface = var.api_vip_iface
         router_id = var.machines[count.index].ip
