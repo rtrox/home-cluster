@@ -59,6 +59,6 @@ repos:
         args: [cluster-cd/apps/rpi4-sidero]
         verbose: false
       - id: kustomize_check_system
-        name: kustomize-x86-chongus
+        name: kustomize-cho-system
         args: [cluster-cd/system/chongus]
         verbose: false

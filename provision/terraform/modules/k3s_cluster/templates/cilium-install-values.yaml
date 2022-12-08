@@ -1,6 +1,7 @@
 # NOT USED BY TERRAFORM
 # this file is used to generate the cilium-install.yaml manifest for k3s.
-# once generated, search & replace 10.20.0.250 with ${api_vip}, and "cluster-0" with ${cluster_name}
+# once generated, search & replace 10.20.0.250 with ${api_vip},
+# "cluster-0" with ${cluster_name} and ${BIN_PATH} with $${BIN_PATH}
 ---
 cluster:
   name: "cluster-0"
