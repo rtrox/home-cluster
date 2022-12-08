@@ -47,20 +47,16 @@ data "ct_config" "worker" {
         cilium_install = data.template_file.cilium-install.rendered
         api_vip = var.api_vip
         api_vip_iface = var.api_vip_iface
-        kube_vip = data.template_file.kube-vip[count.index].rendered
+        kube_vip = data.template_file.kube-vip.rendered
     })
     strict = true
 }
 
 data "template_file" "kube-vip" {
-    count = length(var.machines)
     template = file("${path.module}/templates/kube-vip.yaml")
     vars = {
-        id = count.index
         api_vip = var.api_vip
         api_vip_iface = var.api_vip_iface
-        router_id = var.machines[count.index].ip
-        cluster_domain = local.cluster_fqdn
     }
 }
 

@@ -4,6 +4,7 @@ ignore: |
   gotk-components.yaml
   provision/sidero/custom/cni/cilium-base-install.yaml
   provision/terraform/modules/k3s_cluster/templates/kube-vip.yaml
+  provision/terraform/modules/k3s_cluster/templates/cilium-install.yaml
   *.x86.yaml
   *.x86-raw.yaml
   *.cho.yaml
