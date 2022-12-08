@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - ../base
+  - ../extension/rook-ceph
   - cilium-configmap.yaml
   - cloudflare-token-secret.cho.yaml
 
@@ -12,3 +13,6 @@ secretGenerator:
     namespace: synology-csi
     files:
       - client-info.yml=client-info.cho-raw.yaml
+
+patchesStrategicMerge:
+  - rook-ceph-cluster-patch.yaml

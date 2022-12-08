@@ -1,0 +1,15 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rook-ceph-cluster
+  namespace: rook-ceph
+spec:
+  values:
+    cephClusterSpec:
+      storage:
+        useAllNodes: true
+        useAllDevices: false
+        deviceFilter: sd[b-c]
+        config:
+          osdsPerDevice: "1"

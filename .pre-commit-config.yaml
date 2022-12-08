@@ -9,7 +9,7 @@ repos:
           - .github/lint/.yamllint.yaml
         id: yamllint
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.4.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -28,33 +28,37 @@ repos:
     hooks:
       - id: forbid-secrets
   - repo: https://github.com/rtrox/pre-commit-kustomize-check
-    rev: v4.5.7
+    rev: v4.5.8
     hooks:
-      - id: kustomize_check
+      - id: kustomize_check_system
         name: kustomize-crds
         args: [cluster-cd/crds]
         verbose: false
-      - id: kustomize_check
+      - id: kustomize_check_system
         name: kustomize-sources
         args: [cluster-cd/sources]
         verbose: false
-      - id: kustomize_check
+      - id: kustomize_check_system
         name: kustomize-x86-system
         args: [cluster-cd/system/x86]
         verbose: false
-      - id: kustomize_check
+      - id: kustomize_check_system
         name: kustomize-x86-infra
         args: [cluster-cd/infra/x86]
         verbose: false
-      - id: kustomize_check
+      - id: kustomize_check_system
         name: kustomize-x86-apps
         args: [cluster-cd/apps/x86]
         verbose: false
-      - id: kustomize_check
+      - id: kustomize_check_system
         name: kustomize-sid-system
         args: [cluster-cd/system/rpi4-sidero]
         verbose: false
-      - id: kustomize_check
+      - id: kustomize_check_system
         name: kustomize-sid-apps
         args: [cluster-cd/apps/rpi4-sidero]
+        verbose: false
+      - id: kustomize_check_system
+        name: kustomize-x86-chongus
+        args: [cluster-cd/system/chongus]
         verbose: false
