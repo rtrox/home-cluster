@@ -222,6 +222,9 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
+      annotations:
+        io.cilium/lb-ipam-ips: ${VECTOR_AGGREGATOR_IP}
+        metallb.universe.tf/loadBalancerIPs: ${VECTOR_AGGREGATOR_IP}
 
   postRenderers:
     - kustomize:
@@ -233,13 +236,6 @@ spec:
               - op: add
                 path: /spec/loadBalancerIP
                 value: ${VECTOR_AGGREGATOR_IP}
-              - op: add
-                path: /metadata/annotations/io.cilium~1lb-ipam-ips
-                value: ${VECTOR_AGGREGATOR_IP}
-              - op: add
-                path: /metadata/annotations/metallb.universe.tf~1loadBalancerIPs
-                value: ${VECTOR_AGGREGATOR_IP}
-
               - op: replace
                 path: /spec/externalTrafficPolicy
                 value: Local

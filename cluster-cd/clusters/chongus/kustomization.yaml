@@ -7,4 +7,4 @@ resources:
   - crds.yaml
   - sources.yaml
   - system.yaml
-  # - infra.yaml
+  - infra.yaml
