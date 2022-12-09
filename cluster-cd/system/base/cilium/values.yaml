@@ -60,6 +60,6 @@ hubble:
     enabled: true
     rollOutPods: true
 bgp:
+  enabled: false
+bgpControlPlane:
   enabled: true
-  announce:
-    loadbalancerIP: true
