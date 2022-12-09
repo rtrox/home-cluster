@@ -21,9 +21,10 @@ storage:
       contents:
         inline: |
           #!/bin/bash -ex
+          # Clear all partition tables
+          sudo find /dev/ -regex '/dev/sd[a-z]' -exec dd if=/dev/zero of={} bs=1M count=1 \;
           curl --retry 10 "${matchbox_http_endpoint}/ignition?os=installed&node=${node_name}" -o ignition.json
-          flatcar-install \
-            -d ${install_device} \
+          flatcar-install -d ${install_device}\
             -i ignition.json
           udevadm settle
           systemctl reboot

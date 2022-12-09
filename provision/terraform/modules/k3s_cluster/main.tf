@@ -21,7 +21,7 @@ data "ct_config" "install" {
     content = templatefile("${path.module}/butane/flatcar-install.yaml", {
         matchbox_http_endpoint = var.matchbox_http_endpoint
         ssh_authorized_keys     = jsonencode(var.ssh_authorized_keys)
-        install_device         = var.install_device
+        install_device         = var.machines[count.index].install-device
         node_name              = var.machines[count.index].name
     })
     strict = true

@@ -9,6 +9,7 @@ variable "machines" {
     name = string
     mac  = string
     ip = string
+    install-device = string
   }))
   description = "List of machines to provision"
 }
@@ -31,11 +32,6 @@ variable "cluster_domain" {
 variable "ssh_authorized_keys" {
     type = list(string)
     description = "SSH public keys to set as an authorized_key on machines"
-}
-
-variable "install_device" {
-    type = string
-    description = "Device to install Flatcar on"
 }
 
 variable "api_vip" {
