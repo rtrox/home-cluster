@@ -24,6 +24,8 @@ spec:
   dependsOn:
     - name: rook-ceph-operator
       namespace: rook-ceph
+    - name: ingress-nginx
+      namespace: ingress-nginx
   values:
     monitoring:
       enabled: true
@@ -40,7 +42,7 @@ spec:
         tls:
           - hosts:
               - *host
-        secretName: rook-ceph-cluster-tls
+            secretName: rook-ceph-cluster-tls
     configOverride: |
       [global]
       bdev_enable_discard = true
