@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - ../base
+  - ../extension/synology-csi
   - cilium-configmap.yaml
   - cloudflare-token-secret.x86.yaml
 
