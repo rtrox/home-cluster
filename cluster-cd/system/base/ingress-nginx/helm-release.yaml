@@ -24,7 +24,8 @@ spec:
       interval: 5m
   values:
     service:
-      loadBalancerIP: ${INGRESS_NGINX_IP}
+      annotations:
+        io.cilium/lb-ipam-ips: "${INGRESS_NGINX_IP}"
     controller:
       replicaCount: 2
       ingressClassResource:
