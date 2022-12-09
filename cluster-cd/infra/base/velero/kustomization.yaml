@@ -14,10 +14,5 @@ configMapGenerator:
     files:
       - values.yaml=helm-values.yaml
 
-secretGenerator:
-  - name: velero-helm-values-secret
-    files:
-      - values.yaml=helm-values-secret.x86-raw.yaml
-
 configurations:
   - kustomizeconfig.yaml

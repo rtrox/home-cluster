@@ -11,7 +11,7 @@ spec:
     - name: sources
     - name: crds
     - name: system
-  path: ./cluster-cd/infra/cho
+  path: ./cluster-cd/infra/chongus
   prune: true
   sourceRef:
     kind: GitRepository

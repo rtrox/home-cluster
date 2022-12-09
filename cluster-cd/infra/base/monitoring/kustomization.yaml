@@ -10,9 +10,5 @@ resources:
   - loki
   - vector
   - thanos
-  - prometheus-awair-exporter
-  - prometheus-speedtest-exporter
-  - prometheus-snmp-exporter
   - fluxcd-monitoringconfig
   - alertmanager-discord
-  - uptime-kuma

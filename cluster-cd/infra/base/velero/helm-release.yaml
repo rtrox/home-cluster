@@ -27,6 +27,3 @@ spec:
     - kind: ConfigMap
       name: "velero-helm-values"
       optional: false
-    - kind: Secret
-      name: "velero-helm-values-secret"
-      optional: false

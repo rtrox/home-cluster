@@ -5,3 +5,7 @@ kind: Kustomization
 resources:
   - ../base/home
   - ../base/heimdall
+  - ../base/prometheus-awair-exporter
+  - ../base/prometheus-snmp-exporter
+  - ../base/prometheus-speedtest-exporter
+  - ../base/uptime-kuma

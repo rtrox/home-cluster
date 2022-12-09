@@ -71,3 +71,9 @@ schedules:
 #     ttl: "120h"
 #     includedNamespaces:
 #     - default
+credentials:
+  secretContents:
+    cloud: |
+        [default]
+        aws_access_key_id = ${VELERO_ACCESS_KEY_ID}
+        aws_secret_access_key = ${VELERO_SECRET_ACCESS_KEY}

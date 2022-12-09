@@ -40,7 +40,7 @@ spec:
         tls:
           - hosts:
               - *host
-        secretName:
+        secretName: rook-ceph-cluster-tls
     configOverride: |
       [global]
       bdev_enable_discard = true
