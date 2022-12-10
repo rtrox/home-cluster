@@ -2,9 +2,9 @@
 resource "matchbox_profile" "flatcar-install" {
     count  = length(var.machines)
     name   = "flatcar-install-${var.machines[count.index].name}"
-    kernel = "http://stable.release.flatcar-linux.net/amd64-usr/3374.2.0/flatcar_production_pxe.vmlinuz"
+    kernel = "http://stable.release.flatcar-linux.net/amd64-usr/3374.2.1/flatcar_production_pxe.vmlinuz"
     initrd = [
-        "http://stable.release.flatcar-linux.net/amd64-usr/3374.2.0/flatcar_production_pxe_image.cpio.gz",
+        "http://stable.release.flatcar-linux.net/amd64-usr/3374.2.1/flatcar_production_pxe_image.cpio.gz",
     ]
 
     args = [
