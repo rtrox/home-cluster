@@ -50,8 +50,8 @@ ipv6:
 # Cilium leverages MetalLB's simplified BGP announcement system for service type: LoadBalancer
 bgp:
   enabled: false
-  announce:
-    loadbalancerIP: true
+bgpControlPlane:
+  enabled: true
 
 # loadBalancer is the general configuration for service load balancing
 loadBalancer:

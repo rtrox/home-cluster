@@ -4,21 +4,21 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: "cilium"
-  namespace: kube-system
+  namespace: flux-system
 ---
 # Source: cilium/templates/cilium-operator/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: "cilium-operator"
-  namespace: kube-system
+  namespace: flux-system
 ---
 # Source: cilium/templates/cilium-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cilium-config
-  namespace: kube-system
+  namespace: flux-system
 data:
 
   # Identity allocation mode selects how identities are shared between cilium
@@ -156,7 +156,7 @@ data:
   vtep-cidr: ""
   vtep-mask: ""
   vtep-mac: ""
-  enable-bgp-control-plane: "false"
+  enable-bgp-control-plane: "true"
   bpf-root: "/sys/fs/bpf"
   cgroup-root: "/sys/fs/cgroup"
   enable-k8s-terminating-endpoint: "true"
@@ -471,7 +471,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: "cilium"
-  namespace: kube-system
+  namespace: flux-system
 ---
 # Source: cilium/templates/cilium-operator/clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -485,14 +485,14 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: "cilium-operator"
-  namespace: kube-system
+  namespace: flux-system
 ---
 # Source: cilium/templates/cilium-agent/daemonset.yaml
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: cilium
-  namespace: kube-system
+  namespace: flux-system
   labels:
     k8s-app: cilium
 spec:
@@ -507,13 +507,13 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "d1000687fb1fbdbf2ca1f11a98a40325970c07cd8eacdd6ad7d664a0f522a48a"
+        cilium.io/cilium-configmap-checksum: "fd919ef9924057d8ffdb3c3f984e7c66bac6ad2ce356497355f0c0c153708880"
       labels:
         k8s-app: cilium
     spec:
       containers:
       - name: cilium-agent
-        image: "quay.io/cilium/cilium:v1.12.2@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
+        image: "quay.io/cilium/cilium:v1.12.4@sha256:4b074fcfba9325c18e97569ed1988464309a5ebf64bbc79bec6f3d58cafcb8cf"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-agent
@@ -628,7 +628,7 @@ spec:
           mountPath: /run/xtables.lock
       initContainers:
       - name: clean-cilium-state
-        image: "quay.io/cilium/cilium:v1.12.2@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
+        image: "quay.io/cilium/cilium:v1.12.4@sha256:4b074fcfba9325c18e97569ed1988464309a5ebf64bbc79bec6f3d58cafcb8cf"
         imagePullPolicy: IfNotPresent
         command:
         - /init-container.sh
@@ -734,7 +734,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cilium-operator
-  namespace: kube-system
+  namespace: flux-system
   labels:
     io.cilium/app: operator
     name: cilium-operator
@@ -755,14 +755,14 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "d1000687fb1fbdbf2ca1f11a98a40325970c07cd8eacdd6ad7d664a0f522a48a"
+        cilium.io/cilium-configmap-checksum: "fd919ef9924057d8ffdb3c3f984e7c66bac6ad2ce356497355f0c0c153708880"
       labels:
         io.cilium/app: operator
         name: cilium-operator
     spec:
       containers:
       - name: cilium-operator
-        image: quay.io/cilium/operator-generic:v1.12.2@sha256:00508f78dae5412161fa40ee30069c2802aef20f7bdd20e91423103ba8c0df6e
+        image: "quay.io/cilium/operator-generic:v1.12.4@sha256:071089ec5bca1f556afb8e541d9972a0dfb09d1e25504ae642ced021ecbedbd1"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-operator-generic
