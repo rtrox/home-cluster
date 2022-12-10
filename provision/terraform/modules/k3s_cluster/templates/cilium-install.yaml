@@ -32,8 +32,11 @@ data:
   #   the kvstore by commenting out the identity-allocation-mode below, or
   #   setting it to "kvstore".
   identity-allocation-mode: crd
+  identity-heartbeat-timeout: "30m0s"
+  identity-gc-interval: "15m0s"
   cilium-endpoint-gc-interval: "5m0s"
   nodes-gc-interval: "5m0s"
+  skip-cnp-status-startup-clean: "false"
   # Disable the usage of CiliumEndpoint CRD
   disable-endpoint-crd: "false"
 
@@ -41,7 +44,7 @@ data:
   debug: "false"
   # The agent can be put into the following three policy enforcement modes
   # default, always and never.
-  # https://docs.cilium.io/en/latest/policy/intro/#policy-enforcement-modes
+  # https://docs.cilium.io/en/latest/security/policy/intro/#policy-enforcement-modes
   enable-policy: "default"
 
   # Enable IPv4 addressing. If enabled, all endpoints are allocated an IPv4
@@ -64,14 +67,14 @@ data:
   # notification events for each allowed connection.
   #
   # Only effective when monitor aggregation is set to "medium" or higher.
-  monitor-aggregation-interval: 5s
+  monitor-aggregation-interval: "5s"
 
   # The monitor aggregation flags determine which TCP flags which, upon the
   # first observation, cause monitor notifications to be generated.
   #
   # Only effective when monitor aggregation is set to "medium" or higher.
   monitor-aggregation-flags: all
-  # Specifies the ratio (0.0-1.0) of total system memory to use for dynamic
+  # Specifies the ratio (0.0-1.0] of total system memory to use for dynamic
   # sizing of the TCP CT, non-TCP CT, NAT and policy BPF maps.
   bpf-map-dynamic-size-ratio: "0.0025"
   # bpf-policy-map-max specifies the maximum number of entries in endpoint
@@ -80,8 +83,6 @@ data:
   # bpf-lb-map-max specifies the maximum number of entries in bpf lb service,
   # backend and affinity maps.
   bpf-lb-map-max: "65536"
-  # bpf-lb-bypass-fib-lookup instructs Cilium to enable the FIB lookup bypass
-  # optimization for nodeport reverse NAT handling.
   bpf-lb-external-clusterip: "false"
 
   # Pre-allocation of map entries allows per-packet latency to be reduced, at
@@ -117,10 +118,13 @@ data:
   #   - vxlan (default)
   #   - geneve
   tunnel: "disabled"
+
+
   # Enables L7 proxy for L7 policy enforcement and visibility
   enable-l7-proxy: "true"
 
   enable-ipv4-masquerade: "true"
+  enable-ipv6-big-tcp: "false"
   enable-ipv6-masquerade: "true"
 
   enable-xt-socket-fallback: "true"
@@ -160,6 +164,7 @@ data:
   bpf-root: "/sys/fs/bpf"
   cgroup-root: "/sys/fs/cgroup"
   enable-k8s-terminating-endpoint: "true"
+  enable-sctp: "false"
   remove-cilium-node-taints: "true"
   set-cilium-is-up-condition: "true"
   unmanaged-pod-watcher-interval: "15"
@@ -220,7 +225,7 @@ rules:
 - apiGroups:
   - cilium.io
   resources:
-  - ciliumbgploadbalancerippools
+  - ciliumloadbalancerippools
   - ciliumbgppeeringpolicies
   - ciliumclusterwideenvoyconfigs
   - ciliumclusterwidenetworkpolicies
@@ -324,6 +329,7 @@ rules:
   - services/status
   verbs:
   - update
+  - patch
 - apiGroups:
   - ""
   resources:
@@ -414,6 +420,7 @@ rules:
   - list
   - watch
   - delete
+  - patch
 - apiGroups:
   - apiextensions.k8s.io
   resources:
@@ -430,7 +437,7 @@ rules:
   verbs:
   - update
   resourceNames:
-  - ciliumbgploadbalancerippools.cilium.io
+  - ciliumloadbalancerippools.cilium.io
   - ciliumbgppeeringpolicies.cilium.io
   - ciliumclusterwideenvoyconfigs.cilium.io
   - ciliumclusterwidenetworkpolicies.cilium.io
@@ -444,6 +451,20 @@ rules:
   - ciliumlocalredirectpolicies.cilium.io
   - ciliumnetworkpolicies.cilium.io
   - ciliumnodes.cilium.io
+- apiGroups:
+  - cilium.io
+  resources:
+  - ciliumloadbalancerippools
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cilium.io
+  resources:
+  - ciliumloadbalancerippools/status
+  verbs:
+  - patch
 # For cilium-operator running in HA mode.
 #
 # Cilium operator running in HA mode requires the use of ResourceLock for Leader Election
@@ -495,6 +516,8 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: cilium
+    app.kubernetes.io/part-of: cilium
+    app.kubernetes.io/name: cilium-agent
 spec:
   selector:
     matchLabels:
@@ -507,13 +530,15 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "fd919ef9924057d8ffdb3c3f984e7c66bac6ad2ce356497355f0c0c153708880"
+        cilium.io/cilium-configmap-checksum: "267b91b022d3dab23e572d6b6369f77f7d405ba21801567d975f917d4d1e67d6"
       labels:
         k8s-app: cilium
+        app.kubernetes.io/name: cilium-agent
+        app.kubernetes.io/part-of: cilium
     spec:
       containers:
       - name: cilium-agent
-        image: "quay.io/cilium/cilium:v1.12.4@sha256:4b074fcfba9325c18e97569ed1988464309a5ebf64bbc79bec6f3d58cafcb8cf"
+        image: "quay.io/cilium/cilium:v1.13.0-rc3"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-agent
@@ -602,6 +627,11 @@ spec:
           privileged: true
         terminationMessagePolicy: FallbackToLogsOnError
         volumeMounts:
+        # Required to run 'bpftool -j feature probe'
+        # during kernel feature probing
+        - mountPath: /boot
+          name: host-boot
+          readOnly: true
         - name: bpf-maps
           mountPath: /sys/fs/bpf
           mountPropagation: Bidirectional
@@ -628,7 +658,7 @@ spec:
           mountPath: /run/xtables.lock
       initContainers:
       - name: clean-cilium-state
-        image: "quay.io/cilium/cilium:v1.12.4@sha256:4b074fcfba9325c18e97569ed1988464309a5ebf64bbc79bec6f3d58cafcb8cf"
+        image: "quay.io/cilium/cilium:v1.13.0-rc3"
         imagePullPolicy: IfNotPresent
         command:
         - /init-container.sh
@@ -728,6 +758,10 @@ spec:
       - name: cilium-config-path
         configMap:
           name: cilium-config
+      - name: host-boot
+        hostPath:
+          path: /boot
+          type: Directory
 ---
 # Source: cilium/templates/cilium-operator/deployment.yaml
 apiVersion: apps/v1
@@ -738,6 +772,8 @@ metadata:
   labels:
     io.cilium/app: operator
     name: cilium-operator
+    app.kubernetes.io/part-of: cilium
+    app.kubernetes.io/name: cilium-operator
 spec:
   # See docs on ServerCapabilities.LeasesResourceLock in file pkg/k8s/version/version.go
   # for more details.
@@ -755,14 +791,16 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "fd919ef9924057d8ffdb3c3f984e7c66bac6ad2ce356497355f0c0c153708880"
+        cilium.io/cilium-configmap-checksum: "267b91b022d3dab23e572d6b6369f77f7d405ba21801567d975f917d4d1e67d6"
       labels:
         io.cilium/app: operator
         name: cilium-operator
+        app.kubernetes.io/part-of: cilium
+        app.kubernetes.io/name: cilium-operator
     spec:
       containers:
       - name: cilium-operator
-        image: "quay.io/cilium/operator-generic:v1.12.4@sha256:071089ec5bca1f556afb8e541d9972a0dfb09d1e25504ae642ced021ecbedbd1"
+        image: "quay.io/cilium/operator-generic:v1.13.0-rc3"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-operator-generic
@@ -827,3 +865,6 @@ spec:
       - name: cilium-config-path
         configMap:
           name: cilium-config
+---
+# Source: cilium/templates/cilium-secrets-namespace.yaml
+# Only create the namespace if it's different from Ingress secret namespace or Ingress is not enabled.
