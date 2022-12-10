@@ -6,10 +6,10 @@ metadata:
 spec: # CiliumBGPPeeringPolicySpec
   nodeSelector:
     matchLabels:
-      node-role.kubernetes.io/control-plane: true
+      node-role.kubernetes.io/control-plane: "true"
   virtualRouters: # []CiliumBGPVirtualRouter
     - localASN: 64512
       exportPodCIDR: false
       neighbors: # []CiliumBGPNeighbor
-        - peerAddress: '${NETWORK_BGP_PEER}'
+        - peerAddress: '${NETWORK_BGP_PEER}/32'
           peerASN: 64512
