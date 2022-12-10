@@ -52,7 +52,7 @@ hubble:
     dashboards:
       enabled: true
       label: grafana_dashboard
-      namespace: ~
+      namespace: monitoring
       labelValue: "1"
   ui:
     enabled: true
