@@ -9,6 +9,9 @@ spec: # CiliumBGPPeeringPolicySpec
       node-role.kubernetes.io/control-plane: "true"
   virtualRouters: # []CiliumBGPVirtualRouter
     - localASN: 64512
+      serviceSelector:
+        matchExpressions:
+          - {key: somekey, operator: NotIn, values: []}
       exportPodCIDR: false
       neighbors: # []CiliumBGPNeighbor
         - peerAddress: '${NETWORK_BGP_PEER}/32'
