@@ -2,6 +2,7 @@
 fullnameOverride: prometheus
 
 alertmanager:
+  enabled: true
   alertmanagerSpec:
     podMetadata:
       annotations:
@@ -18,9 +19,6 @@ alertmanager:
     receivers:
       - name: 'null'
       - name: discord
-        group_by:
-          - alertname
-          - severity
         slack_configs:
           - channel: '#x86kube-alarms'
             username: Prometheus
@@ -43,9 +41,6 @@ alertmanager:
                 {{ end }}
               {{ end }}
       - name: alertmanager-discord-webhook
-        group_by:
-          - alertname
-          - severity
         webhook_configs:
           - url: 'http://alertmanager-discord.monitoring.svc.cluster.local/alerts'
             send_resolved: true
@@ -59,9 +54,15 @@ alertmanager:
           matchers:
             - severity =~ "warning|critical"
           receiver: discord
+          group_by:
+            - alertname
+            - severity
         - matchers:
             - severity =~ "warning|critical"
           receiver: alertmanager-discord-webhook
+          group_by:
+            - alertname
+            - severity
           continue: true
   templateFiles:
     alert-silence.tmpl: |-
