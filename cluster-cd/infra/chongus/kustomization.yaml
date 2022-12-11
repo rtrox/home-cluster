@@ -4,14 +4,6 @@ kind: Kustomization
 
 resources:
   - ../base
+  - flux-webhook
   - thanos-objstore-secret.cho.yaml
   - loki-secrets.cho.yaml
-
-secretGenerator:
-  - name: external-dns-values-secret
-    namespace: external-dns
-    files:
-      - values.yaml=external-dns-values.cho-raw.yaml
-
-configurations:
-  - kustomizeconfig.yaml

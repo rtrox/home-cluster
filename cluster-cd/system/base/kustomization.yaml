@@ -10,3 +10,4 @@ resources:
   - descheduler
   - node-feature-discovery
   - intel-gpu-plugin
+  - external-dns

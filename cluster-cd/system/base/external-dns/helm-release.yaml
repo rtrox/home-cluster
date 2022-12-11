@@ -20,6 +20,15 @@ spec:
         name: bitnami-charts
         namespace: flux-system
       interval: 5m
+  values:
+    labelFilter: 'ingress: externaldns'
+    annotationFilter: 'ingress: externaldns'
+    sources:
+      - service
+      - ingress
+      - crd
+    crd:
+      create: true
   valuesFrom:
     - kind: Secret
       name: external-dns-values-secret

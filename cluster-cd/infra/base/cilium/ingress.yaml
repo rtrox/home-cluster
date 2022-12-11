@@ -6,6 +6,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   labels:
     k8s-app: hubble-ui
+    ingress: externaldns
   name: hubble-ui
   namespace: kube-system
 spec:

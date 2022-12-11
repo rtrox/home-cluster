@@ -98,4 +98,4 @@ data:
     #  service: hello_world
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
     # - service: http_status:404
-    - service: http://ingress-nginx-external-controller.ingress-nginx-external.svc.cluster.local:80
+    - service: https://ingress-nginx-external-controller.ingress-nginx-external.svc.cluster.local:443

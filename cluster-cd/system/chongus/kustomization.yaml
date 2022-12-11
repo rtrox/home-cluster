@@ -10,7 +10,12 @@ resources:
   - cloudflare-token-secret.cho.yaml
   - cloudflared-tunnel-creds.cho.yaml
 
-# secretGenerator:
+
+secretGenerator:
+  - name: external-dns-values-secret
+    namespace: external-dns
+    files:
+      - values.yaml=external-dns-values.cho-raw.yaml
 #   - name: client-info-secret
 #     namespace: synology-csi
 #     files:
@@ -18,3 +23,6 @@ resources:
 
 patchesStrategicMerge:
   - rook-ceph-cluster-patch.yaml
+
+configurations:
+  - kustomizeconfig.yaml

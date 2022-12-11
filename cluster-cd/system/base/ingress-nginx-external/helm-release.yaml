@@ -26,17 +26,17 @@ spec:
         namespace: flux-system
       interval: 5m
   values:
-    service:
-      type: ClusterIP
-      # annotations:
-      #   io.cilium/lb-ipam-ips: "${INGRESS_NGINX_EXTERNAL_IP}"
-      #   metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_EXTERNAL_IP}"
     controller:
       replicaCount: 2
       ingressClassResource:
         default: false
         name: nginx-external
         controllerValue: k8s.io/nginx-external
+      service:
+        type: ClusterIP
+        # annotations:
+        #   io.cilium/lb-ipam-ips: "${INGRESS_NGINX_EXTERNAL_IP}"
+        #   metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_EXTERNAL_IP}"
       config:
         enable-real-ip: true
         forwarded-for-header: proxy_protocol
