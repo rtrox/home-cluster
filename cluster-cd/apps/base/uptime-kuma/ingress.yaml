@@ -27,7 +27,7 @@ metadata:
         proxy_set_header   Upgrade $http_upgrade;
         proxy_cache_bypass $http_upgrade;
       }
-  ingress: "externaldns"
+    ingress: "externaldns"
 spec:
   tls:
     - hosts:
