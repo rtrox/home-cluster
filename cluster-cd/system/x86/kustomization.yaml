@@ -5,12 +5,20 @@ kind: Kustomization
 resources:
   - ../base
   - ../extension/synology-csi
-  - cilium-bgp-peering-policy.yaml
-  - cilium-lb-ip-pool.yaml
+  # - cilium-bgp-peering-policy.yaml
+  # - cilium-lb-ip-pool.yaml
   - cloudflare-token-secret.x86.yaml
+  - cloudflared-tunnel-creds.x86.yaml
 
 secretGenerator:
   - name: client-info-secret
     namespace: synology-csi
     files:
       - client-info.yml=client-info.x86-raw.yaml
+  - name: external-dns-values-secret
+    namespace: external-dns
+    files:
+      - values.yaml=external-dns-values.x86-raw.yaml
+
+configurations:
+  - kustomizeconfig.yaml
