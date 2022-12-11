@@ -7,6 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/tls-acme: "true"
+    ingress: "externaldns"
   labels:
     app.kubernetes.io/instance: *name
     app.kubernetes.io/name: *name
@@ -34,6 +35,7 @@ metadata:
   name: &rpcname matchbox-rpc
   annotations:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    ingress: "externaldns"
   labels:
     app.kubernetes.io/instance: *rpcname
     app.kubernetes.io/name: *rpcname

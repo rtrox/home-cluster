@@ -5,8 +5,8 @@ kind: Kustomization
 resources:
   - ../base
   - ../extension/synology-csi
-  # - cilium-bgp-peering-policy.yaml
-  # - cilium-lb-ip-pool.yaml
+  - cilium-bgp-peering-policy.yaml
+  - cilium-lb-ip-pool.yaml
   - cloudflare-token-secret.x86.yaml
   - cloudflared-tunnel-creds.x86.yaml
 

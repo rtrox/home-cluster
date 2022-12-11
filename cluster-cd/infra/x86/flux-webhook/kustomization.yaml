@@ -7,3 +7,4 @@ namespace: flux-system
 resources:
   - webhook-receiver.yaml
   - webhook-token-secret.x86.yaml
+  - webhook-dns.yaml
