@@ -64,6 +64,10 @@ systemd:
         OnBootSec=10min
         [Install]
         WantedBy=timers.target
+    - name: locksmithd.service
+      mask: true
+    - name: update-engine.service
+      enabled: true
 passwd:
   users:
     - name: core
