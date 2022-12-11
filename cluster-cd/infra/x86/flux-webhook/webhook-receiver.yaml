@@ -35,10 +35,6 @@ spec:
                 name: webhook-receiver
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - *host
-      secretName: flux-webhook-receiver-tls
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta1
 kind: Receiver
