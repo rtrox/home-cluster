@@ -27,9 +27,10 @@ spec:
       interval: 5m
   values:
     service:
-      annotations:
-        io.cilium/lb-ipam-ips: "${INGRESS_NGINX_EXTERNAL_IP}"
-        metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_EXTERNAL_IP}"
+      type: ClusterIP
+      # annotations:
+      #   io.cilium/lb-ipam-ips: "${INGRESS_NGINX_EXTERNAL_IP}"
+      #   metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_EXTERNAL_IP}"
     controller:
       replicaCount: 2
       ingressClassResource:

@@ -8,6 +8,7 @@ resources:
   - cilium-bgp-peering-policy.yaml
   - cilium-lb-ip-pool.yaml
   - cloudflare-token-secret.cho.yaml
+  - cloudflared-tunnel-creds.cho.yaml
 
 # secretGenerator:
 #   - name: client-info-secret
