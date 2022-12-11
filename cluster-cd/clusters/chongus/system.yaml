@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
+  timeout: 10m0s
   dependsOn:
     - name: cluster-config
     - name: sources

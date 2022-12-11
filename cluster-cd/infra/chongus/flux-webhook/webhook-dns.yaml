@@ -4,6 +4,8 @@ kind: DNSEndpoint
 metadata:
   name: flux-webhook
   namespace: network
+  annotations:
+    ingress: "externaldns"
 spec:
   endpoints:
     - dnsName: "flux-${SECRET_DOMAIN}"
