@@ -30,6 +30,24 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
+      initContainers:
+        - name: wait-for-repo
+          image: kopia/kopia:0.12.1
+          command:
+            - /bin/bash
+            - -c
+            - |-
+              until [ -f /backups/kopia.repository.f ]; do
+                  printf "\e[1;32m%-6s\e[m\n" "Awaiting for the Kopia repo to become ready ..."
+                  sleep 1
+              done
+          volumeMounts:
+            - mountPath: /backups
+              name: backups
+            - mountPath: /app/cache
+              name: cache
+            - mountPath: /app/logs
+              name: logs
       containers:
         - name: kopia
           image: kopia/kopia:0.12.1
@@ -46,7 +64,6 @@ spec:
             - 0.0.0.0:80
             - --metrics-listen-addr
             - 0.0.0.0:8080
-            - --without-password
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 1000
@@ -64,7 +81,9 @@ spec:
               protocol: TCP
           env:
             - name: KOPIA_PASSWORD
-              value: "none"
+              value: ${KOPIA_PASSWORD}
+            - name: USER
+              value: "root"
           livenessProbe:
             httpGet:
               path: /
@@ -90,10 +109,15 @@ spec:
             failureThreshold: 5
             timeoutSeconds: 2
           volumeMounts:
-            - mountPath: /config
+            - mountPath: /app/config/repository.config
+              subPath: repository.config
               name: config
             - mountPath: /backups
               name: backups
+            - mountPath: /app/cache
+              name: cache
+            - mountPath: /app/logs
+              name: logs
       volumes:
         - name: config
           configMap:
@@ -102,3 +126,7 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/backup/kopia
+        - name: cache
+          emptyDir: {}
+        - name: logs
+          emptyDir: {}
