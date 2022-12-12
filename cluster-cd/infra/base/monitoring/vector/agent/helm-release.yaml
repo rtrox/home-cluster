@@ -72,13 +72,6 @@ spec:
     podMonitor:
       enabled: true
 
-    resources:
-      requests:
-        cpu: 23m
-        memory: 164M
-      limits:
-        memory: 369M
-
     service:
       enabled: false
 
