@@ -158,12 +158,12 @@ alertmanager:
       ingress: "externaldns"
     enabled: true
     hosts:
-      - &host 'am.${SECRET_DOMAIN}'
+      - &am_host 'am.${SECRET_DOMAIN}'
     ingressClassName: nginx
     pathType: Prefix
     tls:
       - hosts:
-          - *host
+          - *am_host
         secretName: alertmanager-tls
   serviceAccount:
     create: true
@@ -175,7 +175,7 @@ grafana:
     backup.velero.io/backup-volumes: storage
   grafana.ini:
     server:
-      root_url: https://graphs.${SECRET_DOMAIN}/
+      root_url: &graf_host https://graf.${SECRET_DOMAIN}/
     auth.google:
       enabled: true
       client_id: ${GRAFANA_GOOGLE_CLIENT_ID}
@@ -208,10 +208,10 @@ grafana:
       ingress: externaldns
     enabled: true
     hosts:
-      - 'graf.${SECRET_DOMAIN}'
+      - *graf_host
     tls:
       - hosts:
-          - 'graf.${SECRET_DOMAIN}'
+          - *graf_host
         secretName: grafana-tls
   persistence:
     enabled: true
@@ -248,12 +248,12 @@ prometheus:
       ingress: externaldns
     enabled: true
     hosts:
-      - &host 'prom.${SECRET_DOMAIN}'
+      - &prom_host 'prom.${SECRET_DOMAIN}'
     ingressClassName: nginx
     pathType: Prefix
     tls:
       - hosts:
-          - *host
+          - *prom_host
         secretName: prometheus-tls
   prometheusSpec:
     podMetadata:
