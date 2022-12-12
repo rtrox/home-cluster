@@ -6,3 +6,5 @@
 
 # ensure sopsifier files don't leak
 **/.decrypted~*
+
+**/.DS_Store

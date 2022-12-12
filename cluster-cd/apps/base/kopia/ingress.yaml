@@ -7,18 +7,18 @@ metadata:
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
   labels:
-    app.kubernetes.io/instance: heimdall
-    app.kubernetes.io/name: &name heimdall
+    app.kubernetes.io/name: &name kopia
+    app.kubernetes.io/instance: *name
   name: *name
 spec:
   ingressClassName: nginx
   rules:
-    - host: &host dash.${SECRET_DOMAIN}
+    - host: &host kopia.${SECRET_DOMAIN}
       http:
         paths:
           - backend:
               service:
-                name: heimdall
+                name: kopia
                 port:
                   name: http
             path: /
@@ -26,4 +26,4 @@ spec:
   tls:
     - hosts:
         - *host
-      secretName: heimdall-tls
+      secretName: kopia-tls

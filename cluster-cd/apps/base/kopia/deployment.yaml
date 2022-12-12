@@ -3,11 +3,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: &name heimdall
+    app.kubernetes.io/name: &name kopia
     app.kubernetes.io/instance: *name
     app.kubernetes.io/component: *name
     app.kubernetes.io/part-of: *name
     k8s-app: *name
+  annotations:
+    configmap.reloader.stakater.com/reload: kopia-config
   name: *name
 spec:
   selector:
@@ -23,44 +25,46 @@ spec:
         app.kubernetes.io/name: *name
         app.kubernetes.io/instance: *name
         app.kubernentes.io/component: *name
-      annotations:
-        backup.velero.io/backup-volumes: config
     spec:
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        # fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
-        - name: heimdall
-          image: linuxserver/heimdall:2.4.13
+        - name: kopia
+          image: kopia/kopia:0.12.1
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: 256Mi
+              memory: 512Mi
             requests:
-              memory: 64Mi
-          # securityContext:
-          #   allowPrivilegeEscalation: false
-          #   runAsUser: 1000
-          #   seccompProfile:
-          #     type: RuntimeDefault
-          #   capabilities:
-          #     drop:
-          #       - ALL
+              memory: 512Mi
+          args:
+            - server
+            - --insecure
+            - --address
+            - 0.0.0.0:80
+            - --metrics-listen-addr
+            - 0.0.0.0:8080
+            - --without-password
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
-            - name: https
-              containerPort: 443
+            - name: metrics
+              containerPort: 8080
               protocol: TCP
           env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
-            - name: TZ
-              value: ${LOCAL_TZ}
+            - name: KOPIA_PASSWORD
+              value: "none"
           livenessProbe:
             httpGet:
               path: /
@@ -88,7 +92,13 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: config
+            - mountPath: /backups
+              name: backups
       volumes:
         - name: config
-          persistentVolumeClaim:
-            claimName: heimdall-config
+          configMap:
+            name: kopia-config
+        - name: backups
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/backup/kopia

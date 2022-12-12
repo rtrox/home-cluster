@@ -1,0 +1,20 @@
+---
+# Only one ServiceMonitor needed, it will pick
+# up any pod matched by the Service
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: &name kopia
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
+    jobLabel: *name
+spec:
+  endpoints:
+    - port: metrics
+      scheme: http
+  jobLabel: jobLabel
+  selector:
+    matchLabels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
