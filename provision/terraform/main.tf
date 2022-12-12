@@ -20,7 +20,7 @@ terraform {
 }
 
 module "chongus" {
-    source = "./modules/k3s_cluster"
+    source = "./modules/rke2_cluster"
 
     matchbox_http_endpoint = var.matchbox_http_endpoint
 
@@ -47,8 +47,11 @@ module "chongus" {
 
     api_vip = "172.18.2.252"
     api_vip_iface = "eno1"
-
-    k3s_token = "SUgK6pki1yzcdO40JmSGnzacN3KUrrmOm80Np2rgLyPXgVyG9ho8UtnhXNVKHKJl"
+    # pod_cidr_v6 = "2001:470:e899:43::/52"
+    # service_cidr_v6 = "2001:470:e899:44::/112"
+    pod_cidr_v6 = "fd01::/52"
+    service_cidr_v6 = "fd98::/112"
+    rke2_token = "SUgK6pki1yzcdO40JmSGnzacN3KUrrmOm80Np2rgLyPXgVyG9ho8UtnhXNVKHKJl"
     cluster_name = "chongus"
 
     cluster_domain = "rtrox.com"
@@ -58,17 +61,22 @@ module "chongus" {
     ]
 }
 
-output "k3s-config" {
-    value = module.chongus.k3s_config
-    description = "K3s Config"
+output "rke2-bootstrap-config" {
+    value = module.chongus.rke2_bootstrap_config
+    description = "RKE2 Config"
 }
 
-output "k3s-api-fqdn" {
+output "rke2-joiner-config" {
+    value = module.chongus.rke2_joiner_config
+    description = "RKE2 Config"
+}
+
+output "rke2-api-fqdn" {
     value = module.chongus.api_fqdn
-    description = "K3s API FQDN"
+    description = "RKE2 API FQDN"
 }
 
-output "k3s-api-vip" {
+output "rke2-api-vip" {
     value = module.chongus.api_vip
-    description = "K3s API VIP"
+    description = "RKE2 API VIP"
 }

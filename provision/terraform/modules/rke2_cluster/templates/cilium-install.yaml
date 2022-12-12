@@ -53,7 +53,7 @@ data:
 
   # Enable IPv6 addressing. If enabled, all endpoints are allocated an IPv6
   # address.
-  enable-ipv6: "false"
+  enable-ipv6: "true"
   # Users who wish to specify their own custom CNI configuration file must set
   # custom-cni-conf to "true", otherwise Cilium may overwrite the configuration.
   custom-cni-conf: "false"
@@ -134,6 +134,7 @@ data:
   auto-direct-node-routes: "true"
   enable-local-redirect-policy: "true"
   ipv4-native-routing-cidr: 10.42.0.0/16
+  ipv6-native-routing-cidr: fd00:10:42::/48
 
   kube-proxy-replacement: "strict"
   kube-proxy-replacement-healthz-bind-address: "0.0.0.0:10256"
@@ -530,7 +531,7 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "267b91b022d3dab23e572d6b6369f77f7d405ba21801567d975f917d4d1e67d6"
+        cilium.io/cilium-configmap-checksum: "ba499ed2ec0b403b2a8307f8f2c5b189733c6eb449f46c69088bb36be42a0176"
       labels:
         k8s-app: cilium
         app.kubernetes.io/name: cilium-agent
@@ -538,8 +539,8 @@ spec:
     spec:
       containers:
       - name: cilium-agent
-        image: "quay.io/cilium/cilium:v1.13.90"
-        imagePullPolicy: IfNotPresent
+        image: "quay.io/cilium/cilium-ci:latest"
+        imagePullPolicy: Always
         command:
         - cilium-agent
         args:
@@ -658,8 +659,8 @@ spec:
           mountPath: /run/xtables.lock
       initContainers:
       - name: clean-cilium-state
-        image: "quay.io/cilium/cilium:v1.13.90"
-        imagePullPolicy: IfNotPresent
+        image: "quay.io/cilium/cilium-ci:latest"
+        imagePullPolicy: Always
         command:
         - /init-container.sh
         env:
@@ -791,7 +792,7 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "267b91b022d3dab23e572d6b6369f77f7d405ba21801567d975f917d4d1e67d6"
+        cilium.io/cilium-configmap-checksum: "ba499ed2ec0b403b2a8307f8f2c5b189733c6eb449f46c69088bb36be42a0176"
       labels:
         io.cilium/app: operator
         name: cilium-operator
@@ -800,8 +801,8 @@ spec:
     spec:
       containers:
       - name: cilium-operator
-        image: "quay.io/cilium/operator-generic:v1.13.90"
-        imagePullPolicy: IfNotPresent
+        image: "quay.io/cilium/operator-generic-ci:latest"
+        imagePullPolicy: Always
         command:
         - cilium-operator-generic
         args:

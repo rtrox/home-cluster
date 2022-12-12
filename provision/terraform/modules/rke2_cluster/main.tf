@@ -41,9 +41,7 @@ data "ct_config" "worker" {
         ssh_authorized_keys = jsonencode(var.ssh_authorized_keys)
         node_name = var.machines[count.index].name
         cluster_fqdn = local.cluster_fqdn
-        bootstrap = count.index == 0 ? true : false
-        k3s_token = var.k3s_token
-        k3s_config = data.template_file.k3s-config.rendered
+        rke2_config = data.template_file.rke2-config[count.index].rendered
         cilium_install = data.template_file.cilium-install.rendered
         api_vip = var.api_vip
         api_vip_iface = var.api_vip_iface
@@ -60,11 +58,16 @@ data "template_file" "kube-vip" {
     }
 }
 
-data "template_file" "k3s-config" {
-    template = file("${path.module}/templates/k3s-config.yaml")
+data "template_file" "rke2-config" {
+    count = length(var.machines)
+    template = file("${path.module}/templates/rke2-config.yaml")
     vars = {
         api_vip = var.api_vip
         api_fqdn = local.api_fqdn
+        rke2_token = var.rke2_token
+        bootstrap = count.index == 0 ? true : false
+        pod_cidr_v6 = var.pod_cidr_v6
+        service_cidr_v6 = var.service_cidr_v6
     }
 }
 
@@ -73,6 +76,8 @@ data "template_file" "cilium-install" {
     vars = {
         api_vip = var.api_vip
         cluster_name = var.cluster_name
+        pod_cidr_v6 = var.pod_cidr_v6
+        service_cidr_v6 = var.service_cidr_v6
     }
 }
 

@@ -1,6 +1,6 @@
 # NOT USED BY TERRAFORM
 # this file is used to generate the cilium-install.yaml manifest for k3s.
-# once generated, search & replace 10.20.0.250 with ${api_vip},
+# once generated, search & replace 10.20.0.250 with ${api_vip}, f00d::a0a:0:0:0/52 with ${pod_cidr_v6}
 # "cluster-0" with ${cluster_name} and ${BIN_PATH} with $${BIN_PATH}
 ---
 cluster:
@@ -24,6 +24,21 @@ ipam:
 
 operator:
   rollOutPods: true
+  image:
+    override: ~
+    repository: "quay.io/cilium/operator"
+    tag: "latest"
+    # operator-generic-digest
+    genericDigest: ""
+    # operator-azure-digest
+    azureDigest: ""
+    # operator-aws-digest
+    awsDigest: ""
+    # operator-alibabacloud-digest
+    alibabacloudDigest: ""
+    useDigest: false
+    pullPolicy: "Always"
+    suffix: "-ci"
 
 # autoDirectNodeRoutes enables installation of PodCIDR routes between worker
 # nodes if worker nodes share a common L2 network segment.
@@ -37,6 +52,7 @@ containerRuntime:
 # nativeRoutingCIDR allows to explicitly specify the CIDR for native routing. This
 # value corresponds to the configured cluster-cidr.
 ipv4NativeRoutingCIDR: 10.42.0.0/16
+ipv6NativeRoutingCIDR: fd00:10:42::/48
 tunnel: disabled
 
 hubble:
@@ -45,7 +61,8 @@ hubble:
 
 ipv6:
   # -- Enable IPv6 support.
-  enabled: false
+  enabled: true
+# enableIPv6Masquerade: true
 
 # Cilium leverages MetalLB's simplified BGP announcement system for service type: LoadBalancer
 bgp:
@@ -69,3 +86,12 @@ cgroup:
 
 securityContext:
   privileged: true
+
+image:
+  override: ~
+  repository: "quay.io/cilium/cilium-ci"
+  tag: "latest"
+  pullPolicy: "Always"
+  # cilium-digest
+  digest: ""
+  useDigest: false

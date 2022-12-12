@@ -13,6 +13,7 @@ localRedirectPolicy: true
 kubeProxyReplacement: strict
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
 ipv4NativeRoutingCIDR: ${CILIUM_NATIVE_ROUTING_CIDR}
+ipv6NativeRoutingCIDR: ${CILIUM_NATIVE_ROUTING_CIDR_V6}
 k8sServiceHost: ${KUBE_API_VIP}
 k8sServicePort: 6443
 loadBalancer:
@@ -25,7 +26,7 @@ autoDirectNodeRoutes: true
 ipam:
   mode: kubernetes
 ipv6:
-  enabled: false
+  enabled: true
 operator:
   rollOutPods: true
   prometheus:

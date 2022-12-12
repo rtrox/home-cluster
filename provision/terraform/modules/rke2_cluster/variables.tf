@@ -14,7 +14,7 @@ variable "machines" {
   description = "List of machines to provision"
 }
 
-variable "k3s_token" {
+variable "rke2_token" {
     type        = string
     description = "K3s token to use for cluster"
 }
@@ -42,4 +42,14 @@ variable "api_vip" {
 variable "api_vip_iface" {
     type = string
     description = "VIP Interface for Kubernetes API"
+}
+
+variable "pod_cidr_v6" {
+    type = string
+    description = "IPv6 Pod CIDR"
+}
+
+variable "service_cidr_v6" {
+    type = string
+    description = "IPv6 Service CIDR"
 }
