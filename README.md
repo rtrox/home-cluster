@@ -92,24 +92,32 @@ flux bootstrap github \
 ```
 
 ## CNI Setup Hack
+
 I need to find a better way to do this, but right now, this is a little hacky. Since we're installing Cilium during the install, it's already present on the machine, but without all the proper configs (quick install is stripped down to prevent leaking certificates via this repo). In gitops, there is a helm chart which deploys cilium with all the right options. This is done because the Talos docs say that the talos machines will reboot every 10 minutes if the nodes don't become `Ready`, and `Ready` state relies on an initialized CNI.  So once Flux is bootstrapped, it's necessary to:
+
 1. Uninstall Cilium
+
 ```bash
 cilium uninstall
 ```
-2. The Helm Chart likely failed to deploy due to resources with the same name already being present, so delete the helm release:
+
+1. The Helm Chart likely failed to deploy due to resources with the same name already being present, so delete the helm release:
+
 ```bash
 flux delete hr -n kube-system cilium
 ```
-3. Trigger a reconcile
-```
+
+1. Trigger a reconcile
+
+```bash
 flux reconcile kustomization system
 ```
 
-# Network
-## Management
+## Network
 
-```
+### Management
+
+```text
 172.16.254.1 Router
 172.16.254.2 CloudKey
 172.16.254.3 Sidero
@@ -118,30 +126,45 @@ flux reconcile kustomization system
 172.16.254.21 Ender3
 ```
 
-## Cluster IPs
+### Cluster IPs
 
-```
+```text
 172.16.1.0/24 Pi Cluster
 172.16.2.0/24 ThinkKube
 172.16.3.0/24 Rockkube
 ```
 
-## Loadbalancers
+### Loadbalancers
 
-```
+```text
 172.17.1.0/24 Pi Load Balancers
 172.17.2.0/24 ThinkKube Load Balancers
 172.17.3.0/24 Rockkube Load Balancers
 ```
 
-# Ingresses
+## Ingresses
+
 Two ingresses are configured:
+
 - `IngressClass` `nginx` (default) is only accessible from the local network.
 - `IngressClass` `nginx-external` is accessible to the internet.
 
-# TODO
+## TODO
 
 - rpi4-sidero -> flatcar, cilium.
 - cloudflare provisioning in terraform
 - sops for terraform secrets, clear history, and make public again.
 -
+
+## Operations
+
+### Using etcdctl
+
+```bash
+# Defrag
+for etcdpod in $(kubectl -n kube-system get pod -l component=etcd --no-headers -o custom-columns=NAME:.metadata.name); do kubectl -n kube-system exec $etcdpod -- sh -c "ETCDCTL_ENDPOINTS='https://127.0.0.1:2379' ETCDCTL_CACERT='/var/lib/rancher/rke2/server/tls/etcd/server-ca.crt' ETCDCTL_CERT='/var/lib/rancher/rke2/server/tls/etcd/server-client.crt' ETCDCTL_KEY='/var/lib/rancher/rke2/server/tls/etcd/server-client.key' ETCDCTL_API=3 etcdctl defrag"; done
+```
+
+### Useful links
+
+- [Gist of RKE2 Commands & such](https://gist.github.com/superseb/3b78f47989e0dbc1295486c186e944bf)

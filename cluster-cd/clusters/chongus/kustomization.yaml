@@ -8,3 +8,4 @@ resources:
   - sources.yaml
   - system.yaml
   - infra.yaml
+  - apps.yaml
