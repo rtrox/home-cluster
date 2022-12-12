@@ -158,7 +158,7 @@ alertmanager:
       ingress: "externaldns"
     enabled: true
     hosts:
-      - &host 'alerts.${SECRET_DOMAIN}'
+      - &host 'am.${SECRET_DOMAIN}'
     ingressClassName: nginx
     pathType: Prefix
     tls:
@@ -208,10 +208,10 @@ grafana:
       ingress: externaldns
     enabled: true
     hosts:
-      - 'graphs.${SECRET_DOMAIN}'
+      - 'graf.${SECRET_DOMAIN}'
     tls:
       - hosts:
-          - 'graphs.${SECRET_DOMAIN}'
+          - 'graf.${SECRET_DOMAIN}'
         secretName: grafana-tls
   persistence:
     enabled: true
@@ -248,7 +248,7 @@ prometheus:
       ingress: externaldns
     enabled: true
     hosts:
-      - &host 'prometheus.${SECRET_DOMAIN}'
+      - &host 'prom.${SECRET_DOMAIN}'
     ingressClassName: nginx
     pathType: Prefix
     tls:

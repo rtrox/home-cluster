@@ -13,7 +13,7 @@ query:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       kubernetes.io/tls-acme: 'true'
       ingress: externaldns
-    hostname: thanos.${SECRET_DOMAIN}
+    hostname: thanos-query.${SECRET_DOMAIN}
     tls: true
 queryFrontend:
   enabled: false
