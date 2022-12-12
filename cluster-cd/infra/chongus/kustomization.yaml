@@ -8,3 +8,6 @@ resources:
   - ceph-dashboards
   - thanos-objstore-secret.cho.yaml
   - loki-secrets.cho.yaml
+
+patchesStrategicMerge:
+  - loki-patch.yaml
