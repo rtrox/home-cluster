@@ -175,7 +175,7 @@ grafana:
     backup.velero.io/backup-volumes: storage
   grafana.ini:
     server:
-      root_url: &graf_host https://graf.${SECRET_DOMAIN}/
+      root_url: https://graf.${SECRET_DOMAIN}/
     auth.google:
       enabled: true
       client_id: ${GRAFANA_GOOGLE_CLIENT_ID}
@@ -208,7 +208,7 @@ grafana:
       ingress: externaldns
     enabled: true
     hosts:
-      - *graf_host
+      - &graf_host graf.${SECRET_DOMAIN}
     tls:
       - hosts:
           - *graf_host
