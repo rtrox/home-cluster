@@ -9,3 +9,12 @@ resources:
   - ../base/prometheus-snmp-exporter
   - ../base/prometheus-speedtest-exporter
   - ../base/uptime-kuma
+  - ../base/blocky
+
+secretGenerator:
+  - name: mosquitto-helm-values-secret
+    files:
+      - values.yaml=mosquitto-helm-values-secret.x86-raw.yaml
+
+configurations:
+  - kustomizeconfig.yaml

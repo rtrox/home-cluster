@@ -16,3 +16,4 @@ resources:
   - vmware-tanzu-charts.yaml
   - bitsbeats-charts.yaml
   - rook-ceph-charts.yaml
+  - truecharts.yaml

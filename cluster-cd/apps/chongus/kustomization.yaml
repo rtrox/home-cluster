@@ -4,3 +4,4 @@ kind: Kustomization
 
 resources:
   - ../base/kopia
+  - ../base/blocky

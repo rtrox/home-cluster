@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   # - emqx-github.yaml
   - cilium-git-charts.yaml
+  - truecharts-git-charts.yaml
