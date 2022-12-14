@@ -11,6 +11,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - namespace.yaml
+  - ingress.yaml
 
 configMapGenerator:
   - name: blocky-config

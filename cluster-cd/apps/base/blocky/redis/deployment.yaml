@@ -25,8 +25,8 @@ spec:
           args:
             - |
               cp /tmp/redis/redis.conf /etc/redis/redis.conf
-              sed -i 's/^masterauth .*$/masterauth ${REDIS_PASSWORD}/' redis.conf
-              sed -i 's/^requirepass .*$/masterauth ${REDIS_PASSWORD}/' redis.conf
+              sed -i "s/^masterauth .*$/masterauth $${REDIS_PASSWORD}/" /etc/redis/redis.conf
+              sed -i "s/^requirepass .*$/requirepass $${REDIS_PASSWORD}/" //etc/redis/redis.conf
               echo "finding master..."
               MASTER_FDQN=`hostname  -f | sed -e 's/redis-[0-9]\./redis-0./'`
               if [ "$(redis-cli -h sentinel -p 5000 ping)" != "PONG" ]; then
