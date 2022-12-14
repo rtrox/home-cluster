@@ -4,3 +4,5 @@ kind: Kustomization
 
 resources:
   - ../base/blocky
+  - postgres-config.cho.yaml
+  - redis-password.cho.yaml

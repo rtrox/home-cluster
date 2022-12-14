@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blocky
+  labels:
+    app.kubernetes.io/name: blocky
+    app.kubernetes.io/instance: blocky
+    app.kubernetes.io/component: blocky
+    app.kubernetes.io/part-of: blocky
+    k8s-app: blocky
+  annotations:
+    io.cilium/lb-ipam-ips: 1${BLOCKY_IP}
+spec:
+  selector:
+    app.kubernetes.io/name: blocky
+    app.kubernetes.io/instance: blocky
+  ports:
+    - port: 53
+      name: dnstcp
+      targetPort: dnstcp
+      protocol: TCP
+    - port: 53
+      name: dnsudp
+      targetPort: dnsudp
+      protocol: UDP
+    - port: 80
+      name: http
+      targetPort: http
+      protocol: TCP
+  type: LoadBalancer

@@ -9,7 +9,7 @@ resources:
   - ../base/prometheus-snmp-exporter
   - ../base/prometheus-speedtest-exporter
   - ../base/uptime-kuma
-  - ../base/blocky
+  # - ../base/blocky
 
 secretGenerator:
   - name: mosquitto-helm-values-secret
