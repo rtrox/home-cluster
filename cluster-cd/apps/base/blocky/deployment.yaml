@@ -36,10 +36,16 @@ spec:
           args:
             - |
               cp /tmp/config/config.yaml /config/config.yaml
+              echo "REDIS_PASSWORD: ${REDIS_PASSWORD}"
+              echo "POSTGRES_USER: ${POSTGRES_USER}"
+              echo "POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}"
+              echo "POSTGRES_DB: ${POSTGRES_DB}"
               sed -i "s/REDIS_PASSWORD/${REDIS_PASSWORD}/" /config/config.yaml
               sed -i "s/POSTRES_USER/${POSTGRES_USER}/" /config/config.yaml
               sed -i "s/POSTRES_PASSWORD/${POSTGRES_PASSWORD}/" /config/config.yaml
               sed -i "s/POSTRES_DB_NAME/${POSTGRES_DB}/" /config/config.yaml
+              echo "Config:"
+              cat /config/config.yaml
           envFrom:
             - secretRef:
                 name: redis-password
