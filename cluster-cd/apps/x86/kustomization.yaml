@@ -13,6 +13,7 @@ resources:
 
 secretGenerator:
   - name: mosquitto-helm-values-secret
+    namespace: home
     files:
       - values.yaml=mosquitto-helm-values-secret.x86-raw.yaml
 
