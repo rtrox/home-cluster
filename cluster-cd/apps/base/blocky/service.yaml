@@ -10,12 +10,8 @@ metadata:
     app.kubernetes.io/part-of: blocky
     k8s-app: blocky
   annotations:
-    io.cilium/lb-ipam-ips: "${BLOCKY_IP},${BLOCKY_IP6}"
+    io.cilium/lb-ipam-ips: "${BLOCKY_IP}"
 spec:
-  ipFamilyPolicy: PreferDualStack
-  ipFamilies:
-    - IPv6
-    - IPv4
   selector:
     app.kubernetes.io/name: blocky
     app.kubernetes.io/instance: blocky
