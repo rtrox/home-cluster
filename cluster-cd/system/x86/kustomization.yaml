@@ -10,6 +10,12 @@ resources:
   - cloudflare-token-secret.x86.yaml
   - cloudflared-tunnel-creds.x86.yaml
 
+configMapGenerator:
+  - name: cilium-cluster-values
+    namespace: kube-system
+    files:
+      - values.yaml=cilium-cluster-values.yaml
+
 secretGenerator:
   - name: client-info-secret
     namespace: synology-csi

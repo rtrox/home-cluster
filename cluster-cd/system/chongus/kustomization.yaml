@@ -10,6 +10,11 @@ resources:
   - cloudflare-token-secret.cho.yaml
   - cloudflared-tunnel-creds.cho.yaml
 
+configMapGenerator:
+  - name: cilium-cluster-values
+    namespace: kube-system
+    files:
+      - values.yaml=cilium-cluster-values.yaml
 
 secretGenerator:
   - name: external-dns-values-secret
