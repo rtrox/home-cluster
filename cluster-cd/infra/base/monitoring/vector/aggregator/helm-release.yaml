@@ -158,6 +158,8 @@ spec:
               {{`{{ k8s_node }}`}}
             k8s_pod: >-
               {{`{{ k8s_pod }}`}}
+            cluster: >-
+              ${CLUSTER_NAME}
         loki_journal:
           type: loki
           inputs:

@@ -274,6 +274,8 @@ prometheus:
               storage: 50Gi
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
+    externalLabels:
+      cluster: ${CLUSTER_NAME}
     thanos:
       image: quay.io/thanos/thanos:v0.29.0
       objectStorageConfig:
