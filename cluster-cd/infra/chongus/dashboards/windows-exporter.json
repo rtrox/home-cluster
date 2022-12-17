@@ -26,7 +26,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 14694,
   "graphTooltip": 1,
-  "id": 32,
+  "id": 33,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -175,7 +175,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^{instance=\"172.16.0.55:9100\"}$/",
+          "fields": "",
           "values": false
         },
         "showThresholdLabels": false,
@@ -188,10 +188,14 @@
             "type": "prometheus",
             "uid": "PED04140C711A11BA"
           },
+          "editorMode": "code",
+          "exemplar": false,
           "expr": "100 - (avg by (instance) (irate(windows_cpu_time_total{mode=\"idle\", instance=~\"$server\"}[1m])) * 100)",
           "format": "time_series",
+          "instant": false,
           "intervalFactor": 1,
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -257,7 +261,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^{instance=\"172.16.0.55:9100\", job=\"win-exporter\"}$/",
+          "fields": "",
           "values": false
         },
         "showThresholdLabels": false,
@@ -338,7 +342,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^{instance=\"172.16.0.55:9100\"}$/",
+          "fields": "",
           "values": false
         },
         "showThresholdLabels": false,
@@ -609,7 +613,7 @@
           "calcs": [
             "mean"
           ],
-          "fields": "/^windows_cs_logical_processors{instance=\"172.16.0.55:9100\", job=\"win-exporter\"}$/",
+          "fields": "",
           "values": false
         },
         "textMode": "auto"
@@ -623,10 +627,12 @@
             "type": "prometheus",
             "uid": "PED04140C711A11BA"
           },
+          "editorMode": "code",
           "expr": "windows_cs_logical_processors{instance=~\"$server\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -692,7 +698,7 @@
           "calcs": [
             "mean"
           ],
-          "fields": "/^windows_cs_physical_memory_bytes{instance=\"172.16.0.55:9100\", job=\"win-exporter\"}$/",
+          "fields": "",
           "values": false
         },
         "textMode": "auto"
@@ -889,7 +895,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^172.16.0.55:9100$/",
+          "fields": "",
           "values": false
         },
         "showThresholdLabels": false,
@@ -1475,65 +1481,102 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PED04140C711A11BA"
       },
-      "decimals": 2,
-      "fill": 1,
-      "fillGradient": 0,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 5,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 9,
         "w": 7,
         "x": 12,
         "y": 23
       },
-      "hiddenSeries": false,
       "hideTimeOverride": false,
       "id": 29,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "min"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
-      "paceLength": 10,
-      "percentage": false,
       "pluginVersion": "9.3.1",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PED04140C711A11BA"
           },
+          "editorMode": "code",
           "expr": "sum(increase(windows_net_bytes_received_total{instance=\"$server\"}[1h])) by (instance)",
           "format": "time_series",
-          "interval": "1h",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Received-Download",
+          "range": true,
           "refId": "A"
         },
         {
@@ -1541,43 +1584,18 @@
             "type": "prometheus",
             "uid": "PED04140C711A11BA"
           },
+          "editorMode": "code",
           "expr": "sum(increase(windows_net_bytes_sent_total{instance=\"$server\"}[1h])) by (instance)",
           "format": "time_series",
-          "interval": "1h",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "Sent-Upload",
+          "range": true,
           "refId": "B"
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Flow Per Hour",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "bytes",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "aliasColors": {},
@@ -2126,52 +2144,88 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "PED04140C711A11BA"
       },
-      "fill": 1,
-      "fillGradient": 0,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 9,
         "w": 10,
         "x": 14,
         "y": 41
       },
-      "hiddenSeries": false,
       "hideTimeOverride": false,
       "id": 12,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null as zero",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "percentage": false,
       "pluginVersion": "9.3.1",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "application": {
@@ -2181,7 +2235,8 @@
             "type": "prometheus",
             "uid": "PED04140C711A11BA"
           },
-          "expr": "windows_process_thread_count{instance=~\"$server\"}",
+          "editorMode": "code",
+          "expr": "windows_process_threads{instance=~\"$server\"}",
           "format": "time_series",
           "functions": [],
           "group": {
@@ -2202,39 +2257,13 @@
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "A",
           "step": 20
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "system_threads",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     }
   ],
   "refresh": "5s",
@@ -2333,8 +2362,8 @@
     ]
   },
   "timezone": "browser",
-  "title": "Windows Exporter Dashboard 2",
-  "uid": "7UlnHoGZ2",
-  "version": 1,
+  "title": "Windows Exporter Dashboard",
+  "uid": "7UlnHoGZc",
+  "version": 2,
   "weekStart": ""
 }
