@@ -188,7 +188,7 @@ grafana:
     datasources:
       defaultDatasourceEnabled: false
   additionalDataSources:
-    - name: Prometheus
+    - name: Prometheus (${CLUSTER_NAME})
       type: prometheus
       access: proxy
       url: http://thanos-query:9090/

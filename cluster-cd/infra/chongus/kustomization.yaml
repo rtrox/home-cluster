@@ -9,5 +9,16 @@ resources:
   - thanos-objstore-secret.cho.yaml
   - loki-secrets.cho.yaml
 
+secretGenerator:
+  - name: kube-prometheus-stack-datasources-values
+    namespace: monitoring
+    files:
+      - values.yaml=kube-prometheus-stack-datasources-values.cho-raw.yaml
+
 patchesStrategicMerge:
   - loki-patch.yaml
+  - kube-prometheus-stack-patch.yaml
+
+
+configurations:
+  - kustomizeconfig.yaml
