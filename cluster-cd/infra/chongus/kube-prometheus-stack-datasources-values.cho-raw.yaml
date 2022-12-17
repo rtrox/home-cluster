@@ -1,3 +1,10 @@
+prometheus:
+    prometheusSpec:
+        additionalScrapeConfigs:
+            - job_name: ENC[AES256_GCM,data:EbomVx8leg/SpdDzOP9+WA==,iv:ybX6f9pURxIDLwXfJ66XnWoaWOQu8H1nJDdwXktPhog=,tag:4LAg1WSCeylnPDvhYyG76g==,type:str]
+              static_configs:
+                - targets:
+                    - ENC[AES256_GCM,data:H3gi2/IsW+hjOrX1c+/t8zC3,iv:47kvSqI7mW0+5pUC9b4ZGLOYrvPb7cMtgL9yWPAiBYw=,tag:JU/P9EoK6/WgpQEz2EmqOw==,type:str]
 grafana:
     additionalDataSources:
         - name: ENC[AES256_GCM,data:yWeQoBw3jcZU4Hrz1zYVfDkNPg0=,iv:R+n75qsgyoFD+K3CMV4WrSCYEBGJsVm9WRsKR9gfSNA=,tag:uoPgEPLbIUFZ8H4dcsAx/g==,type:str]
@@ -59,8 +66,8 @@ sops:
             ZDN3YjVhTlcvSWExOUhOOEFTMWNaUGcKE5F/dH2xkgLWqnWCIR0Ww8a5l8YQ0C2f
             bCWaWvzk1JPb4om/ZC9eEskIzTuUaTK9zvdK5kLG0oAfOCmXwLchBA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-12-17T06:13:05Z"
-    mac: ENC[AES256_GCM,data:P5+D4ZNOkMnkIBwN4/Wpmfwf/PnW5O6JHW6Bpj1QNg6MeQr7xbLCEu0U9JO8kNOljzesFURVxFD+VmbsFpTx7abYHjNMtpjjEvm4DvFTrPvV5BCvRWFfZxYJ3dAOrCyRszG+33Vl0wuUBwABRM4Q8W6Yz8OtnredEAK056FZBBg=,iv:vFsoNpod2ElG83TKP2nOfS6fe9LQpaEV8w6qAdgHeyE=,tag:z3Lg4oiJ5GN/biNabP7sJg==,type:str]
+    lastmodified: "2022-12-17T06:55:25Z"
+    mac: ENC[AES256_GCM,data:TpIn33nBH4qqEong6sHRed81uxoPT3q697EGMxnDWAN3oQRhLJFWa/glJOURu6G0SJeIzy/ZmTRPk2y4Lq1NSQxRBYAzPH7NCFrM/iCdblNP/AqdJDorm684BGvCS51J3z80OS/BRz8PuUDfHraXltUjqhZMRCobjoctcU5VBSM=,iv:O/NM16Veh7lMSKhSjGK9ne0aVyENMWmaB5YCDOpYaic=,tag:RnvQe6RxBjJ5mldpCNrcFQ==,type:str]
     pgp: []
     unencrypted_suffix: _unencrypted
     version: 3.7.1

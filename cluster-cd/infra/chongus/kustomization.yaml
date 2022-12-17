@@ -9,6 +9,18 @@ resources:
   - thanos-objstore-secret.cho.yaml
   - loki-secrets.cho.yaml
 
+configMapGenerator:
+  - name: extra-dashboards
+    namespace: monitoring
+    files:
+      - dashboards/windows-exporter.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/component: monitoring
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
+
 secretGenerator:
   - name: kube-prometheus-stack-datasources-values
     namespace: monitoring
