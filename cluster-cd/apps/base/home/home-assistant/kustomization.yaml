@@ -14,6 +14,6 @@ resources:
 
 images:
   - name: homeassistant/home-assistant
-    newTag: "2022.11"
+    newTag: "2022.12"
   - name: codercom/code-server
     newTag: "4.9.1"
