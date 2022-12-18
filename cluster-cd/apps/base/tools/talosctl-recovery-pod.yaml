@@ -22,6 +22,6 @@ spec:
       path: /
       type: Directory
   - name: backup
-      nfs:
-        server: 172.16.254.11
-        path: /volume1/backup/
+    nfs:
+      server: 172.16.254.11
+      path: /volume1/backup/
