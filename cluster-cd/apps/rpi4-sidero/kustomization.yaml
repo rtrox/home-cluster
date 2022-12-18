@@ -4,4 +4,5 @@ kind: Kustomization
 
 resources:
   - ../base/matchbox
+  - ../base/tools/talosctl-recovery-pod.yaml
   - matchbox-rpc-secret.sid.yaml
