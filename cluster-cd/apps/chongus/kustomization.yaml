@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - ../base/blocky
+  - ../base/tools/talosctl-recovery-pod.yaml
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
 
