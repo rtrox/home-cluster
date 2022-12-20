@@ -38,12 +38,16 @@ spec:
             add:
               - NET_ADMIN
 
+        networkPolicy:
+          # CiliumNetworkPolicy instead
+          enabled: false
       netshoot:
         enabled: true
 
     podAnnotations:
       secret.reloader.stakater.com/reload: pod-gateway-config
 
+    DNS: 10.3.0.1
     routed_namespaces:
       - downloads
 
@@ -57,9 +61,9 @@ spec:
       VXLAN_IP_NETWORK: 10.3.0
 
     webhook:
-      gatewayAnnotation: setGateway
-      gatewayDefault: false
-      gatewayLabel: setGateway
+      gatewayDefault: true
+      namespaceSelector:
+        label: routed-gateway
       image:
         repository: ghcr.io/angelnu/gateway-admision-controller
         tag: v3.7.0@sha256:985eb60fd0017f657d5e66707f7e9b3f764f3337a87a379d26cd15e950bd79ad

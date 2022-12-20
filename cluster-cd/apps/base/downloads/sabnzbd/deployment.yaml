@@ -1,0 +1,122 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: &name sabnzbd
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/component: *name
+    app.kubernetes.io/part-of: *name
+    k8s-app: *name
+  name: *name
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *name
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *name
+        setGateway: "true"
+      annotations:
+        backup.velero.io/backup-volumes: config
+        secret.reloader.stakater.com/reload: sabnzbd-secret
+    spec:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 100
+      containers:
+        - name: nzbget
+          image: ghcr.io/onedr0p/sabnzbd:3.7.1@sha256:73d893b97571bbd699a495061b52959fa38b1dc37c54941c4ebfa400ec24c9e7
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 8Gi
+            requests:
+              memory: 250Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 568
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: TZ
+              value: ${LOCAL_TZ}
+            - name: SABNZBD__PORT
+              value: "80"
+            - name: SABNZBD__HOST_WHITELIST_ENTRIES
+              value: >-
+                sabznbd,
+                sabnzbd.downloads,
+                sabnzbd.downloads.svc,
+                sabnzbd.downloads.svc.cluster,
+                sabnzbd.downloads.svc.cluster.local,
+                sab.${SECRET_DOMAIN}
+          envFrom:
+            - secretRef:
+                name: sabnzbd-secret
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /incomplete
+              name: incomplete
+            - mountPath: /downloads
+              name: downloads
+            - mountPath: /media
+              name: media
+      volumes:
+        # TODO: NFS Volumes
+        - name: config
+          persistentVolumeClaim:
+            claimName: sabnzbd-config
+        - name: downloads
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/downloads
+        - name: media
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/media
+        - name: incomplete
+          emptyDir: {}
+

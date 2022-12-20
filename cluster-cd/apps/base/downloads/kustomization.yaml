@@ -6,3 +6,8 @@ namespace: downloads
 
 resources:
   - namespace.yaml
+  - networkpolicy.yaml
+  - sabnzbd
+
+commonLabels:
+  apply-namespace-egress-policy: "true"

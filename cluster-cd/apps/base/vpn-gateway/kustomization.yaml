@@ -6,6 +6,7 @@ namespace: vpn
 
 resources:
   - namespace.yaml
+  - networkpolicy.yaml
   - helm-release.yaml
 
 commonLabels:

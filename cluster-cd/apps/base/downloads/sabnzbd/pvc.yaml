@@ -1,0 +1,14 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &name sabnzbd-config
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: sabnzbd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

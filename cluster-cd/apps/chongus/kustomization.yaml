@@ -9,6 +9,7 @@ resources:
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
+  - sabnzbd-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml
