@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: pod-gateway-config
+    namespace: vpn
+    labels:
+        app: pod-gateway
+type: Opaque
+stringData:
+    VPN_SERVICE_PROVIDER: ENC[AES256_GCM,data:ALfMVO24,iv:K0Tt0fUii1ji0Uh9/4hD5PLKcK9R5pUlNLGa2siQQCU=,tag:R/9tc5w//+mCNbBlYjzKQQ==,type:str]
+    VPN_TYPE: ENC[AES256_GCM,data:SlRN2/XFvzaO,iv:1+D8ETqeKN38ELO7TFUBJyEMHgsT/LrLkPthoBv9XeA=,tag:F3dSxvL2KSyZRaf5bzKdkw==,type:str]
+    VPN_INTERFACE: ENC[AES256_GCM,data:l5T5,iv:+T3xMkCOUWOun/G1Q07M3YXTgFeZh6lCEBOBA26KpX8=,tag:pDO2m95isN/re+ef+mP3Jw==,type:str]
+    VPN_ENDPOINT_IP: ENC[AES256_GCM,data:pqNA6VL8fSCUvAImPGyX,iv:xvwM1IFvS5vh7SerHI5fDRkLrT3eryloqpUn1HDcSCc=,tag:1qtS2Q4q4VsqPJ0a2cYN8w==,type:str]
+    VPN_ENDPOINT_PORT: ENC[AES256_GCM,data:WQCR2vk=,iv:egNNqFRMJSck7ioztNfIOZDtX145ARpY/mQlJoX0MIs=,tag:/VEf0RcL5VBABICypeincA==,type:str]
+    WIREGUARD_PUBLIC_KEY: ENC[AES256_GCM,data:G8aCCK4ezA0GcmkYyMAlnQ937UNznVvp7Iw2m1OWSpaJZPPPh5GviASBQHI=,iv:sO1KRzpVHBdCu/KmQUYaZt3fmGTfAo21ukqO7KKyIVs=,tag:4lThsQiiiIMLXRa0jF+LRg==,type:str]
+    WIREGUARD_PRIVATE_KEY: ENC[AES256_GCM,data:OctSax9+eqJ+5n1ok5yCrLynaKtaSkNxEOUWqhUpYNfQDMwcycfMC/HldMA=,iv:1VMgUfgKa55W9Uhw/U+VNlT9e6h4/0FTRzAh9pidlss=,tag:mPzpNjUUQC8R7eOmpu8LmQ==,type:str]
+    WIREGUARD_ADDRESSES: ENC[AES256_GCM,data:78zLxOAWmEMHqIo=,iv:qYkmU88wQfvjd7GKHzPOyvWUohBFsqCshgFZofB7+og=,tag:/+fgU2xUGT0yi7ahw4DQ+g==,type:str]
+    DNS_ADDRESS: ENC[AES256_GCM,data:L1Xh6B+AGIk=,iv:yNEc9O6V17F56oUmlzw0LqrBNZTtPaiI0snB9K0JGk4=,tag:wsQXTYcIADUMVJBsEchZCw==,type:str]
+    IGNORED_RAW_CONFIG_FOR_REFERENCE: ENC[AES256_GCM,data:HVE+y08keXW+9+y+0PQxDc1uA7V3xrNUQm8ovAxyVNldp3p5MNgMR8pAwXOKWyqWrWbG2G7+Pc1/Bx37EgGVVdk8oxA4dzqIf7xZ9hy7d9lYsZmO1g36Do0Hl1DZs3TZe5jvmsJndM1C8t0vCZ+rWJZ4Op3fW6JXmLEkLd9yJI0CzDTGTdgA1ebJHLGOG4DeO4GvQsiUEp3gKo8HWsGRyS353T4ejU6ke44+n/eIeCWec6lIl1fE0TFepQSyBbXlkgQP2ayAj3Io5OQoJ1xpZm08EXG6ACyG03aAESNvEvEgO5yvnRITZqHL6ZzZFZFm5f/oNzVugeWHghcfLvEH5owqA/gzzXP8kqIG/lv5p4AyzhLB4LDYCgG/88LlALYc+xUb3awANhPu9PAxz/DjJoMfTTYPvFo6P5lyQQdLYhXNf8luQAvM2D1dvne421SeC4Is/+LcAa5OD7Wi5FKGGY4wymavq49aLBY4wh8=,iv:rGtZSya6/WdGT3hReCqNJl71+4eExNySDS9o/W31JhE=,tag:y83p03bnJC5WwjNwg1nJ9w==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1ay8ky5ce59vkz740uzp2tr2r22sqwez9804wdv32rrd6q5tawc3q0ugvp3
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBnRUVnQXpVQnpaRGQra0Nx
+            UzhCT0dRc09sajRUcDFjQVJQMVZTd0phNGxRCkVNR00xNDByTzBISW5sbVVwQXhk
+            VkVBVUV1OEVuRmtkU2hsaEZVMEdFV00KLS0tIEtZZTV1NDdLQ2VJaGFpTkVTWkJT
+            cHFyTTlUamFTN1QwSlZrLzkvTjNsSU0KwMhHjf7E+LhgfAgOES16oHpgs+G5tKqI
+            eNgCDKD1O4oMKNd1+KCyinQn+Nzqonr+AhWedRAZ/bVlxtC14I6WGA==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLdWpxMFMvbGhVZUZKa3V4
+            K0hUWCtzQnZsTFVtVXVOWDM4RlNlZW4yTlZBCkc4aXhpQm1uOVJoVFFTbE1waUV0
+            Nmsya2VvTGdkRklOMVByR2E4U21RbDgKLS0tIGtRVWRuSUM4c05WMzhlaEl5Vndt
+            djJaSkhvbXpmeGxTSW9iK2cwQW1xMzgKtT7HLaJ72n9GfwDzu0hpn6JkahozjD28
+            sX33vKX9uP9aST5cuIjYcgmIVuQvg3VDVYEv6FWtsmk7GXiMO9hTiA==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1ns2r38fd24cpfmhmn3qeu8x28nrq6ehjdc72yz4q44sxk8aej9vqtr5jue
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTNDVNcTUxMzJBaytxUGRi
+            aWZkR1V4TXhSdDJ4bUhwOERoemxWNHROS3pNCnF3ejRqRGlta1g2RjgwOGxPSlNW
+            MUc3OTBWMTNsTkhRK25CMnVVNVVYcjQKLS0tIEJBZEtMbW9uT052YlB1dmhwUG01
+            Ukx3N2xveGJqZ2J3a0JjRlJNbGxoNVUKkfKh9M4mN+jT+7RBWb+0vj6jJtUhVibY
+            Nyq1BTHG/4pFde+v+3JE2OBuRJotu+8tlVVCNhrtSHjFJcNDTv24BQ==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age15pw0dy5kn2pqs6hxy9g9g8x60trqxlcj6sdv3uveu8wlc23uya6ssunxp7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBCUFRqVFJqNndlWk5zWFo4
+            OWhHK3RGWWJXaDBSbDB6cWNIT3lNa3doWHljClZ3MFR6V0NDNTI4Ym9ScFJRcDU3
+            aUthZ1lIQjhRNjNVVDk4bHBpTXNybVUKLS0tIHhUY0pkK0ZtbXFxalF1VGxJUEYy
+            TDQyNUsyQjlORFQrTk9TdHR4TjRIVkUK7aLv+VBBFBoaDxJ8fdz60Befhh7m91qY
+            pCGtWl1YuJNN0cGkhkNFsayoTgygz5VCo6m5ASP8vrHzrFJGKV7cRQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-12-20T20:37:03Z"
+    mac: ENC[AES256_GCM,data:Bb6YqZo0xt8Guha2Dy46q4xORm/IAjICE9IbkkFmUhNdLzK+1MqRKIAlFuLKNJnHhYansvUhhYr7E1qPGk4IBMq4XW+gqRUw3EWZvue5Yz3LQuLm9y4XqakkVaI14ftXqdd6mMGizUBZc+pKakukJ2vLlkxRCHHS70m5UJf1ngk=,iv:pQLO2RKRO7N5v9PztDCtBbsDfdkSiRKJ3hdK1FXDfwk=,tag:rbFRHYpgSt5PHKxxRRKl/w==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

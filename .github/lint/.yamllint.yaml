@@ -10,6 +10,8 @@ ignore: |
   *.x86-raw.yaml
   *.cho.yaml
   *.cho-raw.yaml
+  *.sid.yaml
+  *.sid-raw.yaml
 extends: default
 rules:
   truthy:
