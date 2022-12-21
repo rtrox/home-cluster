@@ -10,6 +10,7 @@ resources:
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
   - sabnzbd-secret.cho.yaml
+  - prowlarr-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml

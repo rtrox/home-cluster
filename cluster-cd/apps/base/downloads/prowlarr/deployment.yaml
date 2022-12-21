@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: &name sabnzbd
+    app.kubernetes.io/name: &name prowlarr
     app.kubernetes.io/instance: *name
     app.kubernetes.io/component: *name
     app.kubernetes.io/part-of: *name
@@ -26,23 +26,19 @@ spec:
         setGateway: "true"
       annotations:
         backup.velero.io/backup-volumes: config
-        backup.velero.io/backup-volumes-excludes: incomplete,downloads,media
-        secret.reloader.stakater.com/reload: sabnzbd-secret
     spec:
       securityContext:
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
-        supplementalGroups:
-          - 100
       containers:
         - name: sabnzbd
-          image: ghcr.io/onedr0p/sabnzbd:3.7.1@sha256:73d893b97571bbd699a495061b52959fa38b1dc37c54941c4ebfa400ec24c9e7
+          image: ghcr.io/onedr0p/prowlarr-nightly:0.4.11.2143@sha256:2eafdb19e32172228ee64599d27f5e964613d83bf396e218e3591baba7f5c545
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: 8Gi
+              memory: 1Gi
             requests:
               memory: 250Mi
           securityContext:
@@ -59,19 +55,13 @@ spec:
           env:
             - name: TZ
               value: ${LOCAL_TZ}
-            - name: SABNZBD__PORT
+            - name: PROWLARR__PORT
               value: "80"
-            - name: SABNZBD__HOST_WHITELIST_ENTRIES
-              value: >-
-                sabznbd,
-                sabnzbd.downloads,
-                sabnzbd.downloads.svc,
-                sabnzbd.downloads.svc.cluster,
-                sabnzbd.downloads.svc.cluster.local,
-                sab.${SECRET_DOMAIN}
+            - name: PROWLARR_INSTANCE_NAME
+              value: Prowlarr
           envFrom:
             - secretRef:
-                name: sabnzbd-secret
+                name: prowlarr-secret
           livenessProbe:
             httpGet:
               path: /
@@ -99,25 +89,9 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: config
-            - mountPath: /incomplete
-              name: incomplete
-            - mountPath: /downloads
-              name: downloads
-            - mountPath: /media
-              name: media
       volumes:
         # TODO: NFS Volumes
         - name: config
           persistentVolumeClaim:
-            claimName: sabnzbd-config
-        - name: downloads
-          nfs:
-            server: ${NFS_SERVER}
-            path: /volume1/downloads
-        - name: media
-          nfs:
-            server: ${NFS_SERVER}
-            path: /volume1/media
-        - name: incomplete
-          emptyDir: {}
+            claimName: prowlarr-config
 
