@@ -20,7 +20,7 @@ images:
   - name: ghcr.io/onedr0p/alpine
     newTag: 3.17.0
   - name: ghcr.io/recyclarr/recyclarr
-    newTag: 4.0.0
+    newTag: 4.0.1
 
 commonLabels:
   app.kubernetes.io/part-of: recyclarr
