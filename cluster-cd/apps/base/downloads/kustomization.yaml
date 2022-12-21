@@ -9,3 +9,4 @@ resources:
   - networkpolicy.yaml
   - sabnzbd
   - prowlarr
+  - radarr

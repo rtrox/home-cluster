@@ -11,6 +11,7 @@ resources:
   - pod-gateway-config.cho.yaml
   - sabnzbd-secret.cho.yaml
   - prowlarr-secret.cho.yaml
+  - radarr-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml
