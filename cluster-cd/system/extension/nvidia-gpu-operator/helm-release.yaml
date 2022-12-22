@@ -20,10 +20,10 @@ spec:
     nfd:
       enabled: false
     driver:
-      # Compiled Driver image for Flatcar Linux
-      repository: rtrox
-      image: nvidia-driver
-      version: sha256:f6096e0d703e28d6237f973b4e9eae89eb12b68b9d917f682d25ebf66a8cd4a1
+      # https://hub.docker.com/layers/mediadepot/flatcar-nvidia-driver/flatcar_3374.2.1-nvidia_510.47.03/images/sha256-641256a2107598c94808eeab457cf64294131f89fb706a3fc3dcd4a6c3ef3e53?context=explore
+      repository: mediadepot
+      image: flatcar-nvidia-driver
+      version: sha256:641256a2107598c94808eeab457cf64294131f89fb706a3fc3dcd4a6c3ef3e53
     toolkit:
       env:
         - name: CONTAINERD_SOCKET
