@@ -12,6 +12,7 @@ resources:
   - sabnzbd-secret.cho.yaml
   - prowlarr-secret.cho.yaml
   - radarr-secret.cho.yaml
+  - sonarr-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml
