@@ -6,6 +6,7 @@ namespace: downloads
 
 resources:
   - cronjob.yaml
+  - network-policy.yaml
 
 configMapGenerator:
   - name: recyclarr-configmap

@@ -11,6 +11,10 @@ spec:
       ttlSecondsAfterFinished: 86400
       template:
         spec:
+          metadata:
+            labels:
+              setGateway: "false"
+              k8s-app: recyclarr
           automountServiceAccountToken: false
           restartPolicy: OnFailure
           initContainers:
