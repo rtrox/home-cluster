@@ -21,9 +21,9 @@ spec:
       enabled: false
     driver:
       # https://hub.docker.com/layers/mediadepot/flatcar-nvidia-driver/flatcar_3374.2.1-nvidia_510.47.03/images/sha256-641256a2107598c94808eeab457cf64294131f89fb706a3fc3dcd4a6c3ef3e53?context=explore
-      repository: mediadepot
-      image: flatcar-nvidia-driver
-      version: sha256:641256a2107598c94808eeab457cf64294131f89fb706a3fc3dcd4a6c3ef3e53
+      repository: peterwianecki
+      image: nvidia-flatcar-515.65.01
+      version: sha256:eb117f919e301b40ea98f9e13a1d4a981ebd731759e7cc4d5f6e0e1400ae1d28
     toolkit:
       env:
         - name: CONTAINERD_SOCKET
