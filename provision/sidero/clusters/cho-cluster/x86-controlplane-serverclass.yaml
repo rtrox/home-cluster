@@ -1,0 +1,46 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: serverclass-x86-controlplane
+spec:
+  selector:
+    matchLabels:
+      controlplane: "true"
+  qualifiers:
+    systemInformation:
+      - manufacturer: "Intel(R) Client Systems"
+        version: "K61339-306"
+      - manufacturer: LENOVO
+        version: "ThinkCentre M715q"
+  bootFromDiskMethod: ipxe-sanboot
+  configPatches:
+    - op: add
+      path: /machine/network
+      value:
+        interfaces:
+          - interface: eth0
+            dhcp: true
+            vip:
+              ip: 172.18.2.252
+    - op: replace
+      path: /machine/install/disk
+      value: /dev/sda
+    - op: add
+      path: /machine/install/extensions
+      value: [{"image": "ghcr.io/siderolabs/iscsi-tools:v0.1.1"}]
+    - op: replace
+      path: /machine/install/bootloader
+      value: true
+    - op: replace
+      path: /cluster/allowSchedulingOnControlPlanes
+      value: true
+    - op: add
+      path: /cluster/network/cni
+      value:
+        name: custom
+        urls:
+          - https://gist.githubusercontent.com/rtrox/13450a72ced9b32757624392643ac33c/raw/939934ff201738540dcf8490e878d97afd01570a/cilium-install-chongus.yaml
+    - op: add
+      path: /cluster/proxy/disabled
+      value: true
