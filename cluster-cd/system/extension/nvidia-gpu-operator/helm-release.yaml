@@ -23,7 +23,7 @@ spec:
       # Compiled Driver image for Flatcar Linux
       repository: rtrox
       image: nvidia-driver
-      version: sha256:dc7b190b24f7e613dd6b59e94a1212c701b4329952b3122db17bc98a6b64f8c0
+      version: sha256:f6096e0d703e28d6237f973b4e9eae89eb12b68b9d917f682d25ebf66a8cd4a1
     toolkit:
       env:
         - name: CONTAINERD_SOCKET
