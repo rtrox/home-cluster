@@ -2,6 +2,9 @@
 variant: flatcar
 version: 1.0.0
 storage:
+  directories:
+    - path: /opt/usr-local-overlay
+    - path: /opt/usr-local-overlay.wd
   files:
     - path: "/etc/hostname"
       mode: 0644
@@ -41,6 +44,13 @@ storage:
           chmod +x /opt/bin/kubectl
           mkdir -p /home/core/.kube
           echo ln -s /etc/rancher/rke2/rke2.yaml /home/core/.kube/config
+    - path: /etc/modules-load.d/nvidia-driver-modules.conf
+      mode: 0644
+      contents:
+        inline: |
+          loop
+          i2c_core
+          ipmi_msghandler
 systemd:
   units:
     - name: wait-for-v4.service
@@ -112,6 +122,20 @@ systemd:
         OnBootSec=180min
         [Install]
         WantedBy=timers.target
+    - name: usr-local.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Writable nvidia driver location
+        Before=local-fs.target
+        ConditionPathExists=/opt/usr-local-overlay
+        [Mount]
+        Type=overlay
+        What=overlay
+        Where=/usr/local
+        Options=lowerdir=/usr/local,upperdir=/opt/usr-local-overlay,workdir=/opt/usr-local-overlay.wd
+        [Install]
+        WantedBy=local-fs.target
     - name: locksmithd.service
       mask: true
     - name: update-engine.service

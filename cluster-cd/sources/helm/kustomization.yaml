@@ -18,3 +18,4 @@ resources:
   - rook-ceph-charts.yaml
   - truecharts.yaml
   - angelnu-charts.yaml
+  - nvidia-gpu-operator-chart.yaml

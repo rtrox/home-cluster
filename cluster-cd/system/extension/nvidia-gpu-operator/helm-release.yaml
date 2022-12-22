@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nvidia-gpu-operator
+  namespace: kube-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      # renovate: registryUrl=https://helm.ngc.nvidia.com/nvidia
+      chart: gpu-operator
+      version: v22.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: nvidia-gpu-operator-chart
+        namespace: flux-system
+      interval: 5m
+  values:
+    nfd:
+      enabled: false
+    driver:
+      # Compiled Driver image for Flatcar Linux
+      repository: rtrox
+      image: nvidia-driver
+      version: sha256:dc7b190b24f7e613dd6b59e94a1212c701b4329952b3122db17bc98a6b64f8c0
+    toolkit:
+      env:
+        - name: CONTAINERD_SOCKET
+          value: '/var/run/containerd/containerd.sock'
