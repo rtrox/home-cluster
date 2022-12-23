@@ -10,9 +10,9 @@ resources:
   - ../base/prometheus-speedtest-exporter
   - ../base/uptime-kuma
   # - ../base/tools/talosctl-recovery-pod.yaml
-  # - ../base/blocky
-  # - postgres-config.x86.yaml
-  # - redis-password.x86.yaml
+  - ../base/blocky
+  - postgres-config.x86.yaml
+  - redis-password.x86.yaml
 
 secretGenerator:
   - name: mosquitto-helm-values-secret
