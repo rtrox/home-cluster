@@ -1,0 +1,14 @@
+{{/* Color of Slack attachment (appears as line next to alert )*/}}
+{{ define "discord.color" -}}
+    {{ if eq .Status "firing" -}}
+        {{ if eq .CommonLabels.severity "warning" -}}
+            15105570
+        {{- else if eq .CommonLabels.severity "critical" -}}
+            15158332
+        {{- else -}}
+            9807270
+        {{- end -}}
+    {{ else -}}
+    3066993
+    {{- end }}
+{{- end }}

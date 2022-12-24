@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: blocky
+
+# TODO: servicemonitor
+resources:
+  - postgres
+  - redis
+  - deployment.yaml
+  - service.yaml
+  - namespace.yaml
+  - ingress.yaml
+
+configMapGenerator:
+  - name: blocky-config
+    namespace: blocky
+    files:
+      - config.yaml=blocky-config.yaml
+
+images:
+  - name: spx01/blocky
+    newTag: v0.20

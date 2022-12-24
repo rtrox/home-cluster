@@ -1,0 +1,4 @@
+---
+# ipv6NativeRoutingCIDR: ${CILIUM_NATIVE_ROUTING_CIDR_V6}
+ipv6:
+  enabled: false

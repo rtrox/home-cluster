@@ -1,0 +1,34 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../base
+  - ../extension/rook-ceph
+  - ../extension/nvidia-gpu-operator
+  # - cilium-bgp-peering-policy.yaml
+  # - cilium-lb-ip-pool.yaml
+  - cloudflare-token-secret.cho.yaml
+  - cloudflared-tunnel-creds.cho.yaml
+
+configMapGenerator:
+  - name: cilium-cluster-values
+    namespace: kube-system
+    files:
+      - values.yaml=cilium-cluster-values.yaml
+
+secretGenerator:
+  - name: external-dns-values-secret
+    namespace: external-dns
+    files:
+      - values.yaml=external-dns-values.cho-raw.yaml
+#   - name: client-info-secret
+#     namespace: synology-csi
+#     files:
+#       - client-info.yml=client-info.cho-raw.yaml
+
+patchesStrategicMerge:
+  - rook-ceph-cluster-patch.yaml
+
+configurations:
+  - kustomizeconfig.yaml

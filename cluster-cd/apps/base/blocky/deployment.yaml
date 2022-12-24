@@ -1,0 +1,130 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: &name blocky
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/component: *name
+    app.kubernetes.io/part-of: *name
+    k8s-app: *name
+  name: *name
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *name
+    spec:
+      securityContext:
+        runAsUser: 100
+        runAsGroup: 100
+        fsGroup: 100
+      initContainers:
+        - name: config
+          image: alpine
+          command: ["sh", "-c"]
+          args:
+            - |
+              cp /tmp/config/config.yaml /config/config.yaml
+              echo "REDIS_PASSWORD: $${REDIS_PASSWORD}"
+              echo "POSTGRES_USER: $${POSTGRES_USER}"
+              echo "POSTGRES_PASSWORD: $${POSTGRES_PASSWORD}"
+              echo "POSTGRES_DB: $${POSTGRES_DB}"
+              sed -i "s/REDIS_PASSWORD/$${REDIS_PASSWORD}/" /config/config.yaml
+              sed -i "s/POSTGRES_USER/$${POSTGRES_USER}/" /config/config.yaml
+              sed -i "s/POSTGRES_PASSWORD/$${POSTGRES_PASSWORD}/" /config/config.yaml
+              sed -i "s/POSTGRES_DB_NAME/$${POSTGRES_DB}/" /config/config.yaml
+              echo "Config:"
+              cat /config/config.yaml
+          envFrom:
+            - secretRef:
+                name: redis-password
+            - secretRef:
+                name: postgres-config
+          volumeMounts:
+            - name: mounted-config
+              mountPath: /config
+            - name: blocky-config
+              mountPath: /tmp/config
+
+      containers:
+        - name: blocky
+          image: spx01/blocky:v0.20
+          imagePullPolicy: IfNotPresent
+          args: ["--config", "/config/config.yaml"]
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   runAsUser: 100
+          #   seccompProfile:
+          #     type: RuntimeDefault
+          #   capabilities:
+          #     drop:
+          #       - ALL
+          ports:
+            - name: dnstcp
+              containerPort: 53
+              protocol: TCP
+            - name: dnsudp
+              containerPort: 53
+              protocol: UDP
+            - name: http
+              containerPort: 4000
+              protocol: TCP
+          env:
+            - name: TZ
+              value: ${LOCAL_TZ}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /config
+              name: mounted-config
+      volumes:
+        - name: mounted-config
+          emptyDir: {}
+        - name: blocky-config
+          configMap:
+            name: blocky-config
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 10
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: blocky
+                topologyKey: kubernetes.io/hostname

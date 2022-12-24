@@ -1,0 +1,12 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: monitoring
+spec:
+  valuesFrom:
+    - kind: ConfigMap
+      name: kube-prometheus-stack-values
+    - kind: Secret
+      name: kube-prometheus-stack-datasources-values

@@ -1,0 +1,77 @@
+---
+image:
+  override: ~
+  repository: "quay.io/cilium/cilium"
+  tag: "v1.13.0-rc4"
+  useDigest: true
+  digest: "06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
+
+
+nodeinit:
+  restartPods: true
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+cluster:
+  name: ${CLUSTER_NAME}
+  id: 1
+rollOutCiliumPods: true
+localRedirectPolicy: true
+kubeProxyReplacement: strict
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+ipv4NativeRoutingCIDR: ${CILIUM_NATIVE_ROUTING_CIDR}
+
+k8sServiceHost: ${KUBE_API_VIP}
+k8sServicePort: 6443
+loadBalancer:
+  algorithm: maglev
+  mode: dsr
+tunnel: disabled
+endpointRoutes:
+  enabled: true
+autoDirectNodeRoutes: true
+ipam:
+  mode: kubernetes
+
+operator:
+  rollOutPods: true
+  image:
+    override: ~
+    repository: "quay.io/cilium/operator"
+    tag: "v1.13.0-rc4"
+  prometheus:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+containerRuntime:
+  integration: containerd
+securityContext:
+  privileged: true
+hubble:
+  enabled: true
+  metrics:
+    enabled:
+      - dns:query
+      - drop
+      - flow
+      - http
+      - icmp
+      - port-distribution
+      - tcp
+    serviceMonitor:
+      enabled: true
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      namespace: monitoring
+      labelValue: "1"
+  ui:
+    enabled: true
+  relay:
+    enabled: true
+    rollOutPods: true
+bgp:
+  enabled: false
+bgpControlPlane:
+  enabled: true

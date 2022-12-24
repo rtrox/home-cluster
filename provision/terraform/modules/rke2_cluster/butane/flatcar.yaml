@@ -1,0 +1,146 @@
+---
+variant: flatcar
+version: 1.0.0
+storage:
+  directories:
+    - path: /opt/usr-local-overlay
+    - path: /opt/usr-local-overlay.wd
+  files:
+    - path: "/etc/hostname"
+      mode: 0644
+      overwrite: true
+      contents:
+        source: "data:,${node_name}.${cluster_fqdn}"
+    - path: /opt/rke2-install.sh
+      mode: 0777
+      contents:
+        source: https://get.rke2.io
+    - path: /etc/rancher/rke2/config.yaml
+      mode: 0644
+      contents:
+        source: "data:text/plain;charset=utf-8;base64,${base64encode(rke2_config)}"
+    - path: /var/lib/rancher/rke2/server/manifests/runonce/cilium-install.yaml
+      mode: 0644
+      contents:
+        source: "data:text/plain;charset=utf-8;base64,${base64encode(cilium_install)}"
+    - path: /var/lib/rancher/rke2/server/manifests/runonce/kube-vip.yaml
+      mode: 0644
+      contents:
+        source: "data:text/plain;charset=utf-8;base64,${base64encode(kube_vip)}"
+    - path: /opt/rke2-installer
+      mode: 0500
+      contents:
+        inline: |
+          #!/bin/bash -ex
+          /opt/rke2-install.sh
+          systemctl enable rke2-server.service
+          systemctl start rke2-server.service
+    - path: /opt/kubectl-installer
+      mode: 0500
+      contents:
+        inline: |
+          #!/bin/bash -ex
+          curl -L -o /opt/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x /opt/bin/kubectl
+          mkdir -p /home/core/.kube
+          echo ln -s /etc/rancher/rke2/rke2.yaml /home/core/.kube/config
+    - path: /etc/modules-load.d/nvidia-driver-modules.conf
+      mode: 0644
+      contents:
+        inline: |
+          loop
+          i2c_core
+          ipmi_msghandler
+systemd:
+  units:
+    - name: wait-for-v4.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Wait until we have a v4 address
+        DefaultDependencies=no
+        Conflicts=shutdown.target
+        Requires=systemd-networkd.service
+        After=systemd-networkd.service
+        Before=network-online.target shutdown.target
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/lib/systemd/systemd-networkd-wait-online -4
+        RemainAfterExit=yes
+        [Install]
+        WantedBy=network-online.target
+    - name: install-kubectl.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Install kubectl binary
+        Wants = network-online.target
+        After = network.target network-online.target
+        ConditionPathExists=/opt/kubectl-installer
+        ConditionPathExists=!/opt/bin/kubectl
+        [Service]
+        Type=forking
+        TimeoutStartSec=180
+        RemainAfterExit=yes
+        KillMode=process
+        ExecStart=/usr/bin/sh -c "/opt/kubectl-installer"
+        [Install]
+        WantedBy=multi-user.target
+    - name: rke2-install.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Install rke2
+        Wants = network-online.target
+        After = network.target network-online.target
+        ConditionPathExists=/opt/rke2-install.sh
+        ConditionPathExists=!/opt/bin/rke2
+        [Service]
+        Type=forking
+        TimeoutStartSec=180
+        RemainAfterExit=yes
+        KillMode=process
+        ExecStart=/usr/bin/sh -c "/opt/rke2-installer"
+        [Install]
+        WantedBy=multi-user.target
+    - name: remove-runonce-manifests.service
+      contents: |
+        [Unit]
+        Description=Remove runonce manifests
+        ConditionPathExists=/var/lib/rancher/rke2/server/manifests/runonce
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        KillMode=process
+        ExecStart=/usr/bin/rm -rf /var/lib/rancher/rke2/server/manifests/runonce
+    - name: remove-runonce-manifests.timer
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Remove runonce manifests
+        [Timer]
+        OnBootSec=180min
+        [Install]
+        WantedBy=timers.target
+    - name: usr-local.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Writable nvidia driver location
+        Before=local-fs.target
+        ConditionPathExists=/opt/usr-local-overlay
+        [Mount]
+        Type=overlay
+        What=overlay
+        Where=/usr/local
+        Options=lowerdir=/usr/local,upperdir=/opt/usr-local-overlay,workdir=/opt/usr-local-overlay.wd
+        [Install]
+        WantedBy=local-fs.target
+    - name: locksmithd.service
+      mask: true
+    - name: update-engine.service
+      enabled: true
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys: ${ssh_authorized_keys}

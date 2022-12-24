@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zwave
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: zwave
+  template:
+    metadata:
+      labels:
+        name: zwave
+        app: zwavejs
+        app.kubernetes.io/instance: zwavejs
+        app.kubernetes.io/name: zwavejs
+        app.kubernetes.io/part-of: zwavejs
+      annotations:
+        backup.velero.io/backup-volumes: zwave-data
+    spec:
+      containers:
+        - name: zwave
+          image: zwavejs/zwave-js-ui:8.1.0
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              httpHeaders:
+                - name: Accept
+                  value: text/plain
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          ports:
+            - containerPort: 8091
+              name: http
+              protocol: TCP
+            - containerPort: 3000
+              name: ws
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
+            requests:
+              cpu: "1"
+              memory: 400Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+          volumeMounts:
+            - mountPath: /dev/zwave
+              name: zwavestick
+            - mountPath: /usr/src/app/store
+              name: zwave-data
+      volumes:
+        - name: zwavestick
+          hostPath:
+            path: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_a68ef26c7c74ec118351a75019c2d21c-if00-port0
+            type: CharDevice
+        - name: zwave-data
+          persistentVolumeClaim:
+            claimName: zwave-data
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: "feature.node.kubernetes.io/zwave7"
+                    operator: In
+                    values:
+                      - "true"

@@ -1,0 +1,104 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: &name app-daemon
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/component: *name
+    app.kubernetes.io/part-of: *name
+    k8s-app: *name
+  name: *name
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *name
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *name
+      annotations:
+        backup.velero.io/backup-volumes: data
+    spec:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+      containers:
+        - name: app-daemon
+          image: acockburn/appdaemon:4.2.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 2Gi
+            requests:
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 0
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - name: api
+              containerPort: 5050
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: api
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: api
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /
+              port: api
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /conf
+              name: data
+            - mountPath: /conf/appdaemon.yaml
+              subPath: appdaemon.yaml
+              name: appdaemon-yaml
+        - name: vscode
+          image: codercom/code-server:3.4.1
+          imagePullPolicy: IfNotPresent
+          workingDir: /conf
+          args:
+            - --port=8080
+            - --auth=none
+          ports:
+            - name: vscode
+              containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /conf
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: app-daemon-data
+        - name: appdaemon-yaml
+          configMap:
+            name: appdaemon-yaml

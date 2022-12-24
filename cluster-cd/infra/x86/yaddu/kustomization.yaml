@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: yaddu
+
+resources:
+  - deployment.yaml
+  - yaddu-config-secret.x86.yaml
+
+images:
+  - name: swyytch/yaddu
+    newTag: 7de8d61
