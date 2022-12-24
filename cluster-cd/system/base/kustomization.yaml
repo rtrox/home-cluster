@@ -11,3 +11,4 @@ resources:
   - node-feature-discovery
   - intel-gpu-plugin
   - external-dns
+  - metallb

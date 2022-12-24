@@ -1,0 +1,8 @@
+TODO: Prometheus
+crds:
+  enabled: false
+psp:
+  create: false
+speaker:
+  frr:
+    enabled: true
