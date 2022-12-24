@@ -1,0 +1,54 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  interval: 5m
+  timeout: 10m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: cilium
+      namespace: kube-system
+  chart:
+    spec:
+      chart: ingress-nginx
+      version: 4.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    controller:
+      replicaCount: 2
+      service:
+        annotations:
+          io.cilium/lb-ipam-ips: "${INGRESS_NGINX_IP}"
+          metallb.universe.tf/loadBalancerIPs: "${INGRESS_NGINX_IP}"
+      ingressClassResource:
+        default: true
+      enableTLSPassthrough: true
+      extraArgs:
+        enable-ssl-passthrough: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      config:
+        enable-real-ip: true
+        forwarded-for-header: proxy_protocol
+        log-format-escape-json: "true"
+        log-format-upstream: '{"timestamp": "$time_iso8601", "requestID": "$req_id", "proxyUpstreamName":
+        "$proxy_upstream_name", "proxyAlternativeUpstreamName": "$proxy_alternative_upstream_name","upstreamStatus":
+        "$upstream_status", "upstreamAddr": "$upstream_addr","httpRequest":{"requestMethod":
+        "$request_method", "requestUrl": "$host$request_uri", "status": $status,"requestSize":
+        "$request_length", "responseSize": "$upstream_response_length", "userAgent": "$http_user_agent",
+        "remoteIp": "$remote_addr", "referer": "$http_referer", "latency": "$upstream_response_time s",
+        "protocol":"$server_protocol", "x-forwarded-for": "$http_x_forwarded_for", "x-real-ip": "$http_x_real_ip"}}'

@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name uptime-kuma
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
+    app.kubernentes.io/component: &component metrics
+    app.kubernetes.io/part-of: *name
+
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *component
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *component
+      annotations:
+        backup.velero.io/backup-volumes: data
+    spec:
+      containers:
+        - name: app
+          image: louislam/uptime-kuma:1
+          ports:
+            - name: http
+              containerPort: 3001
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/data
+              name: data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: uptime-kuma-data

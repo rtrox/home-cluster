@@ -1,0 +1,60 @@
+---
+port: 53
+httpPort: 4000
+logLevel: info
+
+upstream:
+  default:
+    - tcp-tls:1.1.1.1:853
+    - tcp-tls:1.0.0.1:853
+    - tcp-tls:[2606:4700:4700::1111]:853
+    - tcp-tls:[2606:4700:4700::1001]:853
+    - https://cloudflare-dns.com/dns-query
+
+blocking:
+  blackLists:
+    ads:
+      - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+      - https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+      - http://sysctl.org/cameleon/hosts
+      - https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+      - https://raw.githubusercontent.com/kboghdady/youTube_ads_4_pi-hole/master/youtubelist.txt
+    kid-safe:
+      - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-porn/hosts
+    none:
+  whiteLists:
+    ads:
+      - https://raw.githubusercontent.com/billimek/k8s-gitops/master/default/blocky/whitelist.txt
+  clientGroupsBlock:
+    default:
+      - ads
+    172.16.0.0/12:
+      - ads
+    12a06:a003:4018::/48:
+      - ads
+    192.168.0.0/16:
+      - ads
+    192.168.4.1/24:
+      - ads
+      - kid-safe
+  blockType: zeroIp
+
+caching:
+  minTime: 5m
+  maxTime: 24h
+  cacheTimeNegative: 30m
+  prefetching: true
+
+redis:
+  address: redis:6379
+  password: REDIS_PASSWORD
+  required: true
+
+queryLog:
+  type: postgresql
+  target: postgresql://POSTGRES_USER:POSTGRES_PASSWORD@postgres:5432/POSTGRES_DB_NAME?sslmode=disable
+  logRetentionDays: 30
+
+prometheus:
+  enable: true
+  path: /metrics

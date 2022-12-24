@@ -1,0 +1,132 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: &name kopia
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/component: *name
+    app.kubernetes.io/part-of: *name
+    k8s-app: *name
+  annotations:
+    configmap.reloader.stakater.com/reload: kopia-config
+  name: *name
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *name
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *name
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      initContainers:
+        - name: wait-for-repo
+          image: kopia/kopia:0.12.1
+          command:
+            - /bin/bash
+            - -c
+            - |-
+              until [ -f /backups/kopia.repository.f ]; do
+                  printf "\e[1;32m%-6s\e[m\n" "Awaiting for the Kopia repo to become ready ..."
+                  sleep 1
+              done
+          volumeMounts:
+            - mountPath: /backups
+              name: backups
+            - mountPath: /app/cache
+              name: cache
+            - mountPath: /app/logs
+              name: logs
+      containers:
+        - name: kopia
+          image: kopia/kopia:0.12.1
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 512Mi
+            requests:
+              memory: 512Mi
+          args:
+            - server
+            - --insecure
+            - --address
+            - 0.0.0.0:80
+            - --metrics-listen-addr
+            - 0.0.0.0:8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KOPIA_PASSWORD
+              value: ${KOPIA_PASSWORD}
+            - name: USER
+              value: "root"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /app/config/repository.config
+              subPath: repository.config
+              name: config
+            - mountPath: /backups
+              name: backups
+            - mountPath: /app/cache
+              name: cache
+            - mountPath: /app/logs
+              name: logs
+      volumes:
+        - name: config
+          configMap:
+            name: kopia-config
+        - name: backups
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/backup/kopia
+        - name: cache
+          emptyDir: {}
+        - name: logs
+          emptyDir: {}

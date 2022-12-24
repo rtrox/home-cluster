@@ -1,0 +1,97 @@
+# NOT USED BY TERRAFORM
+# this file is used to generate the cilium-install.yaml manifest for k3s.
+# once generated, search & replace 10.20.0.250 with ${api_vip}, f00d::a0a:0:0:0/52 with ${pod_cidr_v6}
+# "cluster-0" with ${cluster_name} and ${BIN_PATH} with $${BIN_PATH}
+---
+cluster:
+  name: "cluster-0"
+  id: "1"
+
+rollOutCiliumPods: true
+localRedirectPolicy: true
+
+# kubeProxyReplacement enables kube-proxy replacement in Cilium BPF datapath
+kubeProxyReplacement: "strict"
+kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+
+k8sServiceHost: 10.20.0.250
+k8sServicePort: 6443
+
+ipam:
+  #   # -- Configure IP Address Management mode.
+  #   # ref: https://docs.cilium.io/en/stable/concepts/networking/ipam/
+  mode: "kubernetes"
+
+operator:
+  rollOutPods: true
+  image:
+    override: ~
+    repository: "quay.io/cilium/operator"
+    tag: "latest"
+    # operator-generic-digest
+    genericDigest: ""
+    # operator-azure-digest
+    azureDigest: ""
+    # operator-aws-digest
+    awsDigest: ""
+    # operator-alibabacloud-digest
+    alibabacloudDigest: ""
+    useDigest: false
+    pullPolicy: "Always"
+    suffix: "-ci"
+
+# autoDirectNodeRoutes enables installation of PodCIDR routes between worker
+# nodes if worker nodes share a common L2 network segment.
+autoDirectNodeRoutes: true
+endpointRoutes:
+  enabled: true
+
+containerRuntime:
+  integration: containerd
+
+# nativeRoutingCIDR allows to explicitly specify the CIDR for native routing. This
+# value corresponds to the configured cluster-cidr.
+ipv4NativeRoutingCIDR: 10.42.0.0/16
+ipv6NativeRoutingCIDR: fd00:10:42::/48
+tunnel: disabled
+
+hubble:
+  # -- Enable Hubble (true by default).
+  enabled: false
+
+ipv6:
+  # -- Enable IPv6 support.
+  enabled: true
+# enableIPv6Masquerade: true
+
+# Cilium leverages MetalLB's simplified BGP announcement system for service type: LoadBalancer
+bgp:
+  enabled: false
+bgpControlPlane:
+  enabled: true
+
+# loadBalancer is the general configuration for service load balancing
+loadBalancer:
+  # algorithm is the name of the load balancing algorithm for backend
+  # selection e.g. random or maglev
+  algorithm: maglev
+  # mode is the operation mode of load balancing for remote backends
+  # e.g. snat, dsr, hybrid
+  mode: dsr
+
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+
+securityContext:
+  privileged: true
+
+image:
+  override: ~
+  repository: "quay.io/cilium/cilium-ci"
+  tag: "latest"
+  pullPolicy: "Always"
+  # cilium-digest
+  digest: ""
+  useDigest: false

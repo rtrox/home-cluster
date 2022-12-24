@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vpn-gateway
+  namespace: vpn
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: pod-gateway
+      version: 6.0.0
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: angelnu
+        namespace: flux-system
+
+  values:
+    image:
+      repository: ghcr.io/angelnu/pod-gateway
+      tag: v1.8.1@sha256:690b6365728fe9012ad4cdfca38334992664596513dca187d1b93d2025205776
+
+    addons:
+      vpn:
+        enabled: true
+        type: gluetun
+        image:
+          # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
+          repository: docker.io/qmcgaw/gluetun
+          tag: v3.32.0@sha256:70e2b9fe66941d6de31419c3207b525293f2e6a92a3788869bb337a17e0e5ec8
+        envFrom:
+          - secretRef:
+              name: pod-gateway-config
+
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+
+        networkPolicy:
+          # CiliumNetworkPolicy instead
+          enabled: false
+      netshoot:
+        enabled: true
+
+    podAnnotations:
+      secret.reloader.stakater.com/reload: pod-gateway-config
+
+    DNS: 10.3.0.1
+    routed_namespaces:
+      - downloads
+
+    settings:
+      NOT_ROUTED_TO_GATEWAY_CIDRS: 10.42.0.0/16 10.43.0.0/16 192.168.0.0/16 172.16.0.0/12
+      VPN_BLOCK_OTHER_TRAFFIC: true
+      VPN_INTERFACE: wg0
+      VPN_LOCAL_CIDRS: 10.42.0.0/16 10.43.0.0/16 192.168.0.0/16 172.16.0.0/12
+      VPN_TRAFFIC_PORT: "51820"
+      VXLAN_ID: 43
+      VXLAN_IP_NETWORK: 10.3.0
+
+    webhook:
+      gatewayDefault: true
+      namespaceSelector:
+        label: routed-gateway
+      image:
+        repository: ghcr.io/angelnu/gateway-admision-controller
+        tag: v3.7.0@sha256:985eb60fd0017f657d5e66707f7e9b3f764f3337a87a379d26cd15e950bd79ad

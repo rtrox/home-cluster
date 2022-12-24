@@ -1,0 +1,8 @@
+{{/* First line of Slack alerts */}}
+{{ define "discord.title" -}}
+    [{{ .Status | toUpper -}}
+    {{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{- end -}}
+    ] {{ template "__alert_severity_prefix_title" . }} {{ if ne
+    .CommonAnnotations.summary ""}}{{ .CommonAnnotations.summary }}{{
+    else }}{{ .CommonLabels.alertname }}{{ end }}
+{{- end }}

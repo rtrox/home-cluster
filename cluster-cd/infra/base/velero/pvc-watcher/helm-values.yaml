@@ -1,0 +1,15 @@
+---
+service:
+  type: ClusterIP
+  port: 2121
+
+resources:
+  limits:
+    cpu: 750m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+rbac:
+  create: true

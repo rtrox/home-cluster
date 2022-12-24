@@ -1,0 +1,7 @@
+{{ define "discord.link_button_text" -}}
+    {{- if .CommonAnnotations.link_text -}}
+        {{- .CommonAnnotations.link_text -}}
+    {{- else -}}
+        Link
+    {{- end }}
+{{- end }}

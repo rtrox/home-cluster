@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: downloads
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - pvc.yaml
+
+images:
+  - name: ghcr.io/onedr0p/sabnzbd
+    newTag: 3.7.1@sha256:73d893b97571bbd699a495061b52959fa38b1dc37c54941c4ebfa400ec24c9e7
+
+commonLabels:
+  app.kubernetes.io/part-of: sabnzbd
+  k8s-app: sabnzbd

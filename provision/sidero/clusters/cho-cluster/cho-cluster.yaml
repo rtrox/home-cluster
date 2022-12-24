@@ -1,0 +1,64 @@
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: chongus
+  namespace: default
+spec:
+  clusterNetwork:
+    pods:
+      cidrBlocks:
+        - 10.244.0.0/16
+        - fd01::/52
+    services:
+      cidrBlocks:
+        - 10.96.0.0/12
+        - fd98::/112
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+    kind: TalosControlPlane
+    name: chongus-controlplane
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+    kind: MetalCluster
+    name: chongus
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+kind: MetalCluster
+metadata:
+  name: chongus
+  namespace: default
+spec:
+  controlPlaneEndpoint:
+    host: 172.18.2.252
+    port: 6443
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+kind: MetalMachineTemplate
+metadata:
+  name: chongus-controlplane
+  namespace: default
+spec:
+  template:
+    spec:
+      serverClassRef:
+        apiVersion: metal.sidero.dev/v1alpha1
+        kind: ServerClass
+        name: serverclass-cho-controlplane
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
+kind: TalosControlPlane
+metadata:
+  name: chongus-controlplane
+  namespace: default
+spec:
+  controlPlaneConfig:
+    controlplane:
+      generateType: controlplane
+      talosVersion: v1.3.0
+  infrastructureTemplate:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
+    kind: MetalMachineTemplate
+    name: chongus-controlplane
+  replicas: 3
+  version: v1.26.0

@@ -1,0 +1,34 @@
+---
+write-kubeconfig-mode: "0644"
+token: ${rke2_token}
+%{ if  !bootstrap ~}
+server: 'https://${api_vip}:9345'
+%{~ endif }
+cluster-cidr:
+  - 10.42.0.0/16
+  - ${pod_cidr_v6}
+service-cidr:
+  - 10.43.0.0/16
+  - ${service_cidr_v6}
+tls-san:
+  - ${api_fqdn}
+  - ${api_vip}
+# Disable KubeProxy in favor of Cilium
+disable-kube-proxy: true
+# Disable Default CNI & Network Policy Enforcer
+cni: none
+disable:
+  # - servicelb
+  # - traefik
+  # - local-storage
+  - rke2-ingress-nginx
+
+# Prepare k3s for prometheus metrics
+kube-controller-manager-arg:
+  - "bind-address=0.0.0.0"
+kube-proxy-arg:
+  - "metrics-bind-address=0.0.0.0"
+kube-scheduler-arg:
+  - "bind-address=0.0.0.0"
+# Controller Manager exposes etcd sqllite metrics
+etcd-expose-metrics: true

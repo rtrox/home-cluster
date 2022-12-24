@@ -1,0 +1,236 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vector-aggregator
+  namespace: monitoring
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: vector
+      version: 0.18.0
+      sourceRef:
+        kind: HelmRepository
+        name: vector
+        namespace: flux-system
+      interval: 30m
+  values:
+    image:
+      repository: timberio/vector
+      tag: 0.26.0-debian
+
+    role: "Stateless-Aggregator"
+
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: vector-aggregator
+
+    customConfig:
+      data_dir: /vector-data-dir
+
+      api:
+        enabled: false
+
+      # Sources
+      sources:
+        kubernetes_logs:
+          address: 0.0.0.0:6000
+          type: vector
+          version: "2"
+
+        journal_logs:
+          type: vector
+          address: 0.0.0.0:6002
+          version: "2"
+
+        vector_metrics:
+          type: internal_metrics
+
+        talos_kernel_logs:
+          address: 0.0.0.0:6050
+          type: socket
+          mode: udp
+          max_length: 102400
+          decoding:
+            codec: json
+          host_key: __host
+
+        talos_service_logs:
+          address: 0.0.0.0:6051
+          type: socket
+          mode: udp
+          max_length: 102400
+          decoding:
+            codec: json
+          host_key: __host
+
+      transforms:
+        kubernetes_labels:
+          type: remap
+          inputs:
+            - kubernetes_logs
+          source: |-
+            .k8s_app = .kubernetes.pod_labels."app.kubernetes.io/name"
+            .k8s_container = .kubernetes.container_name
+            .k8s_filename = .kubernetes.file
+            .k8s_instance = .kubernetes.pod_labels."app.kubernetes.io/instance"
+            .k8s_namespace = .kubernetes.pod_namespace
+            .k8s_node = .kubernetes.pod_node_name
+        kubernetes_parsed:
+          type: remap
+          inputs:
+            - kubernetes_labels
+          source: |-
+            glog_parsed, err = parse_regex(
+              .message,
+              r'(?x)^\s*(?P<level>\w)(?P<timestamp>(\d{4})?\d{2}\d{2}\s\d{2}:\d{2}:\d{2}\.\d{6})\s+(?P<id>\d+)\s(?P<file>.+):(?P<line>\d+)\]\s(?P<message>.*?)\s*$'
+            )
+            if err == null {
+              .raw_message = .message
+              . = merge(., glog_parsed)
+              if .level == "I" {
+                .level = "info"
+              } else if .level == "W" {
+                .level = "warning"
+              } else if .level == "E" {
+                .level = "error"
+              } else if .level == "F" {
+                .level = "fatal"
+              }
+              .parser = "custom_glog"
+              .parsed = true
+            }
+
+            json_parsed, err = parse_json(.message)
+            if err == null {
+              ., err = merge(., json_parsed)
+              if err != null {
+                log("Unable to merge parsed json: " + err, level: "error")
+              }
+
+              if exists(.httpRequest) {
+                .httpRequest.requestSize = to_int(.httpRequest.requestSize) ?? .httpRequest.requestSize
+                .httpRequest.responseSize = to_int(.httpRequest.responseSize) ?? .httpRequest.responseSize
+                if exists(.upstreamStatus) { .upstreamStatus = to_int(.upstreamStatus) ?? .upstreamStatus }
+                .remoteIp = .httpRequest.remoteIp
+                ."x-forwarded-for" = .httpRequest."x-forwarded-for"
+                ."x-real-ip" = .httpRequest."x-real-ip"
+              }
+              .parser = "json"
+              .parsed = true
+            }
+
+            if .k8s_app == "loki" && (.k8s_container == "read" || .k8s_container == "write") {
+              parsed = parse_key_value!(.message, key_value_delimiter: "=", accept_standalone_key: false)
+              . = merge(., parsed)
+            }
+
+            if .k8s_namespace == "home" && .k8s_container == "zwave" {
+              .message = strip_ansi_escape_codes!(.message)
+            }
+
+      # Sinks
+      sinks:
+        loki_kubernetes:
+          type: loki
+          inputs:
+            - kubernetes_parsed
+          endpoint: http://loki-gateway.monitoring
+          encoding:
+            codec: json
+          batch:
+            max_bytes: 400000
+          out_of_order_action: rewrite_timestamp
+          remove_label_fields: true
+          remove_timestamp: true
+          labels:
+            k8s_app: >-
+              {{`{{ k8s_app }}`}}
+            k8s_container: >-
+              {{`{{ k8s_container }}`}}
+            k8s_filename: >-
+              {{`{{ k8s_filename }}`}}
+            k8s_instance: >-
+              {{`{{ k8s_instance }}`}}
+            k8s_namespace: >-
+              {{`{{ k8s_namespace }}`}}
+            k8s_node: >-
+              {{`{{ k8s_node }}`}}
+            k8s_pod: >-
+              {{`{{ k8s_pod }}`}}
+            cluster: >-
+              ${CLUSTER_NAME}
+        loki_journal:
+          type: loki
+          inputs:
+            - journal_logs
+          endpoint: http://loki-gateway.monitoring
+          encoding:
+            codec: json
+          batch:
+            max_bytes: 2049000
+          out_of_order_action: accept
+          remove_label_fields: true
+          remove_timestamp: true
+          labels:
+            hostname: >-
+              {{`{{ host }}`}}
+        talos_kernel:
+          type: loki
+          inputs:
+            - talos_kernel_logs
+          endpoint: http://loki-gateway.monitoring
+          encoding:
+            codec: json
+            except_fields:
+              - __host
+          batch:
+            max_bytes: 1048576
+          out_of_order_action: rewrite_timestamp
+          labels:
+            hostname: >-
+              {{`{{ __host }}`}}
+            service: >-
+              {{`{{ facility }}`}}
+        talos_service:
+          type: loki
+          inputs:
+            - talos_service_logs
+          endpoint: http://loki-gateway.monitoring
+          encoding:
+            codec: json
+            except_fields:
+              - __host
+          batch:
+            max_bytes: 400000
+          out_of_order_action: rewrite_timestamp
+          labels:
+            hostname: >-
+              {{`{{ __host }}`}}
+            service: >-
+              {{`{{ "talos-service" }}`}}
+    podMonitor:
+      enabled: true
+      jobLabel: vector-aggregator
+      port: prometheus-sink
+
+    service:
+      enabled: true
+      type: LoadBalancer
+      annotations:
+        io.cilium/lb-ipam-ips: ${VECTOR_AGGREGATOR_IP}
+        metallb.universe.tf/loadBalancerIPs: ${VECTOR_AGGREGATOR_IP}
+
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              kind: Service
+              name: vector-aggregator
+            patch:
+              - op: add
+                path: /spec/loadBalancerIP
+                value: ${VECTOR_AGGREGATOR_IP}
+              - op: replace
+                path: /spec/externalTrafficPolicy
+                value: Local
