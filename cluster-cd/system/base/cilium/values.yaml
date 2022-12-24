@@ -1,4 +1,10 @@
 ---
+image:
+  override: ~
+  repository: "quay.io/cilium/cilium-ci"
+  tag: "v1.13.0-rc4"
+
+
 nodeinit:
   restartPods: true
 prometheus:
@@ -28,6 +34,10 @@ ipam:
 
 operator:
   rollOutPods: true
+  image:
+    override: ~
+    repository: "quay.io/cilium/operator"
+    tag: "v1.13.0-rc4"
   prometheus:
     enabled: true
     serviceMonitor:

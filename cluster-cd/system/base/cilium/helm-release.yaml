@@ -13,11 +13,11 @@ spec:
       strategy: rollback
   chart:
     spec:
-      chart: ./install/kubernetes/cilium
-      version: 1.13.90
+      chart: cilium
+      version: 1.12.5
       sourceRef:
-        kind: GitRepository
-        name: cilium-git-charts
+        kind: HelmRepository
+        name: cilium-charts
         namespace: flux-system
       interval: 5m
   valuesFrom:

@@ -34,7 +34,6 @@ data:
   identity-allocation-mode: crd
   cilium-endpoint-gc-interval: "5m0s"
   nodes-gc-interval: "5m0s"
-  skip-cnp-status-startup-clean: "false"
   # Disable the usage of CiliumEndpoint CRD
   disable-endpoint-crd: "false"
 
@@ -51,7 +50,7 @@ data:
 
   # Enable IPv6 addressing. If enabled, all endpoints are allocated an IPv6
   # address.
-  enable-ipv6: "true"
+  enable-ipv6: "false"
   # Users who wish to specify their own custom CNI configuration file must set
   # custom-cni-conf to "true", otherwise Cilium may overwrite the configuration.
   custom-cni-conf: "false"
@@ -131,7 +130,6 @@ data:
   auto-direct-node-routes: "true"
   enable-local-redirect-policy: "true"
   ipv4-native-routing-cidr: 10.244.0.0/16
-  ipv6-native-routing-cidr: fd00:10:244::/48
 
   kube-proxy-replacement: "strict"
   kube-proxy-replacement-healthz-bind-address: "0.0.0.0:10256"
@@ -158,9 +156,9 @@ data:
   vtep-cidr: ""
   vtep-mask: ""
   vtep-mac: ""
-  enable-bgp-control-plane: "true"
+  enable-bgp-control-plane: "false"
   bpf-root: "/sys/fs/bpf"
-  cgroup-root: "/run/cilium/cgroupv2"
+  cgroup-root: "/sys/fs/cgroup"
   enable-k8s-terminating-endpoint: "true"
   remove-cilium-node-taints: "true"
   set-cilium-is-up-condition: "true"
@@ -509,13 +507,13 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "f4c7e82e6fdef7a091e214057f7822eeb0d587a79027885a11bd9a58468ddc78"
+        cilium.io/cilium-configmap-checksum: "be6bbb45a9394d1e583ba29880601946c467d6f0dc209327df1c8cdf0f07d9fb"
       labels:
         k8s-app: cilium
     spec:
       containers:
       - name: cilium-agent
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
+        image: "quay.io/cilium/cilium:v1.12.2@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-agent
@@ -585,7 +583,7 @@ spec:
               key: custom-cni-conf
               optional: true
         - name: KUBERNETES_SERVICE_HOST
-          value: "172.18.2.252"
+          value: "172.16.2.254"
         - name: KUBERNETES_SERVICE_PORT
           value: "6443"
         lifecycle:
@@ -607,6 +605,9 @@ spec:
         - name: bpf-maps
           mountPath: /sys/fs/bpf
           mountPropagation: Bidirectional
+        # Check for duplicate mounts before mounting
+        - name: cilium-cgroup
+          mountPath: /sys/fs/cgroup
         - name: cilium-run
           mountPath: /var/run/cilium
         - name: cni-path
@@ -626,64 +627,8 @@ spec:
         - name: xtables-lock
           mountPath: /run/xtables.lock
       initContainers:
-      # Required to mount cgroup2 filesystem on the underlying Kubernetes node.
-      # We use nsenter command with host's cgroup and mount namespaces enabled.
-      - name: mount-cgroup
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: CGROUP_ROOT
-          value: /run/cilium/cgroupv2
-        - name: BIN_PATH
-          value: /opt/cni/bin
-        command:
-        - sh
-        - -ec
-        # The statically linked Go program binary is invoked to avoid any
-        # dependency on utilities like sh and mount that can be missing on certain
-        # distros installed on the underlying host. Copy the binary to the
-        # same directory where we install cilium cni plugin so that exec permissions
-        # are available.
-        - |
-          cp /usr/bin/cilium-mount /hostbin/cilium-mount;
-          nsenter --cgroup=/hostproc/1/ns/cgroup --mount=/hostproc/1/ns/mnt "${BIN_PATH}/cilium-mount" $CGROUP_ROOT;
-          rm /hostbin/cilium-mount
-        volumeMounts:
-        - name: hostproc
-          mountPath: /hostproc
-        - name: cni-path
-          mountPath: /hostbin
-        terminationMessagePolicy: FallbackToLogsOnError
-        securityContext:
-          privileged: true
-      - name: apply-sysctl-overwrites
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: BIN_PATH
-          value: /opt/cni/bin
-        command:
-        - sh
-        - -ec
-        # The statically linked Go program binary is invoked to avoid any
-        # dependency on utilities like sh that can be missing on certain
-        # distros installed on the underlying host. Copy the binary to the
-        # same directory where we install cilium cni plugin so that exec permissions
-        # are available.
-        - |
-          cp /usr/bin/cilium-sysctlfix /hostbin/cilium-sysctlfix;
-          nsenter --mount=/hostproc/1/ns/mnt "${BIN_PATH}/cilium-sysctlfix";
-          rm /hostbin/cilium-sysctlfix
-        volumeMounts:
-        - name: hostproc
-          mountPath: /hostproc
-        - name: cni-path
-          mountPath: /hostbin
-        terminationMessagePolicy: FallbackToLogsOnError
-        securityContext:
-          privileged: true
       - name: clean-cilium-state
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
+        image: "quay.io/cilium/cilium:v1.12.2@sha256:986f8b04cfdb35cf714701e58e35da0ee63da2b8a048ab596ccb49de58d5ba36"
         imagePullPolicy: IfNotPresent
         command:
         - /init-container.sh
@@ -701,7 +646,7 @@ spec:
               key: clean-cilium-bpf-state
               optional: true
         - name: KUBERNETES_SERVICE_HOST
-          value: "172.18.2.252"
+          value: "172.16.2.254"
         - name: KUBERNETES_SERVICE_PORT
           value: "6443"
         terminationMessagePolicy: FallbackToLogsOnError
@@ -712,7 +657,7 @@ spec:
           mountPath: /sys/fs/bpf
           # Required to mount cgroup filesystem from the host to cilium agent pod
         - name: cilium-cgroup
-          mountPath: /run/cilium/cgroupv2
+          mountPath: /sys/fs/cgroup
           mountPropagation: HostToContainer
         - name: cilium-run
           mountPath: /var/run/cilium
@@ -748,15 +693,10 @@ spec:
         hostPath:
           path: /sys/fs/bpf
           type: DirectoryOrCreate
-      # To mount cgroup2 filesystem on the host
-      - name: hostproc
-        hostPath:
-          path: /proc
-          type: Directory
       # To keep state between restarts / upgrades for cgroup2 filesystem
       - name: cilium-cgroup
         hostPath:
-          path: /run/cilium/cgroupv2
+          path: /sys/fs/cgroup
           type: DirectoryOrCreate
       # To install cilium cni plugin in the host
       - name: cni-path
@@ -815,14 +755,14 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "f4c7e82e6fdef7a091e214057f7822eeb0d587a79027885a11bd9a58468ddc78"
+        cilium.io/cilium-configmap-checksum: "be6bbb45a9394d1e583ba29880601946c467d6f0dc209327df1c8cdf0f07d9fb"
       labels:
         io.cilium/app: operator
         name: cilium-operator
     spec:
       containers:
       - name: cilium-operator
-        image: "quay.io/cilium/operator-generic:v1.13.0-rc4@sha256:b296eb7f0f7656a5cc19724f40a8a7121b7fd725278b7d61dc91fe0b7ffd7c0e"
+        image: quay.io/cilium/operator-generic:v1.12.2@sha256:00508f78dae5412161fa40ee30069c2802aef20f7bdd20e91423103ba8c0df6e
         imagePullPolicy: IfNotPresent
         command:
         - cilium-operator-generic
@@ -847,7 +787,7 @@ spec:
               name: cilium-config
               optional: true
         - name: KUBERNETES_SERVICE_HOST
-          value: "172.18.2.252"
+          value: "172.16.2.254"
         - name: KUBERNETES_SERVICE_PORT
           value: "6443"
         livenessProbe:

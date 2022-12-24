@@ -17,7 +17,7 @@ spec:
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
     kind: TalosControlPlane
-    name: cho-cp
+    name: chongus-controlplane
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: MetalCluster
@@ -30,7 +30,7 @@ metadata:
   namespace: default
 spec:
   controlPlaneEndpoint:
-    host: 172.18.2.253
+    host: 172.18.2.252
     port: 6443
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
@@ -55,10 +55,10 @@ spec:
   controlPlaneConfig:
     controlplane:
       generateType: controlplane
-      talosVersion: v1.2.3
+      talosVersion: v1.3.0
   infrastructureTemplate:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
     kind: MetalMachineTemplate
     name: chongus-controlplane
   replicas: 3
-  version: v1.25.2
+  version: v1.26.0
