@@ -6,4 +6,4 @@ metadata:
 spec:
   cidrs:
     - cidr: "${NETWORK_LB_POOL}"
-    - cidr: "${NETWORK_LB_POOL_V6}"
+    # - cidr: "${NETWORK_LB_POOL_V6}"

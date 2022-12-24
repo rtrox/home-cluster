@@ -1,0 +1,44 @@
+---
+apiVersion: metal.sidero.dev/v1alpha1
+kind: ServerClass
+metadata:
+  name: serverclass-cho-controlplane
+spec:
+  selector:
+    matchLabels: {}
+  qualifiers:
+    systemInformation:
+      - manufacturer: "Dell Inc."
+  bootFromDiskMethod: ipxe-sanboot
+  configPatches:
+    - op: add
+      path: /machine/network
+      value:
+        interfaces:
+          - interface: eth0
+            dhcp: true
+            vip:
+              ip: 172.18.2.252
+    - op: replace
+      path: /machine/install/diskSelector
+      value:
+        size: "< 1TB"
+        model: "PNY*"
+    - op: add
+      path: /machine/install/extensions
+      value: [{"image": "ghcr.io/siderolabs/iscsi-tools:v0.1.1"}]
+    - op: replace
+      path: /machine/install/bootloader
+      value: true
+    - op: replace
+      path: /cluster/allowSchedulingOnControlPlanes
+      value: true
+    - op: add
+      path: /cluster/network/cni
+      value:
+        name: custom
+        urls:
+          - https://gist.githubusercontent.com/rtrox/13450a72ced9b32757624392643ac33c/raw/a2ab66edf228f6a49f11de866e37543e9f291a4a/cilium-install-chongus.yaml
+    - op: add
+      path: /cluster/proxy/disabled
+      value: true

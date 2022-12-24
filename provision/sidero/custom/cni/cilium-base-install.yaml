@@ -32,6 +32,8 @@ data:
   #   the kvstore by commenting out the identity-allocation-mode below, or
   #   setting it to "kvstore".
   identity-allocation-mode: crd
+  identity-heartbeat-timeout: "30m0s"
+  identity-gc-interval: "15m0s"
   cilium-endpoint-gc-interval: "5m0s"
   nodes-gc-interval: "5m0s"
   skip-cnp-status-startup-clean: "false"
@@ -42,7 +44,7 @@ data:
   debug: "false"
   # The agent can be put into the following three policy enforcement modes
   # default, always and never.
-  # https://docs.cilium.io/en/latest/policy/intro/#policy-enforcement-modes
+  # https://docs.cilium.io/en/latest/security/policy/intro/#policy-enforcement-modes
   enable-policy: "default"
 
   # Enable IPv4 addressing. If enabled, all endpoints are allocated an IPv4
@@ -51,7 +53,7 @@ data:
 
   # Enable IPv6 addressing. If enabled, all endpoints are allocated an IPv6
   # address.
-  enable-ipv6: "true"
+  enable-ipv6: "false"
   # Users who wish to specify their own custom CNI configuration file must set
   # custom-cni-conf to "true", otherwise Cilium may overwrite the configuration.
   custom-cni-conf: "false"
@@ -65,14 +67,14 @@ data:
   # notification events for each allowed connection.
   #
   # Only effective when monitor aggregation is set to "medium" or higher.
-  monitor-aggregation-interval: 5s
+  monitor-aggregation-interval: "5s"
 
   # The monitor aggregation flags determine which TCP flags which, upon the
   # first observation, cause monitor notifications to be generated.
   #
   # Only effective when monitor aggregation is set to "medium" or higher.
   monitor-aggregation-flags: all
-  # Specifies the ratio (0.0-1.0) of total system memory to use for dynamic
+  # Specifies the ratio (0.0-1.0] of total system memory to use for dynamic
   # sizing of the TCP CT, non-TCP CT, NAT and policy BPF maps.
   bpf-map-dynamic-size-ratio: "0.0025"
   # bpf-policy-map-max specifies the maximum number of entries in endpoint
@@ -81,8 +83,6 @@ data:
   # bpf-lb-map-max specifies the maximum number of entries in bpf lb service,
   # backend and affinity maps.
   bpf-lb-map-max: "65536"
-  # bpf-lb-bypass-fib-lookup instructs Cilium to enable the FIB lookup bypass
-  # optimization for nodeport reverse NAT handling.
   bpf-lb-external-clusterip: "false"
 
   # Pre-allocation of map entries allows per-packet latency to be reduced, at
@@ -107,10 +107,10 @@ data:
   sidecar-istio-proxy-image: "cilium/istio_proxy"
 
   # Name of the cluster. Only relevant when building a mesh of clusters.
-  cluster-name: cluster-0
+  cluster-name: chongus
   # Unique ID of the cluster. Must be unique across all conneted clusters and
   # in the range of 1 and 255. Only relevant when building a mesh of clusters.
-  cluster-id: "1"
+  cluster-id: "2"
 
   # Encapsulation mode for communication between nodes
   # Possible values:
@@ -118,10 +118,13 @@ data:
   #   - vxlan (default)
   #   - geneve
   tunnel: "disabled"
+
+
   # Enables L7 proxy for L7 policy enforcement and visibility
   enable-l7-proxy: "true"
 
   enable-ipv4-masquerade: "true"
+  enable-ipv6-big-tcp: "false"
   enable-ipv6-masquerade: "true"
 
   enable-xt-socket-fallback: "true"
@@ -131,7 +134,6 @@ data:
   auto-direct-node-routes: "true"
   enable-local-redirect-policy: "true"
   ipv4-native-routing-cidr: 10.244.0.0/16
-  ipv6-native-routing-cidr: fd00:10:244::/48
 
   kube-proxy-replacement: "strict"
   kube-proxy-replacement-healthz-bind-address: "0.0.0.0:10256"
@@ -162,6 +164,7 @@ data:
   bpf-root: "/sys/fs/bpf"
   cgroup-root: "/run/cilium/cgroupv2"
   enable-k8s-terminating-endpoint: "true"
+  enable-sctp: "false"
   remove-cilium-node-taints: "true"
   set-cilium-is-up-condition: "true"
   unmanaged-pod-watcher-interval: "15"
@@ -179,6 +182,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cilium
+  labels:
+    app.kubernetes.io/part-of: cilium
 rules:
 - apiGroups:
   - networking.k8s.io
@@ -222,12 +227,11 @@ rules:
 - apiGroups:
   - cilium.io
   resources:
-  - ciliumbgploadbalancerippools
+  - ciliumloadbalancerippools
   - ciliumbgppeeringpolicies
   - ciliumclusterwideenvoyconfigs
   - ciliumclusterwidenetworkpolicies
   - ciliumegressgatewaypolicies
-  - ciliumegressnatpolicies
   - ciliumendpoints
   - ciliumendpointslices
   - ciliumenvoyconfigs
@@ -235,6 +239,7 @@ rules:
   - ciliumlocalredirectpolicies
   - ciliumnetworkpolicies
   - ciliumnodes
+  - ciliumnodeconfigs
   verbs:
   - list
   - watch
@@ -283,6 +288,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cilium-operator
+  labels:
+    app.kubernetes.io/part-of: cilium
 rules:
 - apiGroups:
   - ""
@@ -326,6 +333,7 @@ rules:
   - services/status
   verbs:
   - update
+  - patch
 - apiGroups:
   - ""
   resources:
@@ -416,6 +424,7 @@ rules:
   - list
   - watch
   - delete
+  - patch
 - apiGroups:
   - apiextensions.k8s.io
   resources:
@@ -432,12 +441,11 @@ rules:
   verbs:
   - update
   resourceNames:
-  - ciliumbgploadbalancerippools.cilium.io
+  - ciliumloadbalancerippools.cilium.io
   - ciliumbgppeeringpolicies.cilium.io
   - ciliumclusterwideenvoyconfigs.cilium.io
   - ciliumclusterwidenetworkpolicies.cilium.io
   - ciliumegressgatewaypolicies.cilium.io
-  - ciliumegressnatpolicies.cilium.io
   - ciliumendpoints.cilium.io
   - ciliumendpointslices.cilium.io
   - ciliumenvoyconfigs.cilium.io
@@ -446,6 +454,20 @@ rules:
   - ciliumlocalredirectpolicies.cilium.io
   - ciliumnetworkpolicies.cilium.io
   - ciliumnodes.cilium.io
+- apiGroups:
+  - cilium.io
+  resources:
+  - ciliumloadbalancerippools
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - cilium.io
+  resources:
+  - ciliumloadbalancerippools/status
+  verbs:
+  - patch
 # For cilium-operator running in HA mode.
 #
 # Cilium operator running in HA mode requires the use of ResourceLock for Leader Election
@@ -466,6 +488,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cilium
+  labels:
+    app.kubernetes.io/part-of: cilium
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -480,6 +504,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: cilium-operator
+  labels:
+    app.kubernetes.io/part-of: cilium
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -489,6 +515,41 @@ subjects:
   name: "cilium-operator"
   namespace: kube-system
 ---
+# Source: cilium/templates/cilium-agent/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: cilium-config-agent
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/part-of: cilium
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+---
+# Source: cilium/templates/cilium-agent/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: cilium-config-agent
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/part-of: cilium
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cilium-config-agent
+subjects:
+  - kind: ServiceAccount
+    name: "cilium"
+    namespace: kube-system
+---
 # Source: cilium/templates/cilium-agent/daemonset.yaml
 apiVersion: apps/v1
 kind: DaemonSet
@@ -497,6 +558,8 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: cilium
+    app.kubernetes.io/part-of: cilium
+    app.kubernetes.io/name: cilium-agent
 spec:
   selector:
     matchLabels:
@@ -509,13 +572,15 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "f4c7e82e6fdef7a091e214057f7822eeb0d587a79027885a11bd9a58468ddc78"
+        cilium.io/cilium-configmap-checksum: "f14c187fc0680fe6efddfd10f8a09dfb72848d50f808c9215720fba07faae84a"
       labels:
         k8s-app: cilium
+        app.kubernetes.io/name: cilium-agent
+        app.kubernetes.io/part-of: cilium
     spec:
       containers:
       - name: cilium-agent
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
+        image: "quay.io/cilium/cilium:v1.13.0-rc4@sha256:32acd47fd9bea9c0045222ba5d27f5fe9ad06dabd572a80b870b1f0e68c0e928"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-agent
@@ -616,20 +681,44 @@ spec:
         - name: clustermesh-secrets
           mountPath: /var/lib/cilium/clustermesh
           readOnly: true
-        - name: cilium-config-path
-          mountPath: /tmp/cilium/config-map
-          readOnly: true
           # Needed to be able to load kernel modules
         - name: lib-modules
           mountPath: /lib/modules
           readOnly: true
         - name: xtables-lock
           mountPath: /run/xtables.lock
+        - name: tmp
+          mountPath: /tmp
       initContainers:
+      - name: config
+        image: "quay.io/cilium/cilium:v1.13.0-rc4@sha256:32acd47fd9bea9c0045222ba5d27f5fe9ad06dabd572a80b870b1f0e68c0e928"
+        imagePullPolicy: IfNotPresent
+        command:
+        - cilium
+        - build-config
+        env:
+        - name: K8S_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: CILIUM_K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: KUBERNETES_SERVICE_HOST
+          value: "172.18.2.252"
+        - name: KUBERNETES_SERVICE_PORT
+          value: "6443"
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        terminationMessagePolicy: FallbackToLogsOnError
       # Required to mount cgroup2 filesystem on the underlying Kubernetes node.
       # We use nsenter command with host's cgroup and mount namespaces enabled.
       - name: mount-cgroup
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
+        image: "quay.io/cilium/cilium:v1.13.0-rc4@sha256:32acd47fd9bea9c0045222ba5d27f5fe9ad06dabd572a80b870b1f0e68c0e928"
         imagePullPolicy: IfNotPresent
         env:
         - name: CGROUP_ROOT
@@ -657,7 +746,7 @@ spec:
         securityContext:
           privileged: true
       - name: apply-sysctl-overwrites
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
+        image: "quay.io/cilium/cilium:v1.13.0-rc4@sha256:32acd47fd9bea9c0045222ba5d27f5fe9ad06dabd572a80b870b1f0e68c0e928"
         imagePullPolicy: IfNotPresent
         env:
         - name: BIN_PATH
@@ -683,7 +772,7 @@ spec:
         securityContext:
           privileged: true
       - name: clean-cilium-state
-        image: "quay.io/cilium/cilium-ci:v1.13.0-rc4@sha256:06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
+        image: "quay.io/cilium/cilium:v1.13.0-rc4@sha256:32acd47fd9bea9c0045222ba5d27f5fe9ad06dabd572a80b870b1f0e68c0e928"
         imagePullPolicy: IfNotPresent
         command:
         - /init-container.sh
@@ -738,6 +827,9 @@ spec:
       tolerations:
         - operator: Exists
       volumes:
+        # For sharing configuration between the "config" initContainer and the agent
+      - name: tmp
+        emptyDir: {}
         # To keep state between restarts / upgrades
       - name: cilium-run
         hostPath:
@@ -784,10 +876,6 @@ spec:
           # note: the leading zero means this number is in octal representation: do not remove it
           defaultMode: 0400
           optional: true
-        # To read the configuration from the config map
-      - name: cilium-config-path
-        configMap:
-          name: cilium-config
 ---
 # Source: cilium/templates/cilium-operator/deployment.yaml
 apiVersion: apps/v1
@@ -798,6 +886,8 @@ metadata:
   labels:
     io.cilium/app: operator
     name: cilium-operator
+    app.kubernetes.io/part-of: cilium
+    app.kubernetes.io/name: cilium-operator
 spec:
   # See docs on ServerCapabilities.LeasesResourceLock in file pkg/k8s/version/version.go
   # for more details.
@@ -815,14 +905,16 @@ spec:
     metadata:
       annotations:
         # ensure pods roll when configmap updates
-        cilium.io/cilium-configmap-checksum: "f4c7e82e6fdef7a091e214057f7822eeb0d587a79027885a11bd9a58468ddc78"
+        cilium.io/cilium-configmap-checksum: "f14c187fc0680fe6efddfd10f8a09dfb72848d50f808c9215720fba07faae84a"
       labels:
         io.cilium/app: operator
         name: cilium-operator
+        app.kubernetes.io/part-of: cilium
+        app.kubernetes.io/name: cilium-operator
     spec:
       containers:
       - name: cilium-operator
-        image: "quay.io/cilium/operator-generic:v1.13.0-rc4@sha256:b296eb7f0f7656a5cc19724f40a8a7121b7fd725278b7d61dc91fe0b7ffd7c0e"
+        image: "quay.io/cilium/operator-generic:v1.13.0-rc4@sha256:19f612d4f1052e26edf33e26f60d64d8fb6caed9f03692b85b429a4ef5d175b2"
         imagePullPolicy: IfNotPresent
         command:
         - cilium-operator-generic
@@ -887,3 +979,6 @@ spec:
       - name: cilium-config-path
         configMap:
           name: cilium-config
+---
+# Source: cilium/templates/cilium-secrets-namespace.yaml
+# Only create the namespace if it's different from Ingress secret namespace or Ingress is not enabled.

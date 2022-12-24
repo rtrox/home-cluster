@@ -1,8 +1,10 @@
 ---
 image:
   override: ~
-  repository: "quay.io/cilium/cilium-ci"
+  repository: "quay.io/cilium/cilium"
   tag: "v1.13.0-rc4"
+  useDigest: true
+  digest: "06ce2b0a0a472e73334a7504ee5c5d8b2e2d7b72ef728ad94e564740dd505be5"
 
 
 nodeinit:

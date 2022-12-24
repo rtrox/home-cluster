@@ -1,7 +1,7 @@
 ---
 cluster:
-  name: "cluster-0"
-  id: "1"
+  name: "chongus"
+  id: "2"
 
 rollOutCiliumPods: true
 localRedirectPolicy: true
@@ -20,7 +20,7 @@ ipam:
 
 image:
   override: ~
-  repository: "quay.io/cilium/cilium-ci"
+  repository: "quay.io/cilium/cilium"
   tag: "v1.13.0-rc4"
 
 operator:
@@ -42,7 +42,7 @@ containerRuntime:
 # nativeRoutingCIDR allows to explicitly specify the CIDR for native routing. This
 # value corresponds to the configured cluster-cidr.
 ipv4NativeRoutingCIDR: 10.244.0.0/16
-ipv6NativeRoutingCIDR: fd00:10:244::/48
+# ipv6NativeRoutingCIDR: fd00:10:244::/48
 tunnel: disabled
 
 # Cilium leverages MetalLB's simplified BGP announcement system for service type: LoadBalancer
@@ -57,7 +57,7 @@ hubble:
 
 ipv6:
   # -- Enable IPv6 support.
-  enabled: true
+  enabled: false
 
 # loadBalancer is the general configuration for service load balancing
 loadBalancer:
