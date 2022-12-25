@@ -217,20 +217,11 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
+      externalTrafficPolicy: Local
+      ipFamilyPolicy: PreferDualStack
+      ipFamilies:
+        - IPv4
+        - IPv6
       annotations:
-        io.cilium/lb-ipam-ips: ${VECTOR_AGGREGATOR_IP}
-        metallb.universe.tf/loadBalancerIPs: ${VECTOR_AGGREGATOR_IP}
-
-  postRenderers:
-    - kustomize:
-        patchesJson6902:
-          - target:
-              kind: Service
-              name: vector-aggregator
-            patch:
-              - op: add
-                path: /spec/loadBalancerIP
-                value: ${VECTOR_AGGREGATOR_IP}
-              - op: replace
-                path: /spec/externalTrafficPolicy
-                value: Local
+        io.cilium/lb-ipam-ips: ${VECTOR_AGGREGATOR_IP},${VECTOR_AGGREGATOR_IP6}
+        metallb.universe.tf/loadBalancerIPs: ${VECTOR_AGGREGATOR_IP},${VECTOR_AGGREGATOR_IP6}

@@ -28,7 +28,6 @@ secretGenerator:
       - values.yaml=kube-prometheus-stack-datasources-values.cho-raw.yaml
 
 patchesStrategicMerge:
-  - loki-patch.yaml
   - kube-prometheus-stack-patch.yaml
 
 
