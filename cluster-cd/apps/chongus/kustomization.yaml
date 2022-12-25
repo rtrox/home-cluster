@@ -14,5 +14,5 @@ resources:
   - radarr-secret.cho.yaml
   - sonarr-secret.cho.yaml
 
-# patchesStrategicMerge:
-#   - blocky-service-ipv6-patch.yaml
+patchesStrategicMerge:
+  - blocky-service-ipv6-patch.yaml

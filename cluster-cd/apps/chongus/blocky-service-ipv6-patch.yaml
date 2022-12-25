@@ -6,8 +6,9 @@ metadata:
   namespace: blocky
   annotations:
     io.cilium/lb-ipam-ips: "${BLOCKY_IP},${BLOCKY_IP6}"
+    metallb.universe.tf/loadBalancerIPs: "${BLOCKY_IP},${BLOCKY_IP6}"
 spec:
   ipFamilyPolicy: PreferDualStack
   ipFamilies:
-    - IPv6
     - IPv4
+    - IPv6

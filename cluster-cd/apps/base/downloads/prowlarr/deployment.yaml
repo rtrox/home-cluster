@@ -51,12 +51,12 @@ spec:
                 - ALL
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           env:
             - name: TZ
               value: ${LOCAL_TZ}
             - name: PROWLARR__PORT
-              value: "80"
+              value: "8080"
             - name: PROWLARR_INSTANCE_NAME
               value: Prowlarr
           envFrom:
@@ -94,4 +94,3 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: prowlarr-config
-

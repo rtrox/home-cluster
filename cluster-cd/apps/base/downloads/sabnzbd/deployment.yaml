@@ -55,12 +55,12 @@ spec:
                 - ALL
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           env:
             - name: TZ
               value: ${LOCAL_TZ}
             - name: SABNZBD__PORT
-              value: "80"
+              value: "8080"
             - name: SABNZBD__HOST_WHITELIST_ENTRIES
               value: >-
                 sabznbd,
@@ -120,4 +120,3 @@ spec:
             path: /volume1/media
         - name: incomplete
           emptyDir: {}
-

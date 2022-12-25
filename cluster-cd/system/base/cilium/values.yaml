@@ -12,7 +12,8 @@ rollOutCiliumPods: true
 localRedirectPolicy: true
 kubeProxyReplacement: strict
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-ipv4NativeRoutingCIDR: ${CILIUM_NATIVE_ROUTING_CIDR}
+ipv4NativeRoutingCIDR: ${POD_CIDR_V4}
+ipv6NativeRoutingCIDR: ${POD_CIDR_V6}
 
 k8sServiceHost: ${KUBE_API_VIP}
 k8sServicePort: 6443

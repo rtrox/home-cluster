@@ -53,12 +53,12 @@ spec:
                 - ALL
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           env:
             - name: TZ
               value: ${LOCAL_TZ}
             - name: RADARR__PORT
-              value: "80"
+              value: "8080"
             - name: RADARR_INSTANCE_NAME
               value: Radarr
             - name: RADARR__LOG_LEVEL
@@ -112,4 +112,3 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/downloads
-

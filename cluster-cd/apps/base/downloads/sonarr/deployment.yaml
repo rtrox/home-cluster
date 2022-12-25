@@ -53,12 +53,12 @@ spec:
                 - ALL
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           env:
             - name: TZ
               value: ${LOCAL_TZ}
             - name: SONARR__PORT
-              value: "80"
+              value: "8080"
             - name: SONARR_INSTANCE_NAME
               value: Sonarr
             - name: SONARR__LOG_LEVEL
@@ -105,4 +105,3 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/media
-
