@@ -18,5 +18,5 @@ resources:
   - rook-ceph-charts.yaml
   - truecharts.yaml
   - angelnu-charts.yaml
-  - nvidia-gpu-operator-chart.yaml
+  - nvidia-device-plugin-charts.yaml
   - metallb-charts.yaml

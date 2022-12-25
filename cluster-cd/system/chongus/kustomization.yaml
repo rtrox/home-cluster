@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ../base
   - ../extension/rook-ceph
+  - ../extension/nvidia-device-plugin
   # - cilium-bgp-peering-policy.yaml
   # - cilium-lb-ip-pool.yaml
   - cloudflare-token-secret.cho.yaml
