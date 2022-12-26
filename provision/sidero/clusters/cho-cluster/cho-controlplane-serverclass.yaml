@@ -17,9 +17,6 @@ spec:
         interfaces:
           - interface: eth0
             dhcp: true
-            dhcpOptions:
-              ipv6: true
-              ipv4: true
             vip:
               ip: 172.18.2.252
     - op: replace

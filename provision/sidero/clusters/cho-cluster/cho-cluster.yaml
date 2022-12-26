@@ -9,11 +9,11 @@ spec:
     pods:
       cidrBlocks:
         - 10.244.0.0/16
-        - fd00:10:244::/48
+        - fd01:10:244::/56
     services:
       cidrBlocks:
         - 10.96.0.0/12
-        - fd00:10:96::/48
+        - fd01:10:96::/112
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
     kind: TalosControlPlane
