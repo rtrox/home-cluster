@@ -9,6 +9,7 @@ resources:
   - addresspool.yaml
   - bfdprofile.yaml
   - bgpadvertisement.yaml
+  - l2advertisement.yaml
   - bgppeer.yaml
 
 configMapGenerator:
