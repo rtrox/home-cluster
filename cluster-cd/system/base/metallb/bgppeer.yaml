@@ -8,4 +8,3 @@ spec:
   myASN: 64512
   peerASN: 64512
   peerAddress: ${NETWORK_BGP_PEER}
-  bfdProfile: bfdprofile
