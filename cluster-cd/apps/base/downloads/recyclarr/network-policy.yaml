@@ -16,5 +16,3 @@ spec:
     - fromEntities:
         - cluster
         - world
-
-

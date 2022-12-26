@@ -1,0 +1,57 @@
+apiVersion: v1
+data:
+    .dockerconfigjson: ENC[AES256_GCM,data:soS0betiTkrX9cnpBR1mKUJkvQ5bdGMIeGJOEp4Ine4c25BxuaPu4Hj507MOkntF2E1/HoR9y7AmbkC9REZ7PqAGY+gKc+d3FRW/XbjukGCLNyhWzJ72r10IlxUWJdskjqlnMAXFH08CK83n3B9XC/4LWXKYk9rkxSmHniQdL6AzIJCV/61t9hJYsxVIFPFGxeeBSi7IveIgat9M9EjCppz9yKA0RwPb2VvOigBl7FOjsETGlaLFSeT3kNb/1XFTeVV6oh2CMCAmS9Fe9srBwuUwcYV0Nv0kUkOyqlNJExa49rYCzZSApKCiKc7AoNhkyS2eveuQgDXNupLuY1bsLmFc0sIFRH/te8YehVgrwvDjLZcBKlRC4AE8EC4=,iv:trK8QzBAt6OuFeKvINwophiQl0u5EkOqzkOnjsxeb1A=,tag:0O6zjtMtqJLe0bitfhKDnQ==,type:str]
+kind: Secret
+metadata:
+    namespace: default
+    labels:
+        app: spotify-moderator
+    name: ghcr-login-secret
+type: kubernetes.io/dockerconfigjson
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1ay8ky5ce59vkz740uzp2tr2r22sqwez9804wdv32rrd6q5tawc3q0ugvp3
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDb21XZDRUNTVyWHQ1TlNt
+            TVg5VjY4RXZvdVBrb2VDcmhxODJZUk9FMldJCjJoRFpzVFE4dWs4S0JmaEduUENJ
+            TUVEM0lacUFOSUtCUVg5alpaT21rWUUKLS0tIGZ2TU93UHNwVEQwOVFSRWZ4UENV
+            N2E1UEdGOHZrTmFDTEZqeU1mZ3pWZDgKf+wLi8roKSG8jfyd0odjobdIh66J2yZz
+            SllMmZKNwei9jrtXkmX0lnfQUCsiGddexxESppjYR/vLDOsE5j1cnQ==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1ptsqml5nfm2rq004uprw4wf4ghc965cygut4n7ejkt0esfxr7a7sxpmz5m
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMaHp4dFl6TE4wa0Z5dWN5
+            MVdDcVNMM0E0cDc2NlJyVUpJc29VbTBDUmprCjhvOHZBbFI1ZDBRbUN0emdjbXF6
+            MW95bTQrdzk3T0lTYlJDdy8waDB1TmMKLS0tIHJ2UG41VVVZeUcyaUdqdkgzdEg0
+            dXMxckxzL2QvYmhpZUhGS3dMRHVTTm8KD5AkcE0Xfqs87jwe4A9QtlLfI66mG9e2
+            5TwLPpvH5JVhkV3PfPZXOZdpCKjPDvc2VoDR9vg1Y9qQyB4WuHh88A==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age1ns2r38fd24cpfmhmn3qeu8x28nrq6ehjdc72yz4q44sxk8aej9vqtr5jue
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIMnB5RkpuSFJVWUtzZWE2
+            TGdLOWdqRDZMQUt0aXNMRDBIbEVQZTZhVWpVCjBwc1VIOTl2WndjNHg4RSs2NjYz
+            OWpKOGtuMzRoWHhib0ovY3UwenRkcEkKLS0tIFdJMmdHQnZBQkZDcGZWNkw0TGYv
+            YW9rWG42S1NCZHVHVVZHT1A1U1NzQTQKFfM/quR42tzMwxMbq6vKxciG4mPYIqzi
+            zximpIXsT+bpTt93keAjaHMsuOT2d8S80Lh/FIvNsntx/NidLH3WhQ==
+            -----END AGE ENCRYPTED FILE-----
+        - recipient: age15pw0dy5kn2pqs6hxy9g9g8x60trqxlcj6sdv3uveu8wlc23uya6ssunxp7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXeWcyd29meGJLZnJ1R3gz
+            SnZiQm0wWGlUdzh5dVo4YXE1NzR5Nkt5clVzClVOUmJsNGVIV3VHU0RtWmJ4Mm0z
+            dDgzbVFxU2JZNVhXM0tBNG5lYnV0bVUKLS0tIHpKalptRTlMRnhncFo5cVVrRm5U
+            YlM0TDFuTktkRG5VTW4rUXNBQk5YNmMKHxYZRXnmyRJvqPLEizUi5BHdsWfp/qyi
+            3wAcacgVp41RI197cmQCTGL+DORfq/seQ57SWQXug4dIu4FLYe1RJw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2022-12-26T07:48:24Z"
+    mac: ENC[AES256_GCM,data:MhFFrr8hl4n5R++6xV8kqGIwQZexHdZS87RGG/Wv22/hfsPZ7QmpV8im9Qthfu7IEDApuFmhl00bhcg54Owx0MIAc6XscPnBBUoWYW5Om9li1mfSjNL1u4qXk1wXVSthSinnWQcCXGpQnF1o1Nlq6+0nMzrzlOIGP2HVTOrYRUw=,iv:TMRVtNDBbMa2rWhpooS7Hh33QYBMAl2xlCZbrZubehg=,tag:hEcADB/eXBWZE8FW+58TGQ==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

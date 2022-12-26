@@ -1,0 +1,14 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &name spotify-moderator-data
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: spotify-moderator
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

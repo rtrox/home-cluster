@@ -6,6 +6,7 @@ resources:
   - ../base/blocky
   - ../base/vpn-gateway
   - ../base/downloads
+  - ../base/spotify-moderator
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
@@ -13,6 +14,8 @@ resources:
   - prowlarr-secret.cho.yaml
   - radarr-secret.cho.yaml
   - sonarr-secret.cho.yaml
+  - spotify-moderator-registry-creds.cho.yaml
+  - spotify-moderator-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml
