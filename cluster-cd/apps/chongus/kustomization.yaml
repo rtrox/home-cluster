@@ -6,6 +6,7 @@ resources:
   - ../base/blocky
   - ../base/vpn-gateway
   - ../base/downloads
+  - ../base/media
   - ../base/spotify-moderator
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
