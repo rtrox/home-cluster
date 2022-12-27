@@ -33,6 +33,7 @@ spec:
           args:
             - -image-folder=/data/images/
             - -db-location=/data/spotify.db
+            - -reconcile-interval=30s
           envFrom:
             - secretRef:
                 name: spotify-moderator-env
