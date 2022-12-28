@@ -28,6 +28,14 @@ spec:
         runAsGroup: 10001
         fsGroup: 10001
       containers:
+        - name: debug-alpine
+          image: 'alpine:latest'
+          command:
+            - sleep
+            - '3600'
+          volumeMounts:
+            - mountPath: /data
+              name: data
         - name: spotify-moderator
           image: 'ghcr.io/rtrox/spotify-moderator:sha-16ce864'
           args:
