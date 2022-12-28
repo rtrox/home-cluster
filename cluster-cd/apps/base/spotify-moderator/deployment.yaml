@@ -28,8 +28,16 @@ spec:
         runAsGroup: 10001
         fsGroup: 10001
       containers:
-        - name: debug-alpine
-          image: 'alpine:latest'
+        - image: nicolaka/netshoot
+          name: debug-net
+          command:
+            - sleep
+            - '3600'
+          volumeMounts:
+            - mountPath: /data
+              name: data
+        - name: debug-sqlite3
+          image: 'nouchka/sqlite3'
           command:
             - sleep
             - '3600'
