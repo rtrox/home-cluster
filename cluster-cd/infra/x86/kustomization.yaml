@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   - ../base
-  - ./yaddu
   - ./flux-webhook
   - thanos-objstore-secret.x86.yaml
   - loki-secrets.x86.yaml
