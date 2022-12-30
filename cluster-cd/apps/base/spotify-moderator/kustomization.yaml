@@ -13,4 +13,4 @@ bases:
 
 images:
   - name: ghcr.io/rtrox/spotify-moderator
-    newTag: sha-456f098
+    newTag: sha-f6314f8
