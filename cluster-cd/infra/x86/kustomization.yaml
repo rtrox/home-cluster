@@ -7,3 +7,4 @@ resources:
   - ./flux-webhook
   - thanos-objstore-secret.x86.yaml
   - loki-secrets.x86.yaml
+  - loki-configmap.yaml

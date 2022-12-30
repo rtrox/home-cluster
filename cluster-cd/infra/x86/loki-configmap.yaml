@@ -1,0 +1,8 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bucket-loki
+data:
+  BUCKET_NAME: ${REVERSED_DOMAIN}.loki
+  BUCKET_HOST: ${S3_BUCKET_HOST}
