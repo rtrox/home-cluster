@@ -13,7 +13,7 @@ metadata:
   name: spotify-moderator
 spec:
   endpoints:
-    - port: http-metrics
+    - port: http
       scheme: http
   jobLabel: jobLabel
   selector:
