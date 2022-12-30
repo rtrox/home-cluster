@@ -6,10 +6,14 @@ resources:
   - ../base
   - flux-webhook
   - ceph-dashboards
-  - thanos-objstore-secret.cho.yaml
   - loki-ceph-bucket.yaml
+  - thanos-ceph-bucket.yaml
 
 configMapGenerator:
+  - name: thanos-cluster-values
+    namespace: monitoring
+    files:
+      - values.yaml=thanos-cluster-values.yaml
   - name: extra-dashboards
     namespace: monitoring
     files:
@@ -29,6 +33,7 @@ secretGenerator:
 
 patchesStrategicMerge:
   - kube-prometheus-stack-patch.yaml
+  - thanos-patch.yaml
 
 
 configurations:
