@@ -29,7 +29,7 @@ spec:
         fsGroup: 10001
       containers:
         - name: spotify-moderator
-          image: 'ghcr.io/rtrox/spotify-moderator:sha-f6314f8'
+          image: 'ghcr.io/rtrox/spotify-moderator:sha-c9cbea7'
           args:
             - -image-folder=/data/images/
             - -db-location=/data/spotify.db
