@@ -11,6 +11,19 @@ bases:
   - ingress.yaml
   - pvc.yaml
 
+configMapGenerator:
+  - name: spotify-moderator-dashboards
+    namespace: monitoring
+    files:
+      - dashboards/dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: spotify-moderator
+        app.kubernetes.io/component: spotify-moderator
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
+
 images:
   - name: ghcr.io/rtrox/spotify-moderator
     newTag: sha-c9cbea7
