@@ -16,6 +16,7 @@ resources:
   - prowlarr-secret.cho.yaml
   - radarr-secret.cho.yaml
   - sonarr-secret.cho.yaml
+  - readarr-secret.cho.yaml
   - spotify-moderator-registry-creds.cho.yaml
   - spotify-moderator-secret.cho.yaml
   - yaddu-config-secret.cho.yaml

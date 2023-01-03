@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: downloads
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - pvc.yaml
+
+images:
+  # TODO: non-nightly image to let renovate pick it up
+  - name: ghcr.io/onedr0p/readarr-nightly
+    newTag: 0.1.1.1504@sha256:72ce66bd40db62a2a9918a96bd12d5d8a02914ffcf2d75299416654185b38e1b
+
+commonLabels:
+  app.kubernetes.io/part-of: readarr
+  k8s-app: readarr
