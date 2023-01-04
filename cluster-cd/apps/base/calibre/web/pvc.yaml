@@ -1,0 +1,14 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &name calibre-web-config
+  labels:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: calibre-web
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi

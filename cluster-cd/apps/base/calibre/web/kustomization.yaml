@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - pvc.yaml
+
+images:
+  # TODO: non-nightly image to let renovate pick it up
+  - name: ghcr.io/bjw-s/calibre-web
+    newTag: 0.6.19@sha256:2090b8d6ae43d56435b0dc27b9c3bc1bf43500d1b268a0eecfe890b1d6b03e72
+
+commonLabels:
+  app.kubernetes.io/part-of: calibre-web
+  k8s-app: calibre-web
