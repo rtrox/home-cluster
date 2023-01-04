@@ -11,6 +11,7 @@ bases:
   - ingress.yaml
   - pvc.yaml
 
+# TODO: this is still in the default namespace :-/
 configMapGenerator:
   - name: spotify-moderator-dashboards
     namespace: monitoring

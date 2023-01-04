@@ -9,6 +9,7 @@ resources:
   - ../base/media
   - ../base/spotify-moderator
   - ../base/yaddu
+  - ../base/calibre
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
