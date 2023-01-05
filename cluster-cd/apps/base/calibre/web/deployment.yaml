@@ -39,9 +39,9 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: 2048Mi
+              memory: 8192Mi
             requests:
-              memory: 1024Mi
+              memory: 4096Mi
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 568
