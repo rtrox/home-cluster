@@ -21,6 +21,7 @@ resources:
   - spotify-moderator-registry-creds.cho.yaml
   - spotify-moderator-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
+  - kavita-email-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml
