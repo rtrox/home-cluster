@@ -29,7 +29,7 @@ spec:
         fsGroup: 10001
       containers:
         - name: spotify-moderator
-          image: 'ghcr.io/rtrox/spotify-moderator:sha-c9cbea7'
+          image: 'ghcr.io/rtrox/spotify-moderator:sha-f838aba'
           args:
             - -image-folder=/data/images/
             - -db-location=/data/spotify.db
@@ -76,22 +76,6 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
-          volumeMounts:
-            - mountPath: /data
-              name: data
-        - image: nicolaka/netshoot
-          name: debug-net
-          command:
-            - sleep
-            - '3600'
-          volumeMounts:
-            - mountPath: /data
-              name: data
-        - name: debug-sqlite3
-          image: 'nouchka/sqlite3'
-          command:
-            - sleep
-            - '3600'
           volumeMounts:
             - mountPath: /data
               name: data

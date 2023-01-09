@@ -27,4 +27,4 @@ configMapGenerator:
 
 images:
   - name: ghcr.io/rtrox/spotify-moderator
-    newTag: sha-c9cbea7
+    newTag: sha-f838aba
