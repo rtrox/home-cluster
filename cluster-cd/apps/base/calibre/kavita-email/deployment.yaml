@@ -30,25 +30,22 @@ spec:
         runAsUser: 0
         runAsGroup: 0
       containers:
-        - name: debug
-          image: debian:stable
-          command: ["/bin/sh", "-c", "while true; do sleep 30; done"]
         - name: kavita-email
-          image: kizaing/kavitaemail:0.1.11
+          image: ghcr.io/rtrox/kavita-email-kubernetes:sha-c09a73a
           imagePullPolicy: IfNotPresent
           resources:
             limits:
               memory: 256Mi
             requests:
               memory: 128Mi
-          # securityContext:
-          #   allowPrivilegeEscalation: false
-          #   runAsUser: 1000
-          #   seccompProfile:
-          #     type: RuntimeDefault
-          #   capabilities:
-          #     drop:
-          #       - ALL
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           ports:
             - name: http
               containerPort: 5003
@@ -56,27 +53,33 @@ spec:
           envFrom:
             - secretRef:
                 name: kavita-email-secret
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          #     scheme: HTTP
-          #   initialDelaySeconds: 10
-          #   failureThreshold: 5
-          #   timeoutSeconds: 2
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          #     scheme: HTTP
-          #   initialDelaySeconds: 10
-          #   failureThreshold: 5
-          #   timeoutSeconds: 2
-          # startupProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          #     scheme: HTTP
-          #   initialDelaySeconds: 10
-          #   failureThreshold: 5
-          #   timeoutSeconds: 2
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+      volumes:
+        - name: config
+          emptyDir: {}
