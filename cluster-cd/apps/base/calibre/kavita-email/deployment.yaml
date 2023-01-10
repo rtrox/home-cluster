@@ -26,20 +26,26 @@ spec:
       annotations:
         backup.velero.io/backup-volumes: config
     spec:
+      imagePullSecrets:
+        - name: ghcr-login-secret
       securityContext:
-        runAsUser: 0
-        runAsGroup: 0
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: kavita-email
           image: ghcr.io/rtrox/kavita-email-kubernetes:sha-c09a73a
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              memory: 256Mi
+              memory: 2048Mi
+              cpu: 500m
             requests:
-              memory: 128Mi
+              memory: 2048Mi
+              cpu: 500m
           securityContext:
             allowPrivilegeEscalation: false
+            runAsNonRoot: true
             runAsUser: 1000
             seccompProfile:
               type: RuntimeDefault
@@ -56,30 +62,8 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /app/config
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 10
-            failureThreshold: 5
-            timeoutSeconds: 2
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 10
-            failureThreshold: 5
-            timeoutSeconds: 2
-          startupProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 10
-            failureThreshold: 5
-            timeoutSeconds: 2
       volumes:
         - name: config
+          emptyDir: {}
+        - name: logs
           emptyDir: {}
