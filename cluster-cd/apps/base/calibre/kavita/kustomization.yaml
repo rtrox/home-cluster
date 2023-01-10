@@ -11,8 +11,8 @@ resources:
   - pvc.yaml
 
 images:
-  - name: kizaing/kavita
-    newTag: 0.6.1
+  - name: ghcr.io/rtrox/kavita
+    newTag: sha-77128a8
 
 commonLabels:
   app.kubernetes.io/part-of: kavita

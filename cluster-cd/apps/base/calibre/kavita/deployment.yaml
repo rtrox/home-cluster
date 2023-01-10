@@ -26,13 +26,15 @@ spec:
       annotations:
         backup.velero.io/backup-volumes: config
     spec:
+      imagePullSecrets:
+        - name: ghcr-login-secret
       securityContext:
         runAsUser: 0
         runAsGroup: 0
         # fsGroup: 1000
       containers:
         - name: kavita
-          image: kizaing/kavita:0.6.1
+          image: ghcr.io/rtrox/kavita:sha-77128a8
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -79,7 +81,7 @@ spec:
             failureThreshold: 5
             timeoutSeconds: 2
           volumeMounts:
-            - mountPath: /config
+            - mountPath: /kavita/config
               name: config
             - mountPath: /media/books
               name: books

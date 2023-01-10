@@ -10,8 +10,8 @@ resources:
 
 
 images:
-  - name: ghcr.io/rtrox/kavita-email-kubernetes
-    newTag: sha-c09a73a
+  - name: ghcr.io/rtrox/kavitaemail
+    newTag: sha-af6c92e
 
 commonLabels:
   app.kubernetes.io/part-of: kavita-email

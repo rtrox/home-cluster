@@ -34,7 +34,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: kavita-email
-          image: ghcr.io/rtrox/kavita-email-kubernetes:sha-c09a73a
+          image: ghcr.io/rtrox/kavitaemail:sha-af6c92e
           imagePullPolicy: IfNotPresent
           resources:
             limits:
