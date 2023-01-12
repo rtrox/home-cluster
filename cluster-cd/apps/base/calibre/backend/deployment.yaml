@@ -24,6 +24,7 @@ spec:
         app.kubernetes.io/instance: *name
         app.kubernentes.io/component: *name
       annotations:
+        backup.velero.io/backup-volumes-excludes: books
         backup.velero.io/backup-volumes: config
     spec:
       securityContext:

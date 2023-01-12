@@ -25,6 +25,7 @@ spec:
         app.kubernentes.io/component: *name
       annotations:
         backup.velero.io/backup-volumes: config
+        backup.velero.io/backup-volumes-excludes: books
     spec:
       securityContext:
         runAsUser: 568
