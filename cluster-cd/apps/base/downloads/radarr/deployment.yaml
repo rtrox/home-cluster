@@ -8,9 +8,6 @@ metadata:
     app.kubernetes.io/component: *name
     app.kubernetes.io/part-of: *name
     k8s-app: *name
-  annotations:
-    backup.velero.io/backup-volumes-excludes: media
-    backup.velero.io/backup-volumes: config
   name: *name
 spec:
   selector:
@@ -29,6 +26,7 @@ spec:
         setGateway: "true"
       annotations:
         backup.velero.io/backup-volumes: config
+        backup.velero.io/backup-volumes-excludes: media
     spec:
       securityContext:
         runAsUser: 568
