@@ -18,10 +18,6 @@ spec:
         k8s-app: postgres
       annotations:
         backup.velero.io/backup-volumes: postgresdb
-        pre.hook.backup.velero.io/container: fsfreeze
-        pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/data/pgdata"]'
-        post.hook.backup.velero.io/container: fsfreeze
-        post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/data/pgdata"]'
     spec:
       containers:
         - name: postgres
@@ -38,14 +34,6 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: postgresdb
-        - image: ubuntu:bionic
-          name: fsfreeze
-          securityContext:
-            privileged: true
-          volumeMounts:
-            - mountPath: "/data/pgdata"
-              name: postgresdb
-              readOnly: false
           command:
             - "/bin/bash"
             - "-c"

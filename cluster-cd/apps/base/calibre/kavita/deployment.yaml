@@ -26,10 +26,6 @@ spec:
       annotations:
         backup.velero.io/backup-volumes-excludes: books
         backup.velero.io/backup-volumes: config
-        pre.hook.backup.velero.io/container: fsfreeze
-        pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/kavita/config"]'
-        post.hook.backup.velero.io/container: fsfreeze
-        post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/kavita/config"]'
     spec:
       imagePullSecrets:
         - name: ghcr-login-secret
@@ -90,18 +86,6 @@ spec:
               name: config
             - mountPath: /media/books
               name: books
-        - image: ubuntu:bionic
-          name: fsfreeze
-          securityContext:
-            privileged: true
-          volumeMounts:
-            - mountPath: "/kavita/config"
-              name: config
-              readOnly: false
-          command:
-            - "/bin/bash"
-            - "-c"
-            - "sleep infinity"
       volumes:
         - name: config
           persistentVolumeClaim:
