@@ -34,8 +34,7 @@ spec:
         secret.reloader.stakater.com/reload: sabnzbd-secret
     spec:
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
+
         fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
         supplementalGroups:
@@ -52,6 +51,7 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 568
+            runAsGroup: 568
             seccompProfile:
               type: RuntimeDefault
             capabilities:
@@ -113,6 +113,8 @@ spec:
           name: fsfreeze
           securityContext:
             privileged: true
+            runAsUser: 0
+            runAsGroup: 0
           volumeMounts:
             - mountPath: "/config"
               name: config

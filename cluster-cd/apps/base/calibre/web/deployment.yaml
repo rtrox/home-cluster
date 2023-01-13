@@ -32,8 +32,6 @@ spec:
         post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/config"]'
     spec:
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
         supplementalGroups:
@@ -50,6 +48,7 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 568
+            runAsGroup: 568
             seccompProfile:
               type: RuntimeDefault
             capabilities:
@@ -97,6 +96,8 @@ spec:
           name: fsfreeze
           securityContext:
             privileged: true
+            runAsUser: 0
+            runAsGroup: 0
           volumeMounts:
             - mountPath: "/config"
               name: config
