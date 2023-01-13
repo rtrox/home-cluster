@@ -27,6 +27,10 @@ spec:
       annotations:
         backup.velero.io/backup-volumes: config
         backup.velero.io/backup-volumes-excludes: incomplete,downloads,media
+        pre.hook.backup.velero.io/container: fsfreeze
+        pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/config"]'
+        post.hook.backup.velero.io/container: fsfreeze
+        post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/config"]'
         secret.reloader.stakater.com/reload: sabnzbd-secret
     spec:
       securityContext:
@@ -105,6 +109,18 @@ spec:
               name: downloads
             - mountPath: /media
               name: media
+        - image: ubuntu:bionic
+          name: fsfreeze
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: "/config"
+              name: config
+              readOnly: false
+          command:
+            - "/bin/bash"
+            - "-c"
+            - "sleep infinity"
       volumes:
         # TODO: NFS Volumes
         - name: config

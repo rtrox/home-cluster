@@ -26,6 +26,10 @@ spec:
         setGateway: "true"
       annotations:
         backup.velero.io/backup-volumes: config
+        pre.hook.backup.velero.io/container: fsfreeze
+        pre.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--freeze", "/config"]'
+        post.hook.backup.velero.io/container: fsfreeze
+        post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/config"]'
     spec:
       securityContext:
         runAsUser: 568
@@ -89,6 +93,18 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: config
+        - image: ubuntu:bionic
+          name: fsfreeze
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: "/config"
+              name: config
+              readOnly: false
+          command:
+            - "/bin/bash"
+            - "-c"
+            - "sleep infinity"
       volumes:
         # TODO: NFS Volumes
         - name: config
