@@ -8,9 +8,6 @@ metadata:
     app.kubernetes.io/component: *name
     app.kubernetes.io/part-of: *name
     k8s-app: *name
-  annotations:
-    backup.velero.io/backup-volumes-excludes: books
-    backup.velero.io/backup-volumes: media
   name: *name
 spec:
   selector:
@@ -28,6 +25,7 @@ spec:
         app.kubernentes.io/component: *name
       annotations:
         backup.velero.io/backup-volumes: config
+        backup.velero.io/backup-volumes-excludes: media
     spec:
       runtimeClassName: nvidia
       securityContext:
