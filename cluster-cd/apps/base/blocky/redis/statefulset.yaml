@@ -17,6 +17,8 @@ spec:
         app.kubernetes.io/name: redis
         app.kubernetes.io/instance: redis
         k8s-app: redis
+      annotations:
+        backup.velero.io/backup-volumes-excludes: config,data
     spec:
       initContainers:
         - name: config
