@@ -20,6 +20,8 @@ spec:
       labels:
         app.kubernetes.io/name: *name
         app.kubernetes.io/instance: *instance
+      annotations:
+        backup.velero.io/backup-volumes: data
     spec:
       imagePullSecrets:
         - name: ghcr-login-secret
