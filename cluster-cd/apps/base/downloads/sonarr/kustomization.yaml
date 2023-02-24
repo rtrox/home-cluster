@@ -13,7 +13,7 @@ resources:
 images:
   # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/onedr0p/sonarr-develop
-    newTag: 4.0.0.307@sha256:18ef26c4936242ddfe4ca1699d09b5e5c846fd09a6b3b4ed13006524cc84837f
+    newTag: 4.0.0.391@sha256:dbf5513327d9c9c0bb9af284e7cdc7e8db8325b1239505669a3141416c4c52e1
 
 commonLabels:
   app.kubernetes.io/part-of: sonarr
