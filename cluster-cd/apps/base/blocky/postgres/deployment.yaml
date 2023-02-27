@@ -38,6 +38,8 @@ spec:
             - "/bin/bash"
             - "-c"
             - "sleep infinity"
+      strategy:
+        type: Recreate
       volumes:
         - name: postgresdb
           persistentVolumeClaim:

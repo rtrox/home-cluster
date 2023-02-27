@@ -171,6 +171,8 @@ alertmanager:
 
 grafana:
   adminPassword: ${GRAFANA_ADMIN_PASSWORD}
+  deploymentStrategy:
+    type: Recreate
   podAnnotations:
     backup.velero.io/backup-volumes: storage
   grafana.ini:
