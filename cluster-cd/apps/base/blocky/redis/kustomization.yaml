@@ -14,7 +14,7 @@ configMapGenerator:
 
 images:
   - name: redis
-    newTag: 7.0.7-alpine
+    newTag: 7.0.8-alpine
 
 commonLabels:
   app.kubernetes.io/part-of: blocky
