@@ -14,7 +14,6 @@ upstream:
 filtering:
   queryTypes:
     - AAAA
-    - ANY
 
 blocking:
   blackLists:
@@ -44,9 +43,14 @@ blocking:
       - kid-safe
   blockType: zeroIp
 
+clientLookup:
+  upstream: 172.16.254.1
+  singleNameOrder:
+    - 2
+    - 1
+
 caching:
   minTime: 5m
-  maxTime: 24h
   cacheTimeNegative: 30m
   prefetching: true
 
