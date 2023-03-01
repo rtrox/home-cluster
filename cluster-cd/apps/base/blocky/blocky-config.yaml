@@ -28,7 +28,39 @@ blocking:
     none:
   whiteLists:
     ads:
-      - https://raw.githubusercontent.com/billimek/k8s-gitops/master/default/blocky/whitelist.txt
+      - |
+        comcastathena.demdex.net
+        dl.cws.xfinity.com
+        login.xfinity.com
+        oauth.xfinity.com
+        business.comcast.com
+        assets.adobedtm.com
+        static.digital.business.comcast.com
+        dpm.demdex.net
+        comcastresidentialservices.tt.omtrdc.net
+        www.reddit.com
+        discourse.pi-hole.net
+        img04.en25.com
+        xchat.xfinity.com
+        script.crazyegg.com
+        assets.bounceexchange.com
+        api.bounceexchange.com
+        events.bouncex.net
+        media.xchat.xfinity.com
+        files.slack.com
+        slack.com
+        www.kqzyfj.com
+        kqzyfj.com
+        cdn.heapanalytics.com
+        # Allow Google Ads
+        www.googleadservices.com
+        dartsearch.net
+        www.googletagmanager.com
+        www.googletagservices.com
+        ad.doubleclick.net
+        clickserve.dartsearch.net
+        t.myvisualiq.net
+
   clientGroupsBlock:
     default:
       - ads
