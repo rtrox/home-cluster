@@ -9,6 +9,7 @@ resources:
   - redis
   - deployment.yaml
   - service.yaml
+  - servicemonitor.yaml
   - namespace.yaml
   - ingress.yaml
 
