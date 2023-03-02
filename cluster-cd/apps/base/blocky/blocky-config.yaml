@@ -76,7 +76,7 @@ blocking:
   blockType: zeroIp
 
 clientLookup:
-  upstream: 172.16.254.1
+  upstream: 172.18.1.254
   singleNameOrder:
     - 2
     - 1
