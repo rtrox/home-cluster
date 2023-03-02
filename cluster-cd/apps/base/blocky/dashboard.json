@@ -1203,7 +1203,7 @@
             "editorMode": "code",
             "expr": "histogram_quantile(0.95, sum(blocky_request_duration_ms_bucket{response_type =~\"CACHED|BLOCKED\"}) by (le))",
             "format": "heatmap",
-            "legendFormat": "CACHED",
+            "legendFormat": "CACHED|BLOCKED",
             "range": true,
             "refId": "A"
           },
@@ -1215,7 +1215,7 @@
             "editorMode": "code",
             "expr": "histogram_quantile(0.95, sum(blocky_request_duration_ms_bucket{response_type !~\"CACHED|BLOCKED\"}) by (le))",
             "hide": false,
-            "legendFormat": "__auto",
+            "legendFormat": "RESOLVED",
             "range": true,
             "refId": "B"
           }
@@ -1423,8 +1423,8 @@
       },
       {
         "datasource": {
-          "type": "loki",
-          "uid": "P8E80F9AEF21F6940"
+          "type": "postgres",
+          "uid": "P88B4C6B642FA0579"
         },
         "fieldConfig": {
           "defaults": {
@@ -1489,8 +1489,8 @@
         "options": {
           "legend": {
             "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom",
+            "displayMode": "table",
+            "placement": "right",
             "showLegend": true
           },
           "tooltip": {
@@ -1502,14 +1502,31 @@
         "targets": [
           {
             "datasource": {
-              "type": "loki",
-              "uid": "P8E80F9AEF21F6940"
+              "type": "postgres",
+              "uid": "P88B4C6B642FA0579"
             },
             "editorMode": "code",
-            "expr": "sum by (client_names) (rate({k8s_app=\"blocky\"} | json | msg=\"query resolved\" [$__interval]))",
-            "legendFormat": "{{client_names}}",
-            "queryType": "range",
-            "refId": "A"
+            "format": "time_series",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  $__timeGroupAlias(request_ts, $__interval),\n  client_name as metric,\n  COUNT(*) as value\nFROM\n  log_entries\nWHERE\n  $__timeFilter(request_ts)\nGROUP BY\n  1,\n  2\nORDER BY\n  1,\n  2 asc",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
           }
         ],
         "title": "Client Requests",
@@ -1606,8 +1623,8 @@
       },
       {
         "datasource": {
-          "type": "loki",
-          "uid": "P8E80F9AEF21F6940"
+          "type": "postgres",
+          "uid": "P88B4C6B642FA0579"
         },
         "fieldConfig": {
           "defaults": {
@@ -1686,14 +1703,31 @@
         "targets": [
           {
             "datasource": {
-              "type": "loki",
-              "uid": "P8E80F9AEF21F6940"
+              "type": "postgres",
+              "uid": "P88B4C6B642FA0579"
             },
             "editorMode": "code",
-            "expr": "count(sum by (client_names) (count_over_time({k8s_app=\"blocky\"} | json | msg=\"query resolved\" [$__interval])))",
-            "legendFormat": "{{client_names}}",
-            "queryType": "range",
-            "refId": "A"
+            "format": "table",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  $__timeGroupAlias(request_ts, $__interval),\n  COUNT(DISTINCT client_ip)\nFROM\n  log_entries\nWHERE\n  $__timeFilter(request_ts)\nGROUP BY 1\nORDER BY 1",
+            "refId": "A",
+            "sql": {
+              "columns": [
+                {
+                  "parameters": [],
+                  "type": "function"
+                }
+              ],
+              "groupBy": [
+                {
+                  "property": {
+                    "type": "string"
+                  },
+                  "type": "groupBy"
+                }
+              ],
+              "limit": 50
+            }
           }
         ],
         "title": "Live Clients",
@@ -1702,7 +1736,7 @@
       {
         "datasource": {
           "type": "postgres",
-          "uid": "6gXs2Bx4z"
+          "uid": "P88B4C6B642FA0579"
         },
         "description": "",
         "fieldConfig": {
@@ -1847,7 +1881,7 @@
           {
             "datasource": {
               "type": "postgres",
-              "uid": "6gXs2Bx4z"
+              "uid": "P88B4C6B642FA0579"
             },
             "editorMode": "code",
             "format": "table",
@@ -1916,7 +1950,7 @@
       {
         "datasource": {
           "type": "postgres",
-          "uid": "6gXs2Bx4z"
+          "uid": "P88B4C6B642FA0579"
         },
         "description": "",
         "fieldConfig": {
@@ -2035,7 +2069,7 @@
           {
             "datasource": {
               "type": "postgres",
-              "uid": "6gXs2Bx4z"
+              "uid": "P88B4C6B642FA0579"
             },
             "editorMode": "code",
             "format": "table",
@@ -2105,7 +2139,7 @@
       {
         "datasource": {
           "type": "postgres",
-          "uid": "6gXs2Bx4z"
+          "uid": "P88B4C6B642FA0579"
         },
         "description": "",
         "fieldConfig": {
@@ -2316,7 +2350,7 @@
           {
             "datasource": {
               "type": "postgres",
-              "uid": "6gXs2Bx4z"
+              "uid": "P88B4C6B642FA0579"
             },
             "editorMode": "code",
             "format": "table",
@@ -2414,7 +2448,7 @@
       {
         "datasource": {
           "type": "postgres",
-          "uid": "6gXs2Bx4z"
+          "uid": "P88B4C6B642FA0579"
         },
         "description": "",
         "fieldConfig": {
@@ -2557,7 +2591,7 @@
           {
             "datasource": {
               "type": "postgres",
-              "uid": "6gXs2Bx4z"
+              "uid": "P88B4C6B642FA0579"
             },
             "editorMode": "code",
             "format": "table",
@@ -2652,7 +2686,7 @@
         "type": "table"
       }
     ],
-    "refresh": "30m",
+    "refresh": "10s",
     "schemaVersion": 37,
     "style": "dark",
     "tags": [],
@@ -2660,13 +2694,13 @@
       "list": []
     },
     "time": {
-      "from": "now-24h",
+      "from": "now-1h",
       "to": "now"
     },
     "timepicker": {},
     "timezone": "",
     "title": "Blocky",
     "uid": "g96bkxb4z",
-    "version": 10,
+    "version": 13,
     "weekStart": ""
   }
