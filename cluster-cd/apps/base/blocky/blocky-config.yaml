@@ -91,6 +91,11 @@ redis:
   password: REDIS_PASSWORD
   required: true
 
+queryLog:
+  type: postgresql
+  target: postgresql://POSTGRES_USER:POSTGRES_PASSWORD@postgres:5432/POSTGRES_DB_NAME?sslmode=disable
+  logRetentionDays: 30
+
 prometheus:
   enable: true
   path: /metrics
