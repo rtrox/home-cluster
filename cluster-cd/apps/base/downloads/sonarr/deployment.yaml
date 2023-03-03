@@ -126,6 +126,8 @@ spec:
               value: "8081"
             - name: URL
               value: http://localhost:8080
+            - name: ENABLE_ADDITIONAL_METRICS
+              value: "true"
             - name: APIKEY
               valueFrom:
                 secretKeyRef:
