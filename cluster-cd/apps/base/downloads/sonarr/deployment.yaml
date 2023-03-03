@@ -103,12 +103,60 @@ spec:
               name: config
             - mountPath: /media
               name: media
+        - name: exportarr
+          image: ghcr.io/onedr0p/exportarr:v1.0.0
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 568
+            runAsGroup: 568
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
+          args:
+            - sonarr
+          env:
+            - name: PORT
+              value: "8081"
+            - name: URL
+              value: http://localhost:8080
+            - name: APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: sonarr-secret
+                  key: SONARR__API_KEY
+          ports:
+            - name: metrics
+              containerPort: 8081
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            failureThreshold: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            failureThreshold: 5
+            periodSeconds: 10
         - image: ubuntu:bionic
           name: fsfreeze
           securityContext:
             privileged: true
             runAsUser: 0
             runAsGroup: 0
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
           volumeMounts:
             - mountPath: "/config"
               name: config
