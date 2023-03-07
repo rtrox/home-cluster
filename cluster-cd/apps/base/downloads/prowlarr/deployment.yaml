@@ -129,7 +129,7 @@ spec:
             requests:
               memory: 64Mi
           args:
-            - readarr
+            - prowlarr
           env:
             - name: PORT
               value: "8081"
