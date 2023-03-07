@@ -35,7 +35,7 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
       containers:
-        - name: sabnzbd
+        - name: prowlarr
           image: ghcr.io/onedr0p/prowlarr-nightly:0.4.11.2143@sha256:2eafdb19e32172228ee64599d27f5e964613d83bf396e218e3591baba7f5c545
           imagePullPolicy: IfNotPresent
           resources:
