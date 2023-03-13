@@ -111,6 +111,11 @@ spec:
               name: media
         - image: ubuntu:bionic
           name: fsfreeze
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
           securityContext:
             privileged: true
             runAsUser: 0
@@ -124,7 +129,7 @@ spec:
             - "-c"
             - "sleep infinity"
         - name: sabnzbd-exporter
-          image: ghcr.io/rtrox/prometheus-sabnzbd-exporter:sha-d9bab5d
+          image: ghcr.io/rtrox/prometheus-sabnzbd-exporter:sha-3d6af49
           ports:
             - name: metrics
               containerPort: 8080
@@ -142,12 +147,10 @@ spec:
               memory: 256Mi
             requests:
               memory: 64Mi
-          args:
-            - -debug
           env:
             - name: SABNZBD_BASE_URL
               value: localhost:8080
-            - name: SABNZBD_EXPORTER_PORT
+            - name: SABNZBD_LISTEN_PORT
               value: "8081"
             - name: SABNZBD_API_KEY
               valueFrom:
