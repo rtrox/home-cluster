@@ -41,7 +41,7 @@ spec:
           - 100
       containers:
         - name: sonarr
-          image: ghcr.io/onedr0p/sonarr-develop:4.0.0.307@sha256:18ef26c4936242ddfe4ca1699d09b5e5c846fd09a6b3b4ed13006524cc84837f
+          image: ghcr.io/onedr0p/sonarr-develop:4.0.0.401
           imagePullPolicy: IfNotPresent
           resources:
             limits:
