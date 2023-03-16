@@ -129,7 +129,7 @@ spec:
             - "-c"
             - "sleep infinity"
         - name: sabnzbd-exporter
-          image: ghcr.io/rtrox/prometheus-sabnzbd-exporter:sha-3d6af49
+          image: ghcr.io/rtrox/prometheus-sabnzbd-exporter:sha-63ca16c
           ports:
             - name: metrics
               containerPort: 8080
