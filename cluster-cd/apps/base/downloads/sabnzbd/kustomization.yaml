@@ -15,7 +15,7 @@ images:
   - name: ghcr.io/onedr0p/sabnzbd
     newTag: 3.7.2@sha256:c8754b0ef01f50a5b4a78f88e6f2f2b7a3ca1651226ca3145fa62e3790251ef1
   - name: ghcr.io/rtrox/prometheus-sabnzbd-exporter
-    newTag: sha-63ca16c
+    newTag: sha-df48264
 
 commonLabels:
   app.kubernetes.io/part-of: sabnzbd

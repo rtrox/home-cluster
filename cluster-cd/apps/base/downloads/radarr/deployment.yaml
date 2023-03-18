@@ -102,7 +102,7 @@ spec:
             - mountPath: /media
               name: media
         - name: exportarr
-          image: ghcr.io/onedr0p/exportarr:v1.0.0
+          image: ghcr.io/onedr0p/exportarr:master
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 568
