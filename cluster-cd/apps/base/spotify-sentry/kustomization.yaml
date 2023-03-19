@@ -26,5 +26,5 @@ configMapGenerator:
         kustomize.toolkit.fluxcd.io/substitute: disabled
 
 images:
-  - name: spotify-sentry-devel:sha-755116a
-    newTag: sha-755116a
+  - name: ghcr.io/rtrox/spotify-sentry-devel
+    newTag: sha-0b78223
