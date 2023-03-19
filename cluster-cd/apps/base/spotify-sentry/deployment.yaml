@@ -31,7 +31,7 @@ spec:
         fsGroup: 10001
       containers:
         - name: spotify-sentry
-          image: 'ghcr.io/rtrox/spotify-sentry-devel:sha-edbefb4'
+          image: 'ghcr.io/rtrox/spotify-sentry-devel:sha-296ab70'
           args:
             - -image-folder=/data/images/
             - -db-location=/data/spotify.db
