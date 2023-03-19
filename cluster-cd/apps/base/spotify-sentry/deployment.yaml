@@ -84,7 +84,8 @@ spec:
         - name: sqlite-debug
           image: keinos/sqlite3:latest
           args:
-            - sh -c
+            - sh
+            - -c
             - sleep infinity
           volumeMounts:
             - mountPath: /data
