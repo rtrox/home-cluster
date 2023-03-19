@@ -84,7 +84,7 @@
               "uid": "PED04140C711A11BA"
             },
             "editorMode": "code",
-            "expr": "sum(increase(spotify_moderator_playlists_reconciled_total[$__range]))",
+            "expr": "sum(increase(spotify_sentry_playlists_reconciled_total[$__range]))",
             "legendFormat": "__auto",
             "range": true,
             "refId": "A"
@@ -146,7 +146,7 @@
               "uid": "PED04140C711A11BA"
             },
             "editorMode": "code",
-            "expr": "sum(increase(spotify_moderator_playlists_reconciled_total[$__range])) by (playlist_id)",
+            "expr": "sum(increase(spotify_sentry_playlists_reconciled_total[$__range])) by (playlist_id)",
             "legendFormat": "{{playlist_id}}",
             "range": true,
             "refId": "A"
@@ -211,7 +211,7 @@
               "uid": "PED04140C711A11BA"
             },
             "editorMode": "code",
-            "expr": "sum(increase(spotify_moderator_playlists_updated_total[$__range]))",
+            "expr": "sum(increase(spotify_sentry_playlists_updated_total[$__range]))",
             "legendFormat": "__auto",
             "range": true,
             "refId": "A"
@@ -273,7 +273,7 @@
               "uid": "PED04140C711A11BA"
             },
             "editorMode": "code",
-            "expr": "sum(increase(spotify_moderator_playlists_updated_total[$__range])) by (playlist_id)",
+            "expr": "sum(increase(spotify_sentry_playlists_updated_total[$__range])) by (playlist_id)",
             "legendFormat": "{{playlist_id}}",
             "range": true,
             "refId": "A"
@@ -365,7 +365,7 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "code",
-            "expr": "{k8s_app=\"spotify-moderator\"} |= `Playlist needs reconciliation`",
+            "expr": "{k8s_app=\"spotify-sentry\"} |= `Playlist needs reconciliation`",
             "queryType": "range",
             "refId": "A"
           }
@@ -453,7 +453,7 @@
               "uid": "P8E80F9AEF21F6940"
             },
             "editorMode": "builder",
-            "expr": "{k8s_app=\"spotify-moderator\"} |= `` | json level=\"level\", playlist_id=\"playlist_id\"",
+            "expr": "{k8s_app=\"spotify-sentry\"} |= `` | json level=\"level\", playlist_id=\"playlist_id\"",
             "queryType": "range",
             "refId": "A"
           }

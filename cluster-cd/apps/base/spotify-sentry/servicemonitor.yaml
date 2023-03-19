@@ -6,11 +6,11 @@ kind: ServiceMonitor
 metadata:
   labels:
     app.kubernetes.io/component: metrics
-    app.kubernetes.io/instance: &name spotify-moderator
+    app.kubernetes.io/instance: &name spotify-sentry
     app.kubernetes.io/name: *name
     app.kubernetes.io/part-of: *name
     jobLabel: *name
-  name: spotify-moderator
+  name: spotify-sentry
 spec:
   endpoints:
     - port: http

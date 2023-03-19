@@ -7,7 +7,7 @@ resources:
   - ../base/vpn-gateway
   - ../base/downloads
   - ../base/media
-  - ../base/spotify-moderator
+  - ../base/spotify-sentry
   - ../base/yaddu
   - ../base/calibre
   - postgres-config.cho.yaml
@@ -18,8 +18,8 @@ resources:
   - radarr-secret.cho.yaml
   - sonarr-secret.cho.yaml
   - readarr-secret.cho.yaml
-  - spotify-moderator-registry-creds.cho.yaml
-  - spotify-moderator-secret.cho.yaml
+  - spotify-sentry-registry-creds.cho.yaml
+  - spotify-sentry-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
   - kavita-email-secret.cho.yaml
   - radarr-form-auth-test

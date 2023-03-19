@@ -5,7 +5,7 @@ kind: Secret
 metadata:
     namespace: default
     labels:
-        app: spotify-moderator
+        app: spotify-sentry
     name: ghcr-login-secret
 type: kubernetes.io/dockerconfigjson
 sops:
@@ -50,8 +50,8 @@ sops:
             YlM0TDFuTktkRG5VTW4rUXNBQk5YNmMKHxYZRXnmyRJvqPLEizUi5BHdsWfp/qyi
             3wAcacgVp41RI197cmQCTGL+DORfq/seQ57SWQXug4dIu4FLYe1RJw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2022-12-26T07:48:24Z"
-    mac: ENC[AES256_GCM,data:MhFFrr8hl4n5R++6xV8kqGIwQZexHdZS87RGG/Wv22/hfsPZ7QmpV8im9Qthfu7IEDApuFmhl00bhcg54Owx0MIAc6XscPnBBUoWYW5Om9li1mfSjNL1u4qXk1wXVSthSinnWQcCXGpQnF1o1Nlq6+0nMzrzlOIGP2HVTOrYRUw=,iv:TMRVtNDBbMa2rWhpooS7Hh33QYBMAl2xlCZbrZubehg=,tag:hEcADB/eXBWZE8FW+58TGQ==,type:str]
+    lastmodified: "2023-03-19T17:15:42Z"
+    mac: ENC[AES256_GCM,data:vOpjr6QeBRq2PXqx+Gqapb+bgRyoLvTWpHrKVKLNfCKJ62RIIPDfGaeAVxIN8zfbgiIGe2WbB+52M250R7nEJw9r9AF9g1IxwISE93K3n+ZpWvVI7gVbDnorC3+GXhycAN5zGH98NN5V2xHD2LPlocEDUckVTBMPwnUCuAtvo+I=,iv:qS6skmITcscJANqYI+8NvpKKm0xhXcH+tzhLO5fb22o=,tag:gyKPZthyWTNUjSwamJOfqg==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.7.3

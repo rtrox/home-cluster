@@ -13,18 +13,18 @@ bases:
 
 # TODO: this is still in the default namespace :-/
 configMapGenerator:
-  - name: spotify-moderator-dashboards
+  - name: spotify-sentry-dashboards
     namespace: monitoring
     files:
       - dashboards/dashboard.json
     options:
       labels:
         grafana_dashboard: "1"
-        app.kubernetes.io/part-of: spotify-moderator
-        app.kubernetes.io/component: spotify-moderator
+        app.kubernetes.io/part-of: spotify-sentry
+        app.kubernetes.io/component: spotify-sentry
       annotations:
         kustomize.toolkit.fluxcd.io/substitute: disabled
 
 images:
-  - name: ghcr.io/rtrox/spotify-moderator
-    newTag: sha-f838aba
+  - name: spotify-sentry-devel:sha-755116a
+    newTag: sha-755116a
