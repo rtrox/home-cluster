@@ -81,6 +81,19 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
+        - name: sqlite-debug
+          image: keinos/sqlite3:latest
+          args:
+            - sh -c
+            - sleep infinity
+          volumeMounts:
+            - mountPath: /data
+              name: data
+          resources:
+            limits:
+              memory: 64Mi
+            requests:
+              memory: 64Mi
       volumes:
         - name: data
           persistentVolumeClaim:
