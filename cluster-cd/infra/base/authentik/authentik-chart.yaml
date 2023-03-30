@@ -29,6 +29,7 @@ spec:
       tls:
         - hosts:
             - authentik.${SECRET_DOMAIN}
+          secretName: authentik-tls
     authentik:
       # secret_key: #in secret
       log_level: debug
