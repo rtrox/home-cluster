@@ -5,6 +5,7 @@ namespace: authentik
 
 resources:
   - authentik-chart.yaml
+  - namespace.yaml
 
 secretGenerator:
   - name: authentik-values
