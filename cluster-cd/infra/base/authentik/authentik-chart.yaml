@@ -22,6 +22,7 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
         kubernetes.io/tls-acme: "true"
+        ingress: "externaldns"
       hosts:
         - host: authentik.${SECRET_DOMAIN}
           paths:
