@@ -184,9 +184,9 @@ grafana:
       client_id: ${GRAFANA_AUTHENTIK_CLIENT_ID}
       client_secret: ${GRAFANA_AUTHENTIK_CLIENT_SECRET}
       scopes: "openid profile email"
-      auth_url: https://authentik.cho.rtrox.com/grafana/o/authorize/
-      token_url: https://authentik.cho.rtrox.com/grafana/o/token/
-      api_url: https://authentik.cho.rtrox.com/grafana/o/userinfo/
+      auth_url: https://authentik.cho.rtrox.com/application/o/authorize/
+      token_url: https://authentik.cho.rtrox.com/application/o/token/
+      api_url: https://authentik.cho.rtrox.com/application/o/userinfo/
       role_attribute_path: "contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
     # auth.google:
     #   enabled: true
