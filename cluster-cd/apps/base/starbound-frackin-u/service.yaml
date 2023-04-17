@@ -11,6 +11,7 @@ metadata:
     k8s-app: *serviceName
   annotations:
     io.cilium/lb-ipam-ips: "${STARBOUND_IP}"
+    metallb.universe.tf/loadBalancerIPs: "${STARBOUND_IP}"
 spec:
   selector:
     app.kubernetes.io/name: *serviceName
