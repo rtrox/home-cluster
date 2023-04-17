@@ -8,6 +8,7 @@ resources:
   - ../base/downloads
   - ../base/media
   - ../base/spotify-sentry
+  - ../base/starbound-frackin-u
   - ../base/yaddu
   - ../base/calibre
   - postgres-config.cho.yaml
