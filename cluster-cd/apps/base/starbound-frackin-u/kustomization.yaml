@@ -11,4 +11,4 @@ resources:
 
 images:
   - name: ghcr.io/rtrox/starbound-docker
-    newTag: sha-3752f3b
+    newTag: sha-8a2c762
