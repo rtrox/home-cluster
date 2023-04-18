@@ -48,6 +48,9 @@ spec:
             - name: game
               containerPort: 21025
               protocol: TCP
+            - name: rcon
+              containerPort: 20126
+              protocol: TCP
           env:
             - name: STEAM_USERNAME
               value: ${STEAM_USERNAME}

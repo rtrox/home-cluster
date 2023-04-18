@@ -21,4 +21,8 @@ spec:
       name: game
       targetPort: game
       protocol: TCP
+    - port: 21026
+      name: rcon
+      targetPort: rcon
+      protocol: TCP
   type: LoadBalancer
