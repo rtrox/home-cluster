@@ -151,7 +151,7 @@ spec:
             - sabnzbd
           env:
             - name: URL
-              value: localhost:8080
+              value: http://localhost:8080
             - name: PORT
               value: "8081"
             - name: API_KEY
