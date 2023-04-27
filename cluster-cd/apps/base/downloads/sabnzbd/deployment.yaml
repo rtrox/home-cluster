@@ -129,7 +129,7 @@ spec:
             - "-c"
             - "sleep infinity"
         - name: sabnzbd-exporter
-          image: ghcr.io/rtrox/prometheus-sabnzbd-exporter:sha-63ca16c
+          image: ghcr.io/onedr0p/exportarr:v1.3.1
           ports:
             - name: metrics
               containerPort: 8080
@@ -148,11 +148,11 @@ spec:
             requests:
               memory: 64Mi
           env:
-            - name: SABNZBD_BASE_URL
+            - name: URL
               value: localhost:8080
-            - name: SABNZBD_LISTEN_PORT
+            - name: PORT
               value: "8081"
-            - name: SABNZBD_API_KEY
+            - name: API_KEY
               valueFrom:
                 secretKeyRef:
                   name: sabnzbd-secret
