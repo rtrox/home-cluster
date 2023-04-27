@@ -147,6 +147,8 @@ spec:
               memory: 256Mi
             requests:
               memory: 64Mi
+          args:
+            - sabnzbd
           env:
             - name: URL
               value: localhost:8080
