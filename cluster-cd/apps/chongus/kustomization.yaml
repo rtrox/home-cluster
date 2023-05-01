@@ -12,6 +12,7 @@ resources:
   - ../base/yaddu
   - ../base/calibre
   - ../base/prometheus-speedtest-exporter
+  - ../base/prometheus-awair-exporter
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
