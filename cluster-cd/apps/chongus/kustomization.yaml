@@ -11,6 +11,7 @@ resources:
   - ../base/starbound-frackin-u
   - ../base/yaddu
   - ../base/calibre
+  - ../base/prometheus-speedtest-exporter
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
