@@ -12,6 +12,9 @@ spec:
     - name: http
       port: 8080
       protocol: TCP
+    - name: metrics
+      port: 8081
+      protocol: TCP
   selector:
     app.kubernetes.io/name: *name
     app.kubernetes.io/instance: *name

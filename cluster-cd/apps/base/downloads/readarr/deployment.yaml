@@ -104,6 +104,11 @@ spec:
               name: media
         - image: ubuntu:bionic
           name: fsfreeze
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
           securityContext:
             privileged: true
             runAsUser: 0
@@ -116,6 +121,37 @@ spec:
             - "/bin/bash"
             - "-c"
             - "sleep infinity"
+        - name: exportarr
+          // TODO: pin once a new release is available.
+          image: ghcr.io/onedr0p/exportarr:master
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 568
+            runAsGroup: 568
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
+          args:
+            - readarr
+          env:
+            - name: PORT
+              value: "8081"
+            - name: URL
+              value: http://localhost:8080
+            - name: ENABLE_ADDITIONAL_METRICS
+              value: "true"
+            - name: APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: readarr-secret
+                  key: READARR__API_KEY
       volumes:
         - name: config
           persistentVolumeClaim:

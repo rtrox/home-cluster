@@ -5,15 +5,15 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    app.kubernetes.io/component: metrics
-    app.kubernetes.io/instance: &name spotify-moderator
+    app.kubernetes.io/component: sonarr
+    app.kubernetes.io/instance: &name sonarr
     app.kubernetes.io/name: *name
     app.kubernetes.io/part-of: *name
     jobLabel: *name
-  name: spotify-moderator
+  name: *name
 spec:
   endpoints:
-    - port: http
+    - port: metrics
       scheme: http
   jobLabel: jobLabel
   selector:

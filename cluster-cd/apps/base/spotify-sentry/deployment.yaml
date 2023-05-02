@@ -3,8 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: &name spotify-moderator
-    app.kubernetes.io/instance: &instance spotify-moderator
+    app.kubernetes.io/name: &name spotify-sentry
+    app.kubernetes.io/instance: &instance spotify-sentry
     app.kubernetes.io/part-of: *instance
     k8s-app: *name
   name: *name
@@ -30,15 +30,15 @@ spec:
         runAsGroup: 10001
         fsGroup: 10001
       containers:
-        - name: spotify-moderator
-          image: 'ghcr.io/rtrox/spotify-moderator:sha-f838aba'
+        - name: spotify-sentry
+          image: 'ghcr.io/rtrox/spotify-sentry-devel:sha-0b78223'
           args:
             - -image-folder=/data/images/
             - -db-location=/data/spotify.db
-            - -reconcile-interval=30s
+            - -reconcile-interval=10s
           envFrom:
             - secretRef:
-                name: spotify-moderator-env
+                name: spotify-sentry-env
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -81,7 +81,21 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
+        - name: sqlite-debug
+          image: keinos/sqlite3:latest
+          args:
+            - sh
+            - -c
+            - sleep infinity
+          volumeMounts:
+            - mountPath: /data
+              name: data
+          resources:
+            limits:
+              memory: 64Mi
+            requests:
+              memory: 64Mi
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: spotify-moderator-data
+            claimName: spotify-sentry-data

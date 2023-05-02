@@ -44,7 +44,7 @@ spec:
               memory: 32Gi
               nvidia.com/gpu: 1
             requests:
-              memory: 250Mi
+              memory: 16Gi
               nvidia.com/gpu: 1
           securityContext:
             allowPrivilegeEscalation: false

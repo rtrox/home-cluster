@@ -1,0 +1,106 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: &name starbound
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/component: *name
+    app.kubernetes.io/part-of: *name
+    k8s-app: *name
+  name: *name
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *name
+      annotations:
+        backup.velero.io/backup-volumes: starbound-data
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: starbound-frackin-universe
+          image: ghcr.io/rtrox/starbound-docker:latest # Todo: Pin Version
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 8G
+            requests:
+              memory: 8G
+            securityContext:
+              allowPrivilegeEscalation: false
+              runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
+              capabilities:
+                drop:
+                  - ALL
+          ports:
+            - name: game
+              containerPort: 21025
+              protocol: TCP
+            - name: rcon
+              containerPort: 20126
+              protocol: TCP
+          env:
+            - name: STEAM_USERNAME
+              value: ${STEAM_USERNAME}
+            - name: STEAM_PASSWORD
+              value: ${STEAM_PASSWORD}
+            - name: STARBOUND_MODS
+              value: 730544933,730745660,731220462,734170655,764887546,764888606,821455287,850109963,882900100,945707062,957141435,972085950,1194878261,1199608652,1264107917,1411331676,1429652829,1635522739,1923815089,2155713859,2375270402,729427436,729444820,729466018,729480149,729492703
+            - name: SERVER_NAME
+              value: "Frackin Universe + Elithian Races"
+            - name: RCON_PASSWORD
+              value: ${STARBOUND_RCON_PASSWORD}
+            - name: MAX_PLAYERS
+              value: "32"
+            - name: MAX_TEAM_SIZE
+              value: "8"
+            - name: RUN_QUERY_SERVER
+              value: "true"
+          # TODO: figure out a good HC for Starbound.
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          # startupProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /home/steam/starbound
+              name: starbound-data
+      volumes:
+        - name: starbound-data
+          persistentVolumeClaim:
+            claimName: starbound-data

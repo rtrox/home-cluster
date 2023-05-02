@@ -178,14 +178,25 @@ grafana:
   grafana.ini:
     server:
       root_url: https://graf.${SECRET_DOMAIN}/
-    auth.google:
+    auth.generic_oauth:
       enabled: true
-      client_id: ${GRAFANA_GOOGLE_CLIENT_ID}
-      client_secret: ${GRAFANA_GOOGLE_CLIENT_SECRET}
-      scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
-      auth_url: https://accounts.google.com/o/oauth2/auth
-      token_url: https://accounts.google.com/o/oauth2/token
-      allowed_domains: ${GRAFANA_GOOGLE_ALLOWED_DOMAINS}
+      name: Authentik
+      client_id: ${GRAFANA_AUTHENTIK_CLIENT_ID}
+      client_secret: ${GRAFANA_AUTHENTIK_CLIENT_SECRET}
+      scopes: "openid profile email"
+      auth_url: https://authentik.${SECRET_DOMAIN}/application/o/authorize/
+      token_url: https://authentik.${SECRET_DOMAIN}/application/o/token/
+      api_url: https://authentik.${SECRET_DOMAIN}/application/o/userinfo/
+      allow_assign_grafana_admin: true
+      role_attribute_path: "contains(groups[*], 'Grafana Server Admins') && 'GrafanaAdmin' || contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
+    # auth.google:
+    #   enabled: true
+    #   client_id: ${GRAFANA_GOOGLE_CLIENT_ID}
+    #   client_secret: ${GRAFANA_GOOGLE_CLIENT_SECRET}
+    #   scopes: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+    #   auth_url: https://accounts.google.com/o/oauth2/auth
+    #   token_url: https://accounts.google.com/o/oauth2/token
+    #   allowed_domains: ${GRAFANA_GOOGLE_ALLOWED_DOMAINS}
   sidecar:
     datasources:
       defaultDatasourceEnabled: false

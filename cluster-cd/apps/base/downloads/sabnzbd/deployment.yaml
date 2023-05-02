@@ -111,6 +111,11 @@ spec:
               name: media
         - image: ubuntu:bionic
           name: fsfreeze
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
           securityContext:
             privileged: true
             runAsUser: 0
@@ -123,6 +128,37 @@ spec:
             - "/bin/bash"
             - "-c"
             - "sleep infinity"
+        - name: sabnzbd-exporter
+          image: ghcr.io/onedr0p/exportarr:v1.3.2
+          ports:
+            - name: metrics
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 568
+            runAsGroup: 568
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              memory: 64Mi
+          args:
+            - sabnzbd
+          env:
+            - name: URL
+              value: http://localhost:8080
+            - name: PORT
+              value: "8081"
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sabnzbd-secret
+                  key: SABNZBD__API_KEY
       volumes:
         # TODO: NFS Volumes
         - name: config

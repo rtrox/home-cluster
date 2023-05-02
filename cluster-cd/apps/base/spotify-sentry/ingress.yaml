@@ -7,13 +7,13 @@ metadata:
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
   labels:
-    app.kubernetes.io/instance: &name spotify-moderator
+    app.kubernetes.io/instance: &name spotify-sentry
     app.kubernetes.io/name: *name
   name: *name
 spec:
   ingressClassName: nginx
   rules:
-    - host: &host spotify-mod.${SECRET_DOMAIN}
+    - host: &host spotify-sentry.${SECRET_DOMAIN}
       http:
         paths:
           - backend:
@@ -26,4 +26,4 @@ spec:
   tls:
     - hosts:
         - *host
-      secretName: spotify-moderator-tls
+      secretName: spotify-sentry-tls
