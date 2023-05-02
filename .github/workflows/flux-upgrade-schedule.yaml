@@ -19,8 +19,8 @@ jobs:
           flux install --version="${VERSION}" \
             --components-extra=image-reflector-controller,image-automation-controller \
             --network-policy=false \
-            --export | tee
-                ./cluster-cd/clusters/x86/flux-system/gotk-components.yaml
+            --export | tee \
+                ./cluster-cd/clusters/x86/flux-system/gotk-components.yaml \
                 ./cluster-cd/clusters/chongus/flux-system/gotk-components.yaml
           echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
       - uses: peter-evans/create-pull-request@v4
