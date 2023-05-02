@@ -13,6 +13,7 @@ resources:
   - ../base/calibre
   - ../base/prometheus-speedtest-exporter
   - ../base/prometheus-awair-exporter
+  - ../base/prometheus-snmp-exporter
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
