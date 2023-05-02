@@ -8,19 +8,21 @@ on: # yamllint disable-line rule:truthy
 
 jobs:
   upgrade-flux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: fluxcd/flux2/action@main
-      - id: upgrade
+      - id: upgrade_x85
         run: |
           UGLY_VERSION="$(flux -v)"
           VERSION="v${UGLY_VERSION#*flux version }"
           flux install --version="${VERSION}" \
             --components-extra=image-reflector-controller,image-automation-controller \
             --network-policy=false \
-            --export > ./cluster-cd/clusters/x86/flux-system/gotk-components.yaml
-          echo "::set-output name=flux_version::$VERSION"
+            --export | tee
+                ./cluster-cd/clusters/x86/flux-system/gotk-components.yaml
+                ./cluster-cd/clusters/chongus/flux-system/gotk-components.yaml
+          echo "flux_version=$VERSION" >> $GITHUB_OUTPUT
       - uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
