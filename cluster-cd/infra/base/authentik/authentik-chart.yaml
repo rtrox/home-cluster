@@ -31,6 +31,9 @@ spec:
         - hosts:
             - authentik.${SECRET_DOMAIN}
           secretName: authentik-tls
+
+    podAnnotations:
+      backup.velero.io/backup-volumes: data-authentik-postgresql,data-authentik-redis-master
     authentik:
       # secret_key: #in secret
       log_level: debug
@@ -77,6 +80,11 @@ spec:
     readinessProbe:
       enabled: false
 
+    prometheus:
+      serviceMonitor:
+        create: true
+      rules:
+        create: true
   valuesFrom:
     - kind: Secret
       name: authentik-values
