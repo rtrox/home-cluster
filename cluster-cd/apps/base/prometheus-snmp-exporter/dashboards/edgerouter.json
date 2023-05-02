@@ -897,7 +897,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${datasource}"
         },
         "definition": "label_values(hrSystemUptime, instance)",
         "description": "EdgeRouter instance to view",
@@ -929,7 +929,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "${datasource}"
         },
         "definition": "label_values(ifHCInOctets{ifName=~\"eth[1-9].*|wg[0-9].*\"}, ifName)",
         "hide": 0,
