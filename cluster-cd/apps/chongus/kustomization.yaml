@@ -7,9 +7,13 @@ resources:
   - ../base/vpn-gateway
   - ../base/downloads
   - ../base/media
-  - ../base/spotify-moderator
+  - ../base/spotify-sentry
+  - ../base/starbound-frackin-u
   - ../base/yaddu
   - ../base/calibre
+  - ../base/prometheus-speedtest-exporter
+  - ../base/prometheus-awair-exporter
+  - ../base/prometheus-snmp-exporter
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
@@ -18,10 +22,11 @@ resources:
   - radarr-secret.cho.yaml
   - sonarr-secret.cho.yaml
   - readarr-secret.cho.yaml
-  - spotify-moderator-registry-creds.cho.yaml
-  - spotify-moderator-secret.cho.yaml
+  - spotify-sentry-registry-creds.cho.yaml
+  - spotify-sentry-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
   - kavita-email-secret.cho.yaml
+  - radarr-form-auth-test
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml

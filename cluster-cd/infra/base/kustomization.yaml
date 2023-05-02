@@ -6,3 +6,4 @@ resources:
   - cilium
   - monitoring
   - velero
+  - authentik

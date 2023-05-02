@@ -63,15 +63,15 @@ schedules:
     schedule: "0 6 * * *"
     template:
       ttl: "120h"
-# six-hour-targeted:
-#   schedule: "0 */6 * * *"
-#   template:
-#     labelSelector:
-#       matchLabels:
-#         app: mc-minecraft
-#     ttl: "120h"
-#     includedNamespaces:
-#     - default
+  six-hour-targeted:
+    schedule: "0 */6 * * *"
+    template:
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/name: starbound
+      ttl: "120h"
+      includedNamespaces:
+        - default
 credentials:
   secretContents:
     cloud: |

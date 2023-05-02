@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: &serviceName starbound
+  labels:
+    app.kubernetes.io/name: *serviceName
+    app.kubernetes.io/instance: *serviceName
+    app.kubernetes.io/component: *serviceName
+    app.kubernetes.io/part-of: *serviceName
+    k8s-app: *serviceName
+  annotations:
+    io.cilium/lb-ipam-ips: "${STARBOUND_IP}"
+    metallb.universe.tf/loadBalancerIPs: "${STARBOUND_IP}"
+spec:
+  selector:
+    app.kubernetes.io/name: *serviceName
+    app.kubernetes.io/instance: *serviceName
+  ports:
+    - port: 21025
+      name: game
+      targetPort: game
+      protocol: TCP
+    - port: 21026
+      name: rcon
+      targetPort: rcon
+      protocol: TCP
+  type: LoadBalancer

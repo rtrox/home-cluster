@@ -7,6 +7,7 @@ namespace: blocky
 # TODO: servicemonitor
 resources:
   - redis
+  - postgresql
   - deployment.yaml
   - service.yaml
   - servicemonitor.yaml

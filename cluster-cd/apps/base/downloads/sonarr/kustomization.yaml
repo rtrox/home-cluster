@@ -7,13 +7,13 @@ namespace: downloads
 resources:
   - deployment.yaml
   - service.yaml
+  - servicemonitor.yaml
   - ingress.yaml
   - pvc.yaml
 
 images:
-  # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/onedr0p/sonarr-develop
-    newTag: 4.0.0.391@sha256:dbf5513327d9c9c0bb9af284e7cdc7e8db8325b1239505669a3141416c4c52e1
+    newTag: "4.0.0.401"
 
 commonLabels:
   app.kubernetes.io/part-of: sonarr
