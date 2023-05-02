@@ -36,7 +36,7 @@ spec:
                 port:
                   number: 80
 ---
-apiVersion: notification.toolkit.fluxcd.io/v1beta1
+apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Receiver
 metadata:
   name: flux-system
