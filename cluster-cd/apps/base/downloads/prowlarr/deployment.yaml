@@ -36,7 +36,7 @@ spec:
         fsGroupChangePolicy: "OnRootMismatch"
       containers:
         - name: prowlarr
-          image: ghcr.io/onedr0p/prowlarr-nightly:0.4.11.2143@sha256:2eafdb19e32172228ee64599d27f5e964613d83bf396e218e3591baba7f5c545
+          image: ghcr.io/onedr0p/prowlarr-nightly:1.5.2.3447
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -113,7 +113,7 @@ spec:
               memory: 64Mi
         - name: exportarr
           // TODO: pin once a new release is available.
-          image: ghcr.io/onedr0p/exportarr:master
+          image: ghcr.io/onedr0p/exportarr:v1.4.0
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 568

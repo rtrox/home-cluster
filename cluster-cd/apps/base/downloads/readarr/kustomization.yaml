@@ -13,8 +13,8 @@ resources:
 
 images:
   # TODO: non-nightly image to let renovate pick it up
-  - name: ghcr.io/onedr0p/readarr-nightly
-    newTag: 0.1.4.1596@sha256:e355ac9318159f77be055b1930728f90a17454926b1188955fe51515a3a8f8c7
+  - name: ghcr.io/onedr0p/readarr-develop
+    newTag: "0.1.6.1867"
 
 commonLabels:
   app.kubernetes.io/part-of: readarr

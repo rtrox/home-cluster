@@ -14,7 +14,9 @@ resources:
 images:
   # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/onedr0p/radarr-develop
-    newTag: 4.4.2.6956@sha256:900277ef469bcb21cf24963c39b17e0f1a5e64a445b8a9d6ee80750807911339
+    newTag: "4.4.2.6956"
+  - name: ghcr.io/onedr0p/exportarr
+    newTag: v1.4.0
 
 commonLabels:
   app.kubernetes.io/part-of: radarr

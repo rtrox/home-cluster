@@ -40,7 +40,7 @@ spec:
           - 100
       containers:
         - name: readarr
-          image: ghcr.io/onedr0p/readarr-nightly:0.1.1.1504@sha256:72ce66bd40db62a2a9918a96bd12d5d8a02914ffcf2d75299416654185b38e1b
+          image: ghcr.io/onedr0p/readarr-develop:0.1.6.1867
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -122,8 +122,7 @@ spec:
             - "-c"
             - "sleep infinity"
         - name: exportarr
-          // TODO: pin once a new release is available.
-          image: ghcr.io/onedr0p/exportarr:master
+          image: ghcr.io/onedr0p/exportarr:v1.4.0
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 568
