@@ -1,0 +1,14 @@
+---
+queue-size: 10
+sink-queue-size: 10
+log-level: "info"
+log-format: "console"
+sources:
+  - name: "radarr"
+    type: "radarr"
+    config:
+sinks:
+  - name: "log"
+    type: "log"
+    config:
+      level: "debug"
