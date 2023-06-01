@@ -11,7 +11,7 @@ resources:
 
 images:
   - name: ghcr.io/rtrox/informer-devel
-    newTag: sha-a633e88
+    newTag: sha-c08f5a9
 
 configMapGenerator:
   - name: informer-config
