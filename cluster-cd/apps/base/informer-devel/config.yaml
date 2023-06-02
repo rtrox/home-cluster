@@ -7,8 +7,13 @@ sources:
   - name: "radarr"
     type: "radarr"
     config:
+      api-key: ${RADARR_API_KEY}
 sinks:
   - name: "log"
     type: "log"
     config:
       level: "debug"
+  - name: "media-test"
+    type: "discord-webhook"
+    config:
+      webhook_url: ${MEDIA_TEST_WEBHOOK_URL}
