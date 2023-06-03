@@ -7,6 +7,7 @@ resources:
 
 configMapGenerator:
   - name: informer-devel-config
+    namespace: default
     files:
       - config.yaml=config.yaml
     options:
