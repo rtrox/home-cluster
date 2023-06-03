@@ -31,7 +31,7 @@ spec:
         fsGroup: 10001
       containers:
         - name: informer
-          image: 'ghcr.io/rtrox/informer-devel:sha-b0af989'
+          image: 'ghcr.io/rtrox/informer-devel:sha-5a3d5e6'
           args:
             - --config=/config/config.yaml
           imagePullPolicy: IfNotPresent
