@@ -39,6 +39,13 @@ spec:
     substituteFrom:
       - kind: Secret
         name: cluster-secrets
+  patches:
+    - patch: |-
+        apiVersion: kustomize.config.k8s.io/v1beta1
+        kind: Kustomization
+        metadata:
+          name: not-used
+        namespace: default
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Receiver
