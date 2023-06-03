@@ -31,9 +31,15 @@ spec:
     - apiVersion: apps/v1
       kind: Deployment
       name: informer-devel
+      namespace: default
     - apiVersion: v1
       kind: Service
       name: informer-devel
+      namespace: default
+    - apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      name: informer-devel
+      namespace: default
   postBuild:
     substitute: {}
     substituteFrom:
