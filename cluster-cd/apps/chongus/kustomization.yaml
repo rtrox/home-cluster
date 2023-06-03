@@ -15,6 +15,7 @@ resources:
   - ../base/prometheus-awair-exporter
   - ../base/prometheus-snmp-exporter
   - ../base/informer-devel
+  - informer-webhook-token.cho.yaml
   - postgres-config.cho.yaml
   - redis-password.cho.yaml
   - pod-gateway-config.cho.yaml
@@ -28,6 +29,7 @@ resources:
   - yaddu-config-secret.cho.yaml
   - kavita-email-secret.cho.yaml
   - radarr-form-auth-test
+
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml

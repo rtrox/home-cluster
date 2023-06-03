@@ -1,0 +1,52 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: informer-source
+  namespace: flux-system
+spec:
+  interval: 30m
+  url: https://github.com/rtrox/informer
+  ref:
+    branch: main
+  ignore: |
+    # exclude all
+    /*
+    # include deploy crds dir
+    !/.github/ci
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: informer-devel
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./.github/ci/develop
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: informer-source
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: informer-devel
+    - apiVersion: v1
+      kind: Service
+      name: informer-devel
+---
+apiVersion: notification.toolkit.fluxcd.io/v1
+kind: Receiver
+metadata:
+  name: informer
+  namespace: flux-system
+spec:
+  type: github
+  events:
+    - "ping"
+    - "push"
+  secretRef:
+    name: informer-webhook-token
+  resources:
+    - kind: GitRepository
+      name: informer-source
