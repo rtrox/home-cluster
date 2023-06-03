@@ -46,6 +46,10 @@ spec:
         metadata:
           name: not-used
         namespace: default
+      target:
+        group: kustomize.config.k8s.io
+        kind: Kustomization
+
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Receiver
