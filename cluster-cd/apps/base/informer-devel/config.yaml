@@ -9,6 +9,11 @@ sources:
     config:
       api-key: ${RADARR_API_KEY}
       url: http://radarr.downloads:8080
+  - name: "sonarr"
+    type: "sonarr"
+    config:
+      api-key: ${SONARR_API_KEY}
+      url: http://sonarr.downloads:8080
 sinks:
   - name: "log"
     type: "log"
