@@ -32,8 +32,6 @@ spec:
             - authentik.${SECRET_DOMAIN}
           secretName: authentik-tls
 
-    podAnnotations:
-      backup.velero.io/backup-volumes: data-authentik-postgresql,data-authentik-redis-master
     authentik:
       # secret_key: #in secret
       log_level: debug
@@ -63,6 +61,12 @@ spec:
         size: 10Gi
         accessModes:
           - ReadWriteOnce
+      primary:
+        podAnnotations:
+          backup.velero.io/backup-volumes: postgresql-data
+      readReplicas:
+        podAnnotations:
+          backup.velero.io/backup-volumes: postgresql-data
 
 
       postgresqlUsername: authentik
@@ -74,6 +78,13 @@ spec:
       auth:
         enabled: true
         password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
+      master:
+        podAnnotations:
+          backup.velero.io/backup-volumes: redis-data
+      replica:
+        podAnnotations:
+          backup.velero.io/backup-volumes: redis-data
+
 
     livenessProbe:
       enabled: false
