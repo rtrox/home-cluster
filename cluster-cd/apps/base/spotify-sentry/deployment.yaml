@@ -36,6 +36,9 @@ spec:
             - --image-folder=/data/images/
             - --db-location=/data/spotify.db
             - --reconcile-interval=10s
+            - --interface=0.0.0.0
+            - --log-format=json
+            - --log-level=debug
           envFrom:
             - secretRef:
                 name: spotify-sentry-env
