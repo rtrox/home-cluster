@@ -15,7 +15,8 @@ images:
   # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/onedr0p/readarr-develop
     newTag: "0.1.6.1867"
-
+  - name: ghcr.io/onedr0p/exportarr
+    newTag: v1.5.1
 commonLabels:
   app.kubernetes.io/part-of: readarr
   k8s-app: readarr
