@@ -33,9 +33,9 @@ spec:
         - name: spotify-sentry
           image: 'ghcr.io/rtrox/spotify-sentry-devel:sha-9643457'
           args:
-            - -image-folder=/data/images/
-            - -db-location=/data/spotify.db
-            - -reconcile-interval=10s
+            - --image-folder=/data/images/
+            - --db-location=/data/spotify.db
+            - --reconcile-interval=10s
           envFrom:
             - secretRef:
                 name: spotify-sentry-env
