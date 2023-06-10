@@ -27,4 +27,4 @@ configMapGenerator:
 
 images:
   - name: ghcr.io/rtrox/spotify-sentry-devel
-    newTag: sha-e929615-20230610005525
+    newTag: sha-3830053-20230610013313
