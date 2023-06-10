@@ -38,7 +38,6 @@ spec:
             - --reconcile-interval=10s
             - --interface=0.0.0.0
             - --log-format=json
-            - --log-level=debug
           envFrom:
             - secretRef:
                 name: spotify-sentry-env
