@@ -1,0 +1,113 @@
+---
+name: Lint YAML files on Pull Requests
+
+on: # yamllint disable-line rule:truthy
+  pull_request:
+    branches:
+      - main
+      - 'renovate/**'
+  push:
+    branches:
+      - main
+      - 'renovate/**'
+
+jobs:
+  test-yaml-changed:
+    runs-on: ubuntu-latest
+    outputs:
+      yaml_changed: ${{ steps.filter.outputs.yaml }}
+      yaml_files: ${{ steps.filter.outputs.yaml_files }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            yaml:
+              - added|modified: "**.yaml"
+              - added|modified: "**.yml"
+
+  yamllint:
+    runs-on: ubuntu-latest
+    if: ${{ needs.test-yaml-changed.outputs.yaml_changed == 'true' }}
+    needs:
+      - test-yaml-changed
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: reviewdog/action-yamllint@v1
+        with:
+          yamllint_flags: "-c .github/lint/.yamllint.yaml ${{ steps.filter.outputs.yaml_files }}"
+
+  flux-test:
+    name: Flux Test
+    runs-on: ubuntu-latest
+    needs:
+      - test-yaml-changed
+    if: needs.test-yaml-changed.outputs.yaml_changed == 'true'
+    strategy:
+      matrix:
+        cluster_path:
+          - "cluster-cd/clusters/chongus"
+          - "cluster-cd/clusters/x86"
+          - "cluster-cd/clusters/rpi4-sidero"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: flux-local test
+        uses: allenporter/flux-local/action/test@main
+        with:
+          path: ${{ matrix.cluster_path }}
+          enable-helm: true
+          enable-kyverno: false
+
+  flux-diff:
+    name: Flux Diff
+    runs-on: ubuntu-latest
+    needs:
+      - test-yaml-changed
+    if: needs.test-yaml-changed.outputs.yaml_changed == 'true'
+    permissions:
+      pull-requests: write
+    strategy:
+      matrix:
+        path:
+          - "cluster-cd/clusters/chongus"
+          - "cluster-cd/clusters/x86"
+          - "cluster-cd/clusters/rpi4-sidero"
+        resources:
+          - "helmrelease"
+          - "kustomization"
+    steps:
+      - name: Diff Resources
+        uses: allenporter/flux-local/action/diff@main
+        id: diff
+        with:
+          live-branch: main
+          path: "${{ matrix.path }}"
+          resource: "${{ matrix.resource }}"
+
+      - if: ${{ steps.diff.outputs.diff != '' }}
+        name: Add comment
+        uses: mshick/add-pr-comment@v2
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          message-id: "${{ github.event.pull_request.number }}/${{ matrix.path }}/${{ matrix.resource }}"
+          message-failure: Diff was not successful
+          message: |
+            ```diff
+            ${{ steps.diff.outputs.diff }}
+            ```
+
+  renovate-config-validator:
+    name: Validate Renovate Config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Validate Renovate Config
+        uses: rinchsan/renovate-config-validator@v0.0.12
+        with:
+          pattern: '.github/renovate.json5'
