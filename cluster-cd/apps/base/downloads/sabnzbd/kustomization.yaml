@@ -13,7 +13,7 @@ resources:
 
 images:
   - name: ghcr.io/onedr0p/sabnzbd
-    newTag: 3.7.2@sha256:1650ac838f239899cb3701fd28ffb551e2abdc6b3001d6c19bd80dca0564ec2a
+    newTag: 3.7.2@sha256:cbc7bdb5c70c75dc07eb7c2f967dfb74c48c4cf2531c28e81cff8d72f76cfc8c
   - name: ghcr.io/onedr0p/exportarr
     newTag: v1.5.1
 
