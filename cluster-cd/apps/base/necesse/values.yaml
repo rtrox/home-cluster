@@ -30,7 +30,7 @@ service:
       io.cilium/lb-ipam-ips: "${NECESSE_LB_IP}"
       metallb.universe.tf/loadBalancerIPs: "${NECESSE_LB_IP}"
     ports:
-      server:
+      http:
         port: 14159
 
 resources:
