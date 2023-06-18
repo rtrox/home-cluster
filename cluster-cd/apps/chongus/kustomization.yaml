@@ -4,31 +4,32 @@ kind: Kustomization
 
 resources:
   - ../base/blocky
-  - ../base/vpn-gateway
-  - ../base/downloads
-  - ../base/media
-  - ../base/spotify-sentry
-  - ../base/starbound-frackin-u
-  - ../base/yaddu
   - ../base/calibre
-  - ../base/prometheus-speedtest-exporter
+  - ../base/downloads
+  - ../base/informer-devel
+  - ../base/media
+  - ../base/necesse
   - ../base/prometheus-awair-exporter
   - ../base/prometheus-snmp-exporter
-  - ../base/informer-devel
+  - ../base/prometheus-speedtest-exporter
+  - ../base/spotify-sentry
+  - ../base/starbound-frackin-u
+  - ../base/vpn-gateway
+  - ../base/yaddu
   - informer-webhook-token.cho.yaml
-  - postgres-config.cho.yaml
-  - redis-password.cho.yaml
+  - kavita-email-secret.cho.yaml
   - pod-gateway-config.cho.yaml
-  - sabnzbd-secret.cho.yaml
+  - postgres-config.cho.yaml
   - prowlarr-secret.cho.yaml
+  - radarr-form-auth-test
   - radarr-secret.cho.yaml
-  - sonarr-secret.cho.yaml
   - readarr-secret.cho.yaml
+  - redis-password.cho.yaml
+  - sabnzbd-secret.cho.yaml
+  - sonarr-secret.cho.yaml
   - spotify-sentry-registry-creds.cho.yaml
   - spotify-sentry-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
-  - kavita-email-secret.cho.yaml
-  - radarr-form-auth-test
 
 
 patchesStrategicMerge:
