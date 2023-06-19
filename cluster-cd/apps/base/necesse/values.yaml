@@ -1,7 +1,7 @@
 image:
-  repository: brammys/necesse-server
+  repository: ghcr.io/rtrox/necesse-server
   pullPolicy: IfNotPresent
-  tag: 0-21-29
+  tag: 0.21.29
 
 global:
   labels:
@@ -58,9 +58,15 @@ resources:
     memory: 8Gi
 
 persistence:
-  saves:
+  data:
     enabled: true
     type: pvc
     accessMode: ReadWriteOnce
     size: 30Gi
-    mountPath: /necesse/saves
+    mountPath: /data
+  config:
+    enabled: true
+    type: pvc
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    mountPath: /config
