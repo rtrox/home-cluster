@@ -1,7 +1,7 @@
 image:
   repository: ghcr.io/rtrox/necesse-server
   pullPolicy: IfNotPresent
-  tag: 0.21.29@sha256:f5ffc8c87d30c71c13da13bfe8642866d4fe999a58081575316018889aa9c0eb
+  tag: 0.21.29@sha256:60140aa9ac563c9de807948a6472adb7008dd348648df9e9bbec57bcc042a964
 
 global:
   labels:
