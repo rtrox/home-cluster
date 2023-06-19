@@ -1,0 +1,28 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &pvcName necesse-data
+  labels:
+    app.kubernetes.io/name: *pvcName
+    app.kubernetes.io/instance: *pvcName
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50G
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: &pvcName necesse-config
+  labels:
+    app.kubernetes.io/name: *pvcName
+    app.kubernetes.io/instance: *pvcName
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1M

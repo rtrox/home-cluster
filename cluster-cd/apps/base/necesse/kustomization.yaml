@@ -4,12 +4,6 @@ kind: Kustomization
 namespace: default
 
 resources:
-  - helm-release.yaml
-
-configMapGenerator:
-  - name: necesse-values
-    files:
-      - values.yaml=values.yaml
-
-configurations:
-  - kustomizeconfig.yaml
+  - deployment.yaml
+  - pvc.yaml
+  - service.yaml

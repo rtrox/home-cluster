@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: &serviceName necesse
+  labels:
+    app.kubernetes.io/name: *serviceName
+    app.kubernetes.io/instance: *serviceName
+    app.kubernetes.io/component: *serviceName
+    app.kubernetes.io/part-of: *serviceName
+    k8s-app: *serviceName
+  annotations:
+    io.cilium/lb-ipam-ips: "${NECESSE_LB_IP}"
+    metallb.universe.tf/loadBalancerIPs: "${NECESSE_LB_IP}"
+spec:
+  selector:
+    app.kubernetes.io/name: *serviceName
+    app.kubernetes.io/instance: *serviceName
+  ports:
+    - port: 14159
+      name: game
+      targetPort: game
+      protocol: UDP
+  type: LoadBalancer

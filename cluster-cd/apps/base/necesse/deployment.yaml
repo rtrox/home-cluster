@@ -1,0 +1,102 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: &name necesse
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/component: *name
+    app.kubernetes.io/part-of: *name
+    k8s-app: *name
+  name: *name
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *name
+      annotations:
+        backup.velero.io/backup-volumes: necesse-config,necesse-data
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: necesse
+          image: ghcr.io/rtrox/necesse-server:0.21.29@sha256:60140aa9ac563c9de807948a6472adb7008dd348648df9e9bbec57bcc042a964
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 8G
+            requests:
+              memory: 8G
+            securityContext:
+              allowPrivilegeEscalation: false
+              runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
+              capabilities:
+                drop:
+                  - ALL
+          ports:
+            - name: game
+              containerPort: 14159
+              protocol: UDP
+          env:
+            - name: PASSWORD
+              value: ${SECRET_NECESSE_PASSWORD}
+            - name: PAUSE
+              value: 1
+            - name: WORLD
+              value: necesse-chongus
+            - name: SLOTS
+              value: "10"
+            - name: MOTD
+              value: "Chongus - A Necesse Server powered by k8s."
+          # TODO: figure out a good HC for Necesse.
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          # startupProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /data
+              name: necesse-data
+            - mountPath: /config
+              name: necesse-config
+      volumes:
+        - name: necesse-data
+          persistentVolumeClaim:
+            claimName: necesse-data
+        - name: necesse-config
+          persistentVolumeClaim:
+            claimName: necesse-config
