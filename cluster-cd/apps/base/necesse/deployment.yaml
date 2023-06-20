@@ -33,7 +33,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: necesse
-          image: ghcr.io/rtrox/necesse-server:0.21.29@sha256:60140aa9ac563c9de807948a6472adb7008dd348648df9e9bbec57bcc042a964
+          image: ghcr.io/rtrox/necesse-server:0.21.29@sha256:79d8b923c47de35fe2c148847de322d9d26a71583570ac497b0c658c8440487a
           imagePullPolicy: IfNotPresent
           resources:
             limits:
