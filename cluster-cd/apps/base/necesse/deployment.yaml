@@ -56,7 +56,7 @@ spec:
             - name: PASSWORD
               value: ${SECRET_NECESSE_PASSWORD}
             - name: PAUSE
-              value: 1
+              value: "1"
             - name: WORLD
               value: necesse-chongus
             - name: SLOTS
