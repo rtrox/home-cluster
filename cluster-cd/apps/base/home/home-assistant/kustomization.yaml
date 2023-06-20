@@ -16,4 +16,4 @@ images:
   - name: homeassistant/home-assistant
     newTag: "2023.6"
   - name: codercom/code-server
-    newTag: "4.10.1"
+    newTag: "4.14.0"
