@@ -33,7 +33,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: starbound-frackin-universe
-          image: ghcr.io/rtrox/starbound-docker:latest # Todo: Pin Version
+          image: ghcr.io/rtrox/starbound-server:4369387-1573210671
           imagePullPolicy: IfNotPresent
           resources:
             limits:
