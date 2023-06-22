@@ -105,7 +105,7 @@ jobs:
     name: Validate Renovate Config
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Validate Renovate Config
         uses: rinchsan/renovate-config-validator@v0.0.12
