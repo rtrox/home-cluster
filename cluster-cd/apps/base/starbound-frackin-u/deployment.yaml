@@ -28,9 +28,9 @@ spec:
         backup.velero.io/backup-volumes: starbound-data
     spec:
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 314
+        runAsGroup: 314
+        fsGroup: 314
       containers:
         - name: starbound-frackin-universe
           image: ghcr.io/rtrox/starbound-server:4369387-1573210671
@@ -42,7 +42,7 @@ spec:
               memory: 8G
             securityContext:
               allowPrivilegeEscalation: false
-              runAsUser: 1000
+              runAsUser: 314
               seccompProfile:
                 type: RuntimeDefault
               capabilities:
