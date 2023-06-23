@@ -98,7 +98,7 @@ spec:
           #   failureThreshold: 5
           #   timeoutSeconds: 2
           volumeMounts:
-            - mountPath: /home/steam/starbound
+            - mountPath: /starbound
               name: starbound-data
       volumes:
         - name: starbound-data
