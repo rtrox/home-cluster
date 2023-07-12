@@ -14,7 +14,7 @@ resources:
 images:
   # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/onedr0p/readarr-develop
-    newTag: "0.2.0.1908"
+    newTag: "0.2.2.1943"
   - name: ghcr.io/onedr0p/exportarr
     newTag: v1.5.3
 commonLabels:
