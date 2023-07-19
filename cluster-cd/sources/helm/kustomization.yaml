@@ -8,6 +8,7 @@ resources:
   - bitsbeats-charts.yaml
   - bjw-s-charts.yaml
   - cilium-charts.yaml
+  - cloudnative-pg-charts.yaml
   - grafana-charts.yaml
   - ingress-nginx-charts.yaml
   - jetstack-charts.yaml
