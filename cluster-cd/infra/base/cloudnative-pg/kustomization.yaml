@@ -6,3 +6,4 @@ namespace: database
 resources:
   - ./namespace.yaml
   - ./helmrelease.yaml
+  - cluster
