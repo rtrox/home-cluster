@@ -8,6 +8,7 @@ resources:
   - ceph-dashboards
   - loki-ceph-bucket.yaml
   - thanos-ceph-bucket.yaml
+  - cloudnative-pg-secret.cho.yaml
 
 configMapGenerator:
   - name: thanos-cluster-values
