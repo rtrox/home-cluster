@@ -72,6 +72,8 @@ spec:
               value: ${LOCAL_TZ}
             - name: VIKUNJA_SERVICE_FRONTENDURL
               value: https://tasks.${SECRET_DOMAIN}
+            - name: VIKUNJA_MAILER_ENABLED
+              value: "true"
           envFrom:
             - secretRef:
                 name: vikunja-secret
@@ -119,7 +121,7 @@ spec:
             name: vikunja-config
             items:
               - key: config.yaml
-                path: config.yaml
+                path: config.yml
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
