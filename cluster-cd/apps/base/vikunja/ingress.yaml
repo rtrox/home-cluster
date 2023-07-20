@@ -16,14 +16,14 @@ spec:
     - host: &host tasks.${SECRET_DOMAIN}
       http:
         paths:
-          - frontend:
+          - backend:
               service:
                 name: vikunja-frontend
                 port:
                   name: http
             path: /
             pathType: Prefix
-          - frontend:
+          - backend:
               service:
                 name: vikunja-api
                 port:
