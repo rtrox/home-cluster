@@ -24,27 +24,17 @@ spec:
         app.kubernentes.io/component: *name
     spec:
       securityContext:
-        runAsUser: 100
-        runAsGroup: 100
-        fsGroup: 100
+        runAsUser: 314
+        runAsGroup: 314
+        fsGroup: 314
 
       initContainers:
-        - name: initnginx
-          image: nginx:stable-alpine
-          imagePullPolicy: IfNotPresent
-          command: ["/bin/sh", "-c"]
-          args:
-            - |
-              cp -r /etc/nginx/* /tmp/
-          volumeMounts:
-            - name: nginx
-              mountPath: /tmp
         - name: initdb
           image: ghcr.io/onedr0p/postgres-init:14.8
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
-            runAsUser: 100
+            runAsUser: 314
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -59,7 +49,7 @@ spec:
                 name: vikunja-secret
       containers:
         - name: api
-          image: vikunja/api:0.21.0@sha256:e541ef5599d08f50a24e8de1fd8136f9d0a7ef514916fac6d6bf8ac6c7c16712
+          image: ghcr.io/rtrox/vikunja-api:0.21.0@sha256:9474a4e575001cbfa0fa7ec7059fd85336d2feef1aa61fe37e0be14d3c0b3045
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -70,7 +60,7 @@ spec:
               cpu: 100m
           securityContext:
             allowPrivilegeEscalation: false
-            runAsUser: 100
+            runAsUser: 314
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -91,7 +81,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
               scheme: HTTP
             initialDelaySeconds: 10
@@ -99,7 +89,7 @@ spec:
             timeoutSeconds: 2
           readinessProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
               scheme: HTTP
             initialDelaySeconds: 10
@@ -107,7 +97,7 @@ spec:
             timeoutSeconds: 2
           startupProbe:
             httpGet:
-              path: /
+              path: /health
               port: http
               scheme: HTTP
             initialDelaySeconds: 10
@@ -119,8 +109,6 @@ spec:
             - mountPath: /app/vikunja/config
               name: config
               readOnly: true
-            - mountPath: /etc/nginx
-              name: nginx
       volumes:
         - name: files
           persistentVolumeClaim:
@@ -131,8 +119,6 @@ spec:
             items:
               - key: config.yaml
                 path: config.yaml
-        - name: nginx
-          emptyDir: {}
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

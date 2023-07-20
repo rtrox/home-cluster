@@ -24,13 +24,12 @@ spec:
         app.kubernentes.io/component: *name
     spec:
       securityContext:
-        runAsUser: 100
-        runAsGroup: 100
-        fsGroup: 100
-
+        runAsUser: 101
+        runAsGroup: 101
+        fsGroup: 101
       containers:
         - name: frontend
-          image: vikunja/frontend:0.21.0@sha256:fdd4582979beee4a6bef2d4d8e3744809b82ab2e198d708a829d7189a0ad9882
+          image: ghcr.io/rtrox/vikunja-frontend:0.21.0@sha256:3c78072598d5f567c35fc2ceb7a538d5215c8f5af87e29f7c3d12c6fc765adfd
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -38,10 +37,10 @@ spec:
               memory: 300Mi
             requests:
               memory: 64Mi
-              cpu: 100m
+              cpu: 101m
           securityContext:
             allowPrivilegeEscalation: false
-            runAsUser: 100
+            runAsUser: 101
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -49,7 +48,7 @@ spec:
               drop:
                 - ALL
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               name: http
               protocol: TCP
           livenessProbe:
@@ -76,6 +75,16 @@ spec:
             initialDelaySeconds: 10
             failureThreshold: 5
             timeoutSeconds: 2
+          volumeMounts:
+            - name: run
+              mountPath: /var/run
+            - name: cache
+              mountPath: /var/cache/nginx
+      volumes:
+        - name: run
+          emptyDir: {}
+        - name: cache
+          emptyDir: {}
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
