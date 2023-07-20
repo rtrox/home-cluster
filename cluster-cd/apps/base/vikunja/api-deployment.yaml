@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: &name vikunja-api
     app.kubernetes.io/instance: *name
     app.kubernetes.io/component: *name
-    app.kubernetes.io/part-of: &partof vikunja
+    app.kubernetes.io/part-of: vikunja
     k8s-app: *name
   name: *name
 spec:
@@ -67,8 +67,8 @@ spec:
                   namespace: database
                   key: password
           envFrom:
-            secretRef:
-              name: vikunja-secret
+            - secretRef:
+                name: vikunja-secret
           ports:
             - containerPort: 3456
               name: http
