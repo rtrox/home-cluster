@@ -29,8 +29,18 @@ spec:
         fsGroup: 100
 
       initContainers:
+        - name: initnginx
+          image: nginx:stable-alpine
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              cp -r /etc/nginx/* /tmp/
+          volumeMounts:
+            - name: nginx
+              mountPath: /tmp
         - name: initdb
-          image: ghcr.io/onedr0p/postgres-initdb:14.8@sha256:0141cf427c47f2d534711a3f9e8c5f9008bc6b585463ccd9288cf0f027e20deb
+          image: ghcr.io/onedr0p/postgres-init:14.8
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
@@ -109,6 +119,8 @@ spec:
             - mountPath: /app/vikunja/config
               name: config
               readOnly: true
+            - mountPath: /etc/nginx
+              name: nginx
       volumes:
         - name: files
           persistentVolumeClaim:
@@ -119,6 +131,8 @@ spec:
             items:
               - key: config.yaml
                 path: config.yaml
+        - name: nginx
+          emptyDir: {}
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
