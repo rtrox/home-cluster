@@ -1,0 +1,36 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    ingress: "externaldns"
+  labels:
+    app.kubernetes.io/instance: &name vikunja
+    app.kubernetes.io/name: *name
+  name: *name
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host tasks.${SECRET_DOMAIN}
+      http:
+        paths:
+          - frontend:
+              service:
+                name: vikunja-frontend
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+          - frontend:
+              service:
+                name: vikunja-api
+                port:
+                  name: http
+            path: /api
+            pathType: Prefix
+  tls:
+    - hosts:
+        - *host
+      secretName: vikunja-tls

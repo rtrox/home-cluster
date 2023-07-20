@@ -15,6 +15,7 @@ resources:
   - ../base/spotify-sentry
   - ../base/starbound-frackin-u
   - ../base/vpn-gateway
+  - ../base/vikunja
   - ../base/yaddu
   - informer-webhook-token.cho.yaml
   - kavita-email-secret.cho.yaml
@@ -29,6 +30,7 @@ resources:
   - sonarr-secret.cho.yaml
   - spotify-sentry-registry-creds.cho.yaml
   - spotify-sentry-secret.cho.yaml
+  - vikunja-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
 
 

@@ -1,0 +1,124 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: &name vikunja-api
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/component: *name
+    app.kubernetes.io/part-of: &partof vikunja
+    k8s-app: *name
+  name: *name
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: *name
+      app.kubernetes.io/instance: *name
+      app.kubernentes.io/component: *name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/instance: *name
+        app.kubernentes.io/component: *name
+    spec:
+      securityContext:
+        runAsUser: 100
+        runAsGroup: 100
+        fsGroup: 100
+
+      initContainers:
+        - name: initdb
+          image: ghcr.io/onedr0p/postgres-initdb:14.8@sha256:0141cf427c47f2d534711a3f9e8c5f9008bc6b585463ccd9288cf0f027e20deb
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            secretRef:
+              name: vikunja-secret
+              namespace: default
+      containers:
+        - name: api
+          image: vikunja/api:0.21.0@sha256:e541ef5599d08f50a24e8de1fd8136f9d0a7ef514916fac6d6bf8ac6c7c16712
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 500m
+              memory: 300Mi
+            requests:
+              memory: 64Mi
+              cpu: 100m
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 100
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          env:
+            - name: VIKUNJA_SERVICE_TIMEZONE
+              value: ${LOCAL_TZ}
+            - name: VIKUNJA_SERVICE_FRONTENDURL
+              value: https://tasks.${SECRET_DOMAIN}
+            - name: INIT_POSTGRES_SUPER_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: cloudnative-pg-secret
+                  namespace: database
+                  key: password
+          envFrom:
+            secretRef:
+              name: vikunja-secret
+          ports:
+            - containerPort: 3456
+              name: http
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          volumeMounts:
+            - mountPath: /app/vikunja/files
+              name: files
+            - mountPath: /app/vikunja/config
+              name: config
+              readOnly: true
+      volumes:
+        - name: files
+          persistentVolumeClaim:
+            claimName: vikunja-files
+        - name: config
+          configMap:
+            name: vikunja-config
+            items:
+              - key: config.yaml
+                path: config.yaml
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 10
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/name: *name
+                topologyKey: kubernetes.io/hostname
