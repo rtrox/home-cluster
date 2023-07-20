@@ -120,7 +120,7 @@ spec:
           configMap:
             name: vikunja-config
             items:
-              - key: config.yaml
+              - key: config.yml
                 path: config.yml
       affinity:
         podAntiAffinity:
