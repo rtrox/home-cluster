@@ -106,9 +106,10 @@ spec:
           volumeMounts:
             - mountPath: /app/vikunja/files
               name: files
-            - mountPath: /app/vikunja/config
+            - mountPath: /app/vikunja/config.yml
               name: config
               readOnly: true
+              subPath: config.yml
       volumes:
         - name: files
           persistentVolumeClaim:
