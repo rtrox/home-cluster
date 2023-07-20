@@ -32,10 +32,18 @@ spec:
         - name: initdb
           image: ghcr.io/onedr0p/postgres-initdb:14.8@sha256:0141cf427c47f2d534711a3f9e8c5f9008bc6b585463ccd9288cf0f027e20deb
           imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 100
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
           envFrom:
-            secretRef:
-              name: vikunja-secret
-              namespace: default
+            - secretRef:
+                name: vikunja-secret
       containers:
         - name: api
           image: vikunja/api:0.21.0@sha256:e541ef5599d08f50a24e8de1fd8136f9d0a7ef514916fac6d6bf8ac6c7c16712
@@ -50,6 +58,7 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             runAsUser: 100
+            runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
             capabilities:
@@ -61,11 +70,7 @@ spec:
             - name: VIKUNJA_SERVICE_FRONTENDURL
               value: https://tasks.${SECRET_DOMAIN}
             - name: INIT_POSTGRES_SUPER_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: cloudnative-pg-secret
-                  namespace: database
-                  key: password
+              value: ${POSTGRES_SUPER_PASSWORD}
           envFrom:
             - secretRef:
                 name: vikunja-secret
