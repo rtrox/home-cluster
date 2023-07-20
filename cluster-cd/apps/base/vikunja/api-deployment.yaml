@@ -41,6 +41,9 @@ spec:
             capabilities:
               drop:
                 - ALL
+          env:
+            - name: INIT_POSTGRES_SUPER_PASS
+              value: ${POSTGRES_SUPER_PASSWORD}
           envFrom:
             - secretRef:
                 name: vikunja-secret
@@ -69,8 +72,6 @@ spec:
               value: ${LOCAL_TZ}
             - name: VIKUNJA_SERVICE_FRONTENDURL
               value: https://tasks.${SECRET_DOMAIN}
-            - name: INIT_POSTGRES_SUPER_PASS
-              value: ${POSTGRES_SUPER_PASSWORD}
           envFrom:
             - secretRef:
                 name: vikunja-secret
