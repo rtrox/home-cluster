@@ -13,7 +13,7 @@ resources:
 images:
   # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/bjw-s/calibre-web
-    newTag: 0.6.20@sha256:12054ddfb7ca2f18a91080ade305d510d83ce1c81997dc5259029fd1068da7eb
+    newTag: 0.6.20@sha256:23b6b92424a3445fded7795b1b7add6dae04e561e95023a26a4e83ed758413a0
 
 commonLabels:
   app.kubernetes.io/part-of: calibre-web
