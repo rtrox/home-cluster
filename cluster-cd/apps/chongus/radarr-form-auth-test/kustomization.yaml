@@ -12,7 +12,7 @@ resources:
 images:
   # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/onedr0p/radarr-develop
-    newTag: 4.7.0.7588@sha256:2cd821b4ecf67a69ae16e49cc3321e867c274efdd42096d1fef3bd92dfcf2f46
+    newTag: 4.7.4.7758@sha256:5ac85e39edda507503328e03812b05cfc1a5fd8205f889f39fab0fa60f3a1db0
 
 commonLabels:
   app.kubernetes.io/part-of: radarr-form-auth-test
