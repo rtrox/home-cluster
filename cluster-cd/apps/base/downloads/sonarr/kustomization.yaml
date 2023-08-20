@@ -13,7 +13,7 @@ resources:
 
 images:
   - name: ghcr.io/onedr0p/sonarr-develop
-    newTag: "4.0.0.630"
+    newTag: "4.0.0.644"
   - name: ghcr.io/onedr0p/exportarr
     newTag: v1.5.3
 
