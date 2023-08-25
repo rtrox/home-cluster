@@ -18,7 +18,7 @@ configMapGenerator:
 
 images:
   - name: kopia/kopia
-    newTag: 20221229.0.232524
+    newTag: 20230824.0.93856
 
 commonLabels:
   app.kubernetes.io/name: kopia
