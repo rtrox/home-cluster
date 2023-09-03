@@ -22,4 +22,4 @@ configMapGenerator:
 
 images:
   - name: spx01/blocky
-    newTag: v0.21
+    newTag: v0.22
