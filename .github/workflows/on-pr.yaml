@@ -18,7 +18,7 @@ jobs:
       yaml_changed: ${{ steps.filter.outputs.yaml }}
       yaml_files: ${{ steps.filter.outputs.yaml_files }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: dorny/paths-filter@v2
         id: filter
@@ -35,7 +35,7 @@ jobs:
     needs:
       - test-yaml-changed
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: reviewdog/action-yamllint@v1
         with:
@@ -105,7 +105,7 @@ jobs:
     name: Validate Renovate Config
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Validate Renovate Config
         uses: rinchsan/renovate-config-validator@v0.0.12
