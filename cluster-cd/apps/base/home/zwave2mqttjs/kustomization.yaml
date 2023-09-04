@@ -13,4 +13,4 @@ resources:
 
 images:
   - name: zwavejs/zwave-js-ui
-    newTag: 8.23.2
+    newTag: 8.24.0
