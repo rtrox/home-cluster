@@ -55,8 +55,6 @@ spec:
 
     postgresql:
       enabled: true
-      diagnosticMode:
-        enabled: true
       persistence:
         enabled: true
         storageClass: "ceph-block"
