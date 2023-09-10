@@ -49,8 +49,8 @@ spec:
         name: authentik
         user: authentik
         password: ${SECRET_AUTHENTIK_POSTGRES_PASSWORD}
-        diagnosticMode:
-          enabled: true
+        image:
+          tag: 11-debian-11
       redis:
         host: '{{ .Release.Name }}-redis-master'
         password: ${SECRET_AUTHENTIK_REDIS_PASSWORD}
