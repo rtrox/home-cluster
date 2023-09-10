@@ -55,8 +55,8 @@ spec:
 
     postgresql:
       enabled: true
-      image:
-        tag: 11-debian-11
+      diagnosticMode:
+        enabled: true
       persistence:
         enabled: true
         storageClass: "ceph-block"
