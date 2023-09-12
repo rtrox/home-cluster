@@ -8,4 +8,4 @@ spec:
   interval: 30m0s
   url: https://github.com/emqx/emqx
   ref:
-    tag: v5.1.6
+    tag: v5.2.0
