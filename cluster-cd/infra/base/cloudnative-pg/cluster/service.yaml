@@ -6,7 +6,7 @@ metadata:
   namespace: database
   annotations:
     external-dns.alpha.kubernetes.io/hostname: postgres.${SECRET_DOMAIN}
-    io.cilium/lb-ipam-ips: 172.18.3.7
+    io.cilium/lb-ipam-ips: ${POSTGRES_LB_IP}
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster

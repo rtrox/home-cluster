@@ -6,6 +6,6 @@ resources:
   - namespace.yaml
   - mosquitto
   - zwave2mqttjs
-  - home-assistant
-  - app-daemon
-  - node-red
+  # - home-assistant
+  # - app-daemon
+  # - node-red

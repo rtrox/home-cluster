@@ -7,9 +7,9 @@ resources:
   - helm-release.yaml
 
 configMapGenerator:
-  - name: mosquitto-helm-values
+  - name: mosquitto-configmap
     files:
-      - values.yaml=helm-values.yaml
+      - mosquitto.conf=./mosquitto.conf
 
 configurations:
   - kustomizeconfig.yaml

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: zwave
-          image: zwavejs/zwave-js-ui:8.1.0
+          image: ghcr.io/zwave-js/zwave-js-ui:8.26.0
           livenessProbe:
             failureThreshold: 10
             httpGet:
