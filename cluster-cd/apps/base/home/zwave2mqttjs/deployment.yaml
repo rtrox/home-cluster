@@ -21,18 +21,18 @@ spec:
       containers:
         - name: zwave
           image: ghcr.io/zwave-js/zwave-js-ui:8.26.0
-          livenessProbe:
-            failureThreshold: 10
-            httpGet:
-              httpHeaders:
-                - name: Accept
-                  value: text/plain
-              path: /health
-              port: http
-            initialDelaySeconds: 30
-            periodSeconds: 3
-            successThreshold: 1
-            timeoutSeconds: 1
+          # livenessProbe:
+          #   failureThreshold: 10
+          #   httpGet:
+          #     httpHeaders:
+          #       - name: Accept
+          #         value: text/plain
+          #     path: /health
+          #     port: http
+          #   initialDelaySeconds: 30
+          #   periodSeconds: 3
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
           ports:
             - containerPort: 8091
               name: http
