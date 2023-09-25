@@ -58,7 +58,7 @@ spec:
       volumes:
         - name: zwavestick
           hostPath:
-            path: /dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_a68ef26c7c74ec118351a75019c2d21c-if00-port0
+            path: /dev/serial/by-id/usb-Zooz_800_Z-Wave_Stick_533D004242-if00
             type: CharDevice
         - name: zwave-data
           persistentVolumeClaim:
@@ -68,7 +68,7 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: "feature.node.kubernetes.io/zwave7"
+                  - key: "feature.node.kubernetes.io/zwave"
                     operator: In
                     values:
                       - "true"
