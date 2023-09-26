@@ -7,7 +7,6 @@ metadata:
     app.kubernetes.io/name: *name
     app.kubernetes.io/instance: home-assistant
 spec:
-  storageClassName: synology-iscsi
   accessModes:
     - ReadWriteOnce
   resources:
