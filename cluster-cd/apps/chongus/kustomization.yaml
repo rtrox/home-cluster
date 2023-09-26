@@ -18,15 +18,16 @@ resources:
   - ../base/vikunja
   - ../base/vpn-gateway
   - ../base/yaddu
+  - home-assistant-secret.cho.yaml
   - informer-webhook-token.cho.yaml
   - kavita-email-secret.cho.yaml
+  - mosquitto-secret.cho.yaml
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml
   - prowlarr-secret.cho.yaml
   - radarr-form-auth-test
   - radarr-secret.cho.yaml
   - readarr-secret.cho.yaml
-  - mosquitto-secret.cho.yaml
   - redis-password.cho.yaml
   - sabnzbd-secret.cho.yaml
   - sonarr-secret.cho.yaml
