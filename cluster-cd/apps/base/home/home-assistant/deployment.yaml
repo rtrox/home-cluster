@@ -27,9 +27,9 @@ spec:
         backup.velero.io/backup-volumes: config
     spec:
       securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
       initContainers:
         - name: hacs-install
           image: alpine:3.16.2
@@ -56,7 +56,7 @@ spec:
               memory: 512Mi
           securityContext:
             allowPrivilegeEscalation: false
-            runAsUser: 568
+            runAsUser: 0
             seccompProfile:
               type: RuntimeDefault
             capabilities:
@@ -66,30 +66,30 @@ spec:
             - name: api
               containerPort: 8123
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: api
-          #     scheme: HTTP
-          #   initialDelaySeconds: 10
-          #   failureThreshold: 5
-          #   timeoutSeconds: 2
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: api
-          #     scheme: HTTP
-          #   initialDelaySeconds: 10
-          #   failureThreshold: 5
-          #   timeoutSeconds: 2
-          # startupProbe:
-          #   httpGet:
-          #     path: /
-          #     port: api
-          #     scheme: HTTP
-          #   initialDelaySeconds: 10
-          #   failureThreshold: 5
-          #   timeoutSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /
+              port: api
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /
+              port: api
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
+          startupProbe:
+            httpGet:
+              path: /
+              port: api
+              scheme: HTTP
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 2
           volumeMounts:
             - mountPath: /config
               name: config
