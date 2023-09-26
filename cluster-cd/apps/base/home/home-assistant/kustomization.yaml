@@ -13,7 +13,7 @@ resources:
   - service-monitor.yaml
 
 images:
-  - name: homeassistant/home-assistant
-    newTag: "2023.9"
+  - name: ghcr.io/onedr0p/home-assistant
+    newTag: "2023.9.3"
   - name: codercom/code-server
     newTag: "4.16.1"
