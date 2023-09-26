@@ -72,6 +72,9 @@ spec:
             capabilities:
               drop:
                 - ALL
+          env:
+            - name: HOME_ASSISTANT__HACS_INSTALL
+              value: "true"
           envFrom: *envFrom
           ports:
             - name: api
