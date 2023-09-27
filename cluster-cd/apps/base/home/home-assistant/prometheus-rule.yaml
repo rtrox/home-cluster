@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cert-manager.rules
+  namespace: home
+spec:
+  groups:
+    - name: battery-low
+      rules:
+        - alert: DeviceBatteryLow
+          expr: |
+            min by (entity) (hass_sensor_battery_percent) < 20
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            description: "Device Battery is Low, and may die soon. Replace or charge batteries."
+            runbook_url: ""
+            summary: "Device Battery is Low."
