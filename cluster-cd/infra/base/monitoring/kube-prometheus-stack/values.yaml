@@ -287,6 +287,8 @@ prometheus:
               storage: 50Gi
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
     externalLabels:
       cluster: ${CLUSTER_NAME}
     thanos:

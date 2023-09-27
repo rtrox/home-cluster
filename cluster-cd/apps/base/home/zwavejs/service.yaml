@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zwave
+  labels:
+    app.kubernetes.io/instance: zwave
 spec:
   ports:
     - name: http
