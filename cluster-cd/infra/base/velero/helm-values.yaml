@@ -5,16 +5,17 @@ kubectl:
     tag: 1.25
 configuration:
   defaultVolumesToRestic: true
-  provider: aws
   backupStorageLocation:
-    name: default
-    bucket: ${REVERSED_DOMAIN}.velero
-    config:
-      region: us-west-2
+    - name: default
+      provider: aws
+      bucket: ${REVERSED_DOMAIN}.velero
+      config:
+        region: us-west-2
   volumeSnapshotLocation:
-    name: aws
-    config:
-      region: us-west-2
+    - name: aws
+      provider: aws
+      config:
+        region: us-west-2
   resticTimeout: 6h
 initContainers:
   - name: velero-plugin-for-aws
