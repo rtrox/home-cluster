@@ -3,6 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
@@ -13,7 +14,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: &host share.${SECRET_DOMAIN}
+    - host: &host fileshelter.${SECRET_DOMAIN}
       http:
         paths:
           - backend:
