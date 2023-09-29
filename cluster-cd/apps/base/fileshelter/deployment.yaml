@@ -29,7 +29,7 @@ spec:
         fsGroup: 10001
       containers:
         - name: fileshelter
-          image: 'epoupon/fileshelter:v6.1.0'
+          image: 'epoupon/fileshelter:6.1.0'
           imagePullPolicy: IfNotPresent
           resources:
             limits:
