@@ -37,6 +37,7 @@ resources:
   - spotify-sentry-secret.cho.yaml
   - vikunja-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
+  - quickshare-env-secret.cho.yaml
 
 
 patchesStrategicMerge:
