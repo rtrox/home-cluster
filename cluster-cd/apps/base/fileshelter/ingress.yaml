@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
   labels:
-    app.kubernetes.io/instance: &name quickshare
+    app.kubernetes.io/instance: &name fileshelter
     app.kubernetes.io/name: *name
   name: *name
 spec:
@@ -26,4 +26,4 @@ spec:
   tls:
     - hosts:
         - *host
-      secretName: quickshare-tls
+      secretName: fileshelter-tls

@@ -11,5 +11,5 @@ bases:
   - pvc.yaml
 
 images:
-  - name: hexxa/quickshare
-    newTag: v0.10.4
+  - name: epoupon/fileshelter
+    newTag: v6.1.0

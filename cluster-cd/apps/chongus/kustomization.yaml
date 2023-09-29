@@ -14,7 +14,7 @@ resources:
   - ../base/prometheus-awair-exporter
   - ../base/prometheus-snmp-exporter
   - ../base/prometheus-speedtest-exporter
-  - ../base/quickshare
+  - ../base/fileshelter
   - ../base/spotify-sentry
   - ../base/starbound-frackin-u
   - ../base/vikunja
@@ -38,7 +38,6 @@ resources:
   - spotify-sentry-secret.cho.yaml
   - vikunja-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
-  - quickshare-env-secret.cho.yaml
 
 
 patchesStrategicMerge:

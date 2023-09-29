@@ -2,10 +2,10 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: &name quickshare-data
+  name: &name fileshelter-data
   labels:
     app.kubernetes.io/name: *name
-    app.kubernetes.io/instance: quickshare
+    app.kubernetes.io/instance: fileshelter
 spec:
   accessModes:
     - ReadWriteOnce

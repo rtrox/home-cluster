@@ -3,8 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: &name quickshare
-    app.kubernetes.io/instance: &instance quickshare
+    app.kubernetes.io/name: &name fileshelter
+    app.kubernetes.io/instance: &instance fileshelter
     app.kubernetes.io/part-of: *instance
     k8s-app: *name
   name: *name
@@ -28,11 +28,8 @@ spec:
         runAsGroup: 10001
         fsGroup: 10001
       containers:
-        - name: quickshare
-          image: 'hexxa/quickshare:v0.10.4'
-          envFrom:
-            - secretRef:
-                name: quickshare-env
+        - name: fileshelter
+          image: 'epoupon/fileshelter:v6.1.0'
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -49,13 +46,13 @@ spec:
               drop:
                 - ALL
           ports:
-            - containerPort: 8686
+            - containerPort: 5091
               name: http
               protocol: TCP
           volumeMounts:
-            - mountPath: /quickshare/root
+            - mountPath: /var/fileshelter
               name: data
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: quickshare-data
+            claimName: fileshelter-data
