@@ -14,6 +14,7 @@ resources:
   - ../base/prometheus-awair-exporter
   - ../base/prometheus-snmp-exporter
   - ../base/prometheus-speedtest-exporter
+  - ../base/quickshare
   - ../base/spotify-sentry
   - ../base/starbound-frackin-u
   - ../base/vikunja
