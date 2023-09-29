@@ -11,4 +11,4 @@ bases:
 
 images:
   - name: ghcr.io/rtrox/garbage-api-devel
-    newTag: sha-249270f-20230927000213
+    newTag: sha-b21dc4b-20230929224218

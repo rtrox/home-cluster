@@ -31,7 +31,7 @@ spec:
         fsGroup: 10001
       containers:
         - name: garbage-api
-          image: 'ghcr.io/rtrox/garbage-api-devel:sha-249270f-20230927000213'
+          image: 'ghcr.io/rtrox/garbage-api-devel:sha-b21dc4b-20230929224218'
           envFrom:
             - secretRef:
                 name: garbage-api-env
