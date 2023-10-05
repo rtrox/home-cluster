@@ -162,6 +162,7 @@
     },
     {
       updateTypes: ['minor', 'patch', 'pin', 'digest'],
+      excludePackageNames: ['ghcr.io/onedr0p/home-assistant'],
       automerge: true
     }
   ]
