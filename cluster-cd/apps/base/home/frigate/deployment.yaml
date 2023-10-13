@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &name frigate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: *name
+  template:
+    metadata:
+      labels:
+        name: *name
+        app: *name
+        app.kubernetes.io/instance: *name
+        app.kubernetes.io/name: *name
+        app.kubernetes.io/part-of: *name
+      annotations:
+        backup.velero.io/backup-volumes: frigate-data
+    spec:
+      containers:
+        - name: frigate
+          image: ghcr.io/blakeblackshear/frigate:0.13.0-beta2
+          env:
+            - name: TZ
+              value: ${LOCAL_TZ}
+            - name: FRIGATE_MQTT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mosquitto-secret
+                  key: frigate_username
+            - name: FRIGATE_MQTT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mosquitto-secret
+                  key: frigate_password
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          livenessProbe: &probe
+            httpGet:
+              path: /api/version
+              port: http
+              scheme: HTTP
+            initialDelaySeconds: 0
+            failureThreshold: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+          readinessProbe: *probe
+          resources:
+            limits:
+              memory: 6000Mi
+              cpu: "2"
+            requests:
+              cpu: "1"
+              memory: 1000Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+          volumeMounts:
+            - mountPath: /dev/bus/usb
+              name: usb
+            - mountPath: /dev/shm
+              name: cache
+            - mountPath: /media
+              name: media
+            - mountPath: /data
+              name: frigate-data
+            - mountPath: /config/config.yml
+              subPath: config.yml
+              name: frigate-config
+              readOnly: true
+      volumes:
+        - name: usb
+          hostPath:
+            path: /dev/bus/usb
+            type: Directory
+        - name: cache
+          emptyDir: {}
+        - name: frigate-data
+          persistentVolumeClaim:
+            claimName: frigate-data
+        - name: media
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/frigate
+        - name: frigate-config
+          configMap:
+            name: frigate-config
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: google.feature.node.kubernetes.io/coral
+                    operator: In
+                    values:
+                      - "true"
