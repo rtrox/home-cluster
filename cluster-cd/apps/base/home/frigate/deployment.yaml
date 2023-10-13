@@ -88,6 +88,7 @@ spec:
         - name: frigate-config
           configMap:
             name: frigate-config
+            namespace: home
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
