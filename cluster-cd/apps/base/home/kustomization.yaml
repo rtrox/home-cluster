@@ -7,5 +7,6 @@ resources:
   - mosquitto
   - zwavejs
   - home-assistant
+  - frigate
   # - app-daemon
   # - node-red
