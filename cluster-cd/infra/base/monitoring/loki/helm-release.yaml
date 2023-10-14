@@ -128,7 +128,8 @@ spec:
           '"$request_length", "responseSize": "$upstream_response_length", "userAgent": "$http_user_agent", '
           '"remoteIp": "$remote_addr", "referer": "$http_referer", "latency": "$upstream_response_time s", '
           '"protocol":"$server_protocol", "bytesSent": "$body_bytes_sent"}}';
-
+    backend:
+      replicas: 2
     write:
       replicas: 2
       persistence:
