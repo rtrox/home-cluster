@@ -47,7 +47,12 @@ record:
         car: 7
 
 objects:
-  track: ["person", "dog", "cat", "car", "motorcycle"]
+  track:
+    - person
+    - dog
+    - cat
+    - motorcycle
+    - car
   filters:
     person:
       threshold: 0.7
@@ -71,6 +76,11 @@ cameras:
         - path: ${CARPORT_CAM_PATH_HQ}
           roles:
             - record
+    events:
+      objects:
+        - person
+        - dog
+        - cat
     zones:
       backyard:
         coordinates: 213,294,224,0,490,0,652,93,642,239,560,369,0,430,0,393
