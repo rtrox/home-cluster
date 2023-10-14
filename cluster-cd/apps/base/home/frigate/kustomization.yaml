@@ -10,6 +10,7 @@ resources:
 
 configMapGenerator:
   - name: frigate-config
+    namespace: home
     files:
       - config.yml=./config/config.yml
 
