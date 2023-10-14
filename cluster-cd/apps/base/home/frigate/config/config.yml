@@ -20,13 +20,17 @@ detectors:
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
+  hwaccel_args: preset-vaapi
+  output_args:
+    record: preset-record-generic-audio-aac
+
 
 snapshots:
   enabled: true
   timestamp: false
   bounding_box: true
   retain:
-    default: 2
+    default: 14
 
 record:
   enabled: true
@@ -35,18 +39,22 @@ record:
     mode: all
   events:
     retain:
-      default: 2
+      default: 14
       mode: active_objects
+      objects:
+        dog: 2
+        cat: 2
+        car: 7
 
 objects:
-  track: ["person"]
+  track: ["person", "dog", "cat", "car", "motorcycle"]
   filters:
     person:
       min_area: 5000
       max_area: 100000
       threshold: 0.7
 
-gortc:
+go2rtc:
   streams:
     carport:
       - ${CARPORT_CAM_PATH_HQ}
