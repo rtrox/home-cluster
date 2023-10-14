@@ -76,8 +76,8 @@ cameras:
         - path: ${CARPORT_CAM_PATH_HQ}
           roles:
             - record
-    events:
-      objects:
+    objects:
+      track:
         - person
         - dog
         - cat
