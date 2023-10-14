@@ -63,9 +63,9 @@ cameras:
           roles:
             - record
             - detect
-      detect:
-        width: 1920
-        height: 1080
-        fps: 10
+    detect:
+      width: 1920
+      height: 1080
+      fps: 10
 
 
