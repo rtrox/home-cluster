@@ -26,6 +26,8 @@ spec:
           env:
             - name: TZ
               value: ${LOCAL_TZ}
+            - name: LIBVA_DRIVER_NAME
+              value: i965
             - name: FRIGATE_MQTT_USERNAME
               valueFrom:
                 secretKeyRef:
