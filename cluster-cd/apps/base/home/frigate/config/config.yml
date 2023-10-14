@@ -50,8 +50,6 @@ objects:
   track: ["person", "dog", "cat", "car", "motorcycle"]
   filters:
     person:
-      min_area: 5000
-      max_area: 100000
       threshold: 0.7
 
 go2rtc:
@@ -69,8 +67,16 @@ cameras:
         #     - detect
         - path: ${CARPORT_CAM_PATH_HQ}
           roles:
-            - record
             - detect
+        - path: ${CARPORT_CAM_PATH_HQ}
+          roles:
+            - record
+    zones:
+      backyard:
+        coordinates: 213,294,224,0,490,0,652,93,642,239,560,369,0,430,0,393
+      neighbors:
+        coordinates: 0,0,199,0,213,271,0,409
+        objects: []
     detect:
       width: 1920
       height: 1080
