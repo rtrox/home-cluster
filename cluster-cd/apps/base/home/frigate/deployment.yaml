@@ -34,7 +34,7 @@ spec:
               sed -i "s/FRIGATE_SERVICE_PORT_WEBRTCTCP/$${FRIGATE_SERVICE_PORT_WEBRTCTCP}/" /config/config.yml
               sed -i "s/FRIGATE_LB_IP/$${FRIGATE_LB_IP}/" /config/config.yml
               echo "Config:"
-              cat /config/config.aml
+              cat /config/config.yml
           env:
             - name: FRIGATE_LB_IP
               value: ${FRIGATE_LB_IP}
