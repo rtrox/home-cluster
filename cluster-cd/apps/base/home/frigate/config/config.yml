@@ -29,25 +29,29 @@ snapshots:
   enabled: true
   timestamp: false
   bounding_box: true
+  clean_copy: true
+
   retain:
     default: 14
 
 record:
   enabled: true
   retain:
-    days: 4
-    mode: motion
+    days: 3
+    mode: all
   events:
     retain:
-      default: 14
+      default: 7
       mode: active_objects
       objects:
+        person: 14
         dog: 2
         cat: 2
         car: 7
 
 objects:
   track:
+    - package
     - person
     - dog
     - cat
@@ -61,8 +65,10 @@ go2rtc:
   streams:
     carport_hq:
       - ${CARPORT_CAM_PATH_HQ}
+      - "ffmpeg:rtsp_cam#audio=opus"
     carport_lq:
       - ${CARPORT_CAM_PATH_LQ}
+      - "ffmpeg:rtsp_cam#audio=opus"
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
@@ -72,15 +78,19 @@ go2rtc:
 cameras:
   carport:
     enabled: true
+    live:
+      stream_name: carport_hq
     ffmpeg:
       inputs:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
         - path: rtsp://127.0.0.1:8554/carport_hq
+          input_args: preset-rtsp-restream
           roles:
             - detect
         - path: rtsp://127.0.0.1:8554/carport_hq
+          input_args: preset-rtsp-restream
           roles:
             - record
     objects:
@@ -88,6 +98,7 @@ cameras:
         - person
         - dog
         - cat
+        - package
     zones:
       backyard:
         coordinates: 213,294,224,0,490,0,652,93,642,239,560,369,0,430,0,393
