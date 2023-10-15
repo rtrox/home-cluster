@@ -31,8 +31,8 @@ spec:
               echo "FRIGATE_SERVICE_PORT_WEBRTCTCP: $${FRIGATE_SERVICE_PORT_WEBRTCTCP}"
               echo "FRIGATE_LB_IP: $${FRIGATE_LB_IP}"
               sed -i "s/FRIGATE_SERVICE_HOST/$${FRIGATE_SERVICE_HOST}/" /config/config.yml
-              sed -i "s/FRIGATE_SERVICE_PORT_WEBRTCTCP/$${FRIGATE_SERVICE_PORT_WEBRTCTCP}" /config/config.yml
-              sed -i "s/FRIGATE_LB_IP/$${FRIGATE_LB_IP}"
+              sed -i "s/FRIGATE_SERVICE_PORT_WEBRTCTCP/$${FRIGATE_SERVICE_PORT_WEBRTCTCP}/" /config/config.yml
+              sed -i "s/FRIGATE_LB_IP/$${FRIGATE_LB_IP}/" /config/config.yml
               echo "Config:"
               cat /config/config.yaml
           env:
