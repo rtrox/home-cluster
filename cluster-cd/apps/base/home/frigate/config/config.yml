@@ -65,17 +65,10 @@ go2rtc:
   streams:
     carport_hq:
       - ${CARPORT_CAM_PATH_HQ}
-<<<<<<< HEAD
-      - "ffmpeg:carport_hq#video=h264"
-    carport_lq:
-      - ${CARPORT_CAM_PATH_LQ}
-      - "ffmpeg:caport_lq#video=h264"
-=======
       - "ffmpeg:carport_hq#video=h264#audio=aac"
     carport_lq:
       - ${CARPORT_CAM_PATH_LQ}
       - "ffmpeg:caport_lq#video=h264#audio=aac"
->>>>>>> 5df2be9 (Add AAC audio swap)
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
