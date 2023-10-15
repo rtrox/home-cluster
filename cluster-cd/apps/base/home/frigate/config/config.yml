@@ -63,7 +63,7 @@ objects:
 
 ui:
   live_mode: mse
-  use_experimental: true
+  use_experimental: false
 
 go2rtc:
   streams:
