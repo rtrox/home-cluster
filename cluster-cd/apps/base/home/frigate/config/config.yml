@@ -65,10 +65,10 @@ go2rtc:
   streams:
     carport_hq:
       - ${CARPORT_CAM_PATH_HQ}
-      - "ffmpeg:rtsp_cam#audio=opus"
+      - "ffmpeg:carport_hq#audio=opus"
     carport_lq:
       - ${CARPORT_CAM_PATH_LQ}
-      - "ffmpeg:rtsp_cam#audio=opus"
+      - "ffmpeg:caport_lq#audio=opus"
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
