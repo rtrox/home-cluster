@@ -63,6 +63,10 @@ go2rtc:
       - ${CARPORT_CAM_PATH_HQ}
     carport_lq:
       - ${CARPORT_CAM_PATH_LQ}
+  webrtc:
+    candidates:
+      - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
+      - FRIGATE_LB_IP:FRIGATE_SERVICE_PORT_WEBRTCTCP
 
 
 cameras:

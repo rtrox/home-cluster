@@ -20,6 +20,29 @@ spec:
       annotations:
         backup.velero.io/backup-volumes: frigate-data
     spec:
+      initContainers:
+        - name: config
+          image: alpine
+          command: ["sh", "-c"]
+          args:
+            - |
+              cp /tmp/config/config.yml /config/config.yml
+              echo "FRIGATE_SERVICE_HOST: $${FRIGATE_SERVICE_HOST}"
+              echo "FRIGATE_SERVICE_PORT_WEBRTCTCP: $${FRIGATE_SERVICE_PORT_WEBRTCTCP}"
+              echo "FRIGATE_LB_IP: $${FRIGATE_LB_IP}"
+              sed -i "s/FRIGATE_SERVICE_HOST/$${FRIGATE_SERVICE_HOST}/" /config/config.yml
+              sed -i "s/FRIGATE_SERVICE_PORT_WEBRTCTCP/$${FRIGATE_SERVICE_PORT_WEBRTCTCP}" /config/config.yml
+              sed -i "s/FRIGATE_LB_IP/$${FRIGATE_LB_IP}"
+              echo "Config:"
+              cat /config/config.yaml
+          env:
+            - name: FRIGATE_LB_IP
+            - value: ${FRIGATE_LB_IP}
+          volumeMounts:
+            - name: mounted-config
+              mountPath: /config
+            - name: frigate-config
+              mountPath: /tmp/config
       containers:
         - name: frigate
           image: ghcr.io/blakeblackshear/frigate:0.13.0-beta2
@@ -42,6 +65,12 @@ spec:
             - containerPort: 5000
               name: http
               protocol: TCP
+            - containerPort: 8555
+              name: webrtctcp
+              protocol: TCP
+            - containerPort: 8555
+              name: webrtcudp
+              protocol: UDP
           livenessProbe: &probe
             httpGet:
               path: /api/version
@@ -71,10 +100,8 @@ spec:
               name: media
             - mountPath: /data
               name: frigate-data
-            - mountPath: /config/config.yml
-              subPath: config.yml
-              name: frigate-config
-              readOnly: true
+            - mountPath: /config
+              name: mounted-config
       volumes:
         - name: usb
           hostPath:
@@ -89,6 +116,8 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/frigate
+        - name: mounted-config
+          emptyDir: {}
         - name: frigate-config
           configMap:
             name: frigate-config
