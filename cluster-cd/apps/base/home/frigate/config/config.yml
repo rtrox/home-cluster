@@ -65,10 +65,11 @@ go2rtc:
   streams:
     carport_hq:
       - ${CARPORT_CAM_PATH_HQ}
-      - "ffmpeg:carport_hq#video=h264#audio=aac"
+      # WebRTC can't handle h.265, and it needs opus or PCMU/PCMA audio
+      - "ffmpeg:carport_hq#video=h264#audio=opus"
     carport_lq:
       - ${CARPORT_CAM_PATH_LQ}
-      - "ffmpeg:caport_lq#video=h264#audio=aac"
+      - "ffmpeg:caport_lq#video=h264#audio=opus"
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
