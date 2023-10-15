@@ -74,6 +74,18 @@ go2rtc:
     carport_lq:
       - ${CARPORT_CAM_PATH_LQ}
       # - "ffmpeg:caport_lq#video=h264#audio=opus"
+    frontdoor_hq:
+      - ${FRONTDOOR_CAM_PATH_HQ}
+      # - "ffmpeg:frontdoor_hq#video=h264#audio=opus"
+    frontdoor_lq:
+      - ${FRONTDOOR_CAM_PATH_LQ}
+      # - "ffmpeg:frontdoor_lq#video=h264#audio=opus"
+    backdoor_hq:
+      - ${BACKDOOR_CAM_PATH_HQ}
+      # - "ffmpeg:backdoor_hq#video=h264#audio=opus"
+    backdoor_lq:
+      - ${BACKDOOR_CAM_PATH_LQ}
+      # - "ffmpeg:backdoor_lq#video=h264#audio=opus"
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
@@ -110,6 +122,62 @@ cameras:
       neighbors:
         coordinates: 0,0,199,0,213,271,0,409
         objects: []
+    detect:
+      width: 1920
+      height: 1080
+      fps: 10
+
+  frontdoor:
+    enabled: true
+    live:
+      stream_name: frontdoor_hq
+    ffmpeg:
+      inputs:
+        # - path: ${CARPORT_CAM_PATH_LQ}
+        #   roles:
+        #     - detect
+        - path: rtsp://127.0.0.1:8554/frontdoor_hq
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+        - path: rtsp://127.0.0.1:8554/frontdoor_hq
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+    objects:
+      track:
+        - person
+        - dog
+        - cat
+        - package
+    detect:
+      width: 1920
+      height: 1080
+      fps: 10
+
+  backdoor:
+    enabled: true
+    live:
+      stream_name: backdoor_hq
+    ffmpeg:
+      inputs:
+        # - path: ${CARPORT_CAM_PATH_LQ}
+        #   roles:
+        #     - detect
+        - path: rtsp://127.0.0.1:8554/backdoor_hq
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+        - path: rtsp://127.0.0.1:8554/backdoor_hq
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+    objects:
+      track:
+        - person
+        - dog
+        - cat
+        - package
     detect:
       width: 1920
       height: 1080
