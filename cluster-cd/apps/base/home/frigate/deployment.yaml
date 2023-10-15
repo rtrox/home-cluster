@@ -37,7 +37,7 @@ spec:
               cat /config/config.yaml
           env:
             - name: FRIGATE_LB_IP
-            - value: ${FRIGATE_LB_IP}
+              value: ${FRIGATE_LB_IP}
           volumeMounts:
             - name: mounted-config
               mountPath: /config
