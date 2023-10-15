@@ -59,8 +59,11 @@ objects:
 
 go2rtc:
   streams:
-    carport:
+    carport_hq:
       - ${CARPORT_CAM_PATH_HQ}
+    carport_lq:
+      - ${CARPORT_CAM_PATH_LQ}
+
 
 cameras:
   carport:
@@ -70,10 +73,10 @@ cameras:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
-        - path: ${CARPORT_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/carport_hq
           roles:
             - detect
-        - path: ${CARPORT_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/carport_hq
           roles:
             - record
     objects:
