@@ -28,7 +28,7 @@ spec:
               value: ${LOCAL_TZ}
             - name: LIBVA_DRIVER_NAME
               value: i965
-            - name: FRIGATE_MQTT_USERNAME
+            - name: FRIGATE_MQTT_USER
               valueFrom:
                 secretKeyRef:
                   name: mosquitto-secret

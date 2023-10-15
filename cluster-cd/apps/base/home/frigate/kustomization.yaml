@@ -15,9 +15,6 @@ configMapGenerator:
     namespace: home
     files:
       - config.yml=./config/config.yml
-    options:
-      annotations:
-        kustomize.toolkit.fluxcd.io/substitute: disabled
 
 images:
   - name: ghcr.io/blakeblackshear/frigate
