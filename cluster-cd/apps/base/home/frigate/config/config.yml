@@ -152,6 +152,14 @@ cameras:
         - dog
         - cat
         - package
+    zones:
+      street:
+        coordinates: 0,576,720,576,720,385,530,330,246,343,101,342,0,374
+        objects: []
+      yard:
+        coordinates: 536,325,720,386,720,576,0,576,0,381,105,337,224,350,269,354
+      driveway:
+        coordinates: 597,308,720,335,720,384,531,326
     detect:
       width: 720
       height: 576
@@ -180,6 +188,12 @@ cameras:
         - dog
         - cat
         - package
+    zones:
+      under_carport:
+        coordinates: 568,353,720,329,720,576,0,576,0,318,111,310,321,351
+      neighbor:
+        coordinates: 379,201,632,235,720,125,720,333,327,353,126,305,77,303,76,263,222,268
+        objects: []
     detect:
       width: 720
       height: 576
