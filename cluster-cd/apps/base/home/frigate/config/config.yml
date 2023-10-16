@@ -88,10 +88,10 @@ go2rtc:
     backdoor_lq:
       - ${BACKDOOR_CAM_PATH_LQ}
       - "ffmpeg:backdoor_lq#video=h264#audio=opus"
-  # webrtc:
-  #   candidates:
-  #     - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
-  #     - FRIGATE_LB_IP:FRIGATE_SERVICE_PORT_WEBRTCTCP
+  webrtc:
+    candidates:
+      - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
+      - FRIGATE_LB_IP:FRIGATE_SERVICE_PORT_WEBRTCTCP
 
 
 cameras:
@@ -104,7 +104,7 @@ cameras:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
-        - path: rtsp://127.0.0.1:8554/carport_hq
+        - path: rtsp://127.0.0.1:8554/carport_lq
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -125,8 +125,8 @@ cameras:
         coordinates: 0,0,199,0,213,271,0,409
         objects: []
     detect:
-      width: 2560
-      height: 1920
+      width: 640
+      height: 480
       fps: 10
 
   frontdoor:
@@ -138,7 +138,7 @@ cameras:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
-        - path: rtsp://127.0.0.1:8554/frontdoor_hq
+        - path: rtsp://127.0.0.1:8554/frontdoor_lq
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -153,8 +153,8 @@ cameras:
         - cat
         - package
     detect:
-      width: 2560
-      height: 1920
+      width: 720
+      height: 576
       fps: 10
 
   backdoor:
@@ -166,7 +166,7 @@ cameras:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
-        - path: rtsp://127.0.0.1:8554/backdoor_hq
+        - path: rtsp://127.0.0.1:8554/backdoor_lq
           input_args: preset-rtsp-restream
           roles:
             - detect
@@ -181,6 +181,6 @@ cameras:
         - cat
         - package
     detect:
-      width: 2560
-      height: 1920
+      width: 720
+      height: 576
       fps: 10
