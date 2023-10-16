@@ -96,6 +96,7 @@ spec:
               name: usb
             - mountPath: /dev/shm
               name: cache
+              medium: Memory
             - mountPath: /media
               name: media
             - mountPath: /data

@@ -19,7 +19,7 @@ detectors:
     device: usb
 
 ffmpeg:
-  global_args: ["-hide_banner", "-loglevel", "warning"]
+  # global_args: ["-hide_banner", "-loglevel", "warning"]
   # hwaccel_args: preset-vaapi
   output_args:
     record: preset-record-generic-audio-aac
@@ -70,23 +70,23 @@ ui:
 go2rtc:
   streams:
     carport_hq:
-      - ${CARPORT_CAM_PATH_HQ}
+      - ffmpeg:${CARPORT_CAM_PATH_HQ}#video=copy#audio=copy#audio=aac
       # WebRTC can't handle h.265, and it needs opus or PCMU/PCMA audio
       # - "ffmpeg:carport_hq#video=h264#audio=opus"
     carport_lq:
-      - ${CARPORT_CAM_PATH_LQ}
+      - ffmpeg:${CARPORT_CAM_PATH_LQ}#video=copy#audio=copy#audio=aac
       # - "ffmpeg:caport_lq#video=h264#audio=opus"
     frontdoor_hq:
-      - ${FRONTDOOR_CAM_PATH_HQ}
+      - ffmpeg:${FRONTDOOR_CAM_PATH_HQ}#video=copy#audio=copy#audio=aac
       # - "ffmpeg:frontdoor_hq#video=h264#audio=opus"
     frontdoor_lq:
-      - ${FRONTDOOR_CAM_PATH_LQ}
+      - ffmpeg:${FRONTDOOR_CAM_PATH_LQ}#video=copy#audio=copy#audio=aac
       # - "ffmpeg:frontdoor_lq#video=h264#audio=opus"
     backdoor_hq:
-      - ${BACKDOOR_CAM_PATH_HQ}
+      - ffmpeg:${BACKDOOR_CAM_PATH_HQ}#video=copy#audio=copy#audio=aac
       # - "ffmpeg:backdoor_hq#video=h264#audio=opus"
     backdoor_lq:
-      - ${BACKDOOR_CAM_PATH_LQ}
+      - ffmpeg:${BACKDOOR_CAM_PATH_LQ}#video=copy#audio=copy#audio=aac
       # - "ffmpeg:backdoor_lq#video=h264#audio=opus"
   webrtc:
     candidates:
@@ -184,5 +184,3 @@ cameras:
       width: 1920
       height: 1080
       fps: 10
-
-
