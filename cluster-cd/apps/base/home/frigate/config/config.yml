@@ -72,22 +72,22 @@ go2rtc:
     carport_hq:
       - ${CARPORT_CAM_PATH_HQ}
       # WebRTC can't handle h.265, and it needs opus or PCMU/PCMA audio
-      - "ffmpeg:carport_hq#video=h264#audio=opus"
+      - "ffmpeg:carport_hq#audio=opus"
     carport_lq:
       - ${CARPORT_CAM_PATH_LQ}
-      - "ffmpeg:caport_lq#video=h264#audio=opus"
+      - "ffmpeg:caport_lq#audio=opus"
     frontdoor_hq:
       - ${FRONTDOOR_CAM_PATH_HQ}
-      - "ffmpeg:frontdoor_hq#video=h264#audio=opus"
+      - "ffmpeg:frontdoor_hq#audio=opus"
     frontdoor_lq:
       - ${FRONTDOOR_CAM_PATH_LQ}
-      - "ffmpeg:frontdoor_lq#video=h264#audio=opus"
+      - "ffmpeg:frontdoor_lq#audio=opus"
     backdoor_hq:
       - ${BACKDOOR_CAM_PATH_HQ}
-      - "ffmpeg:backdoor_hq#video=h264#audio=opus"
+      - "ffmpeg:backdoor_hq#audio=opus"
     backdoor_lq:
       - ${BACKDOOR_CAM_PATH_LQ}
-      - "ffmpeg:backdoor_lq#video=h264#audio=opus"
+      - "ffmpeg:backdoor_lq#audio=opus"
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
