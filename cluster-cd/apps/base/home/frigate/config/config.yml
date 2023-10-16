@@ -104,11 +104,11 @@ cameras:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
-        - path: ${CARPORT_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/carport_hq
           input_args: preset-rtsp-restream
           roles:
             - detect
-        - path: ${CARPORT_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/carport_hq
           input_args: preset-rtsp-restream
           roles:
             - record
@@ -138,11 +138,11 @@ cameras:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
-        - path: ${FRONTDOOR_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/frontdoor_hq
           input_args: preset-rtsp-restream
           roles:
             - detect
-        - path: ${FRONTDOOR_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/frontdoor_hq
           input_args: preset-rtsp-restream
           roles:
             - record
@@ -166,11 +166,11 @@ cameras:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
         #     - detect
-        - path: ${BACKDOOR_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/backdoor_hq
           input_args: preset-rtsp-restream
           roles:
             - detect
-        - path: ${BACKDOOR_CAM_PATH_HQ}
+        - path: rtsp://127.0.0.1:8554/backdoor_hq
           input_args: preset-rtsp-restream
           roles:
             - record
