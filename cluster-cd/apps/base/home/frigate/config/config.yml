@@ -122,11 +122,13 @@ cameras:
         - cat
         - package
     zones:
-      backyard:
-        coordinates: 213,294,224,0,490,0,652,93,642,239,560,369,0,430,0,393
       neighbors:
-        coordinates: 0,0,199,0,213,271,0,409
+        coordinates: 132,0,139,129,0,170,0,0
         objects: []
+      backyard:
+        coordinates: 193,214,215,114,217,0,147,0,153,125,0,162,0,223REMOVE
+      carport:
+        coordinates: 0,166,0,480,640,480,640,0,447,0,442,105,222,107,200,130,107,143
     detect:
       width: 640
       height: 480
@@ -156,13 +158,13 @@ cameras:
         - cat
         - package
     zones:
+      driveway:
+        coordinates: 613,318,720,335,720,384,531,326
       street:
-        coordinates: 0,576,720,576,720,385,530,330,246,343,101,342,0,374
+        coordinates: 0,0,720,0,720,328,629,312,530,330,246,343,101,342,0,368,0,374
         objects: []
       yard:
         coordinates: 536,325,720,386,720,576,0,576,0,381,105,337,224,350,269,354
-      driveway:
-        coordinates: 597,308,720,335,720,384,531,326
     detect:
       width: 720
       height: 576
