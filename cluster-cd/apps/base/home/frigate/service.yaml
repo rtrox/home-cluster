@@ -16,6 +16,10 @@ spec:
       port: 5000
       protocol: TCP
       targetPort: http
+    - name: rtsp
+      port: 8554
+      protocol: TCP
+      targetPort: rtsp
     - name: webrtctcp
       port: 8555
       protocol: TCP

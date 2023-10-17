@@ -65,6 +65,9 @@ spec:
             - containerPort: 5000
               name: http
               protocol: TCP
+            - containerPort: 8554
+              name: rtsp
+              protocol: TCP
             - containerPort: 8555
               name: webrtctcp
               protocol: TCP
