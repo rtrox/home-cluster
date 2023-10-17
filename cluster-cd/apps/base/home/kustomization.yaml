@@ -8,6 +8,5 @@ resources:
   - zwavejs
   - home-assistant
   - frigate
-  - amcrest2mqtt
   # - app-daemon
   # - node-red

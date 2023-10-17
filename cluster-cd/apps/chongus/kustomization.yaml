@@ -38,8 +38,6 @@ resources:
   - spotify-sentry-secret.cho.yaml
   - vikunja-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
-  - amcrest2mqtt-frontdoor-secret.cho.yaml
-  - amcrest2mqtt-backdoor-secret.cho.yaml
 
 
 patchesStrategicMerge:
