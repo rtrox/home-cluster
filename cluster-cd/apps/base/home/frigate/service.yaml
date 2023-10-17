@@ -20,6 +20,10 @@ spec:
       port: 8554
       protocol: TCP
       targetPort: rtsp
+    - name: go2rtc
+      port: 1984
+      protocol: TCP
+      targetPort: go2rtc
     - name: webrtctcp
       port: 8555
       protocol: TCP

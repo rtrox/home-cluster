@@ -68,6 +68,9 @@ spec:
             - containerPort: 8554
               name: rtsp
               protocol: TCP
+            - containerPort: 1984
+              name: go2rtc
+              protocol: TCP
             - containerPort: 8555
               name: webrtctcp
               protocol: TCP
