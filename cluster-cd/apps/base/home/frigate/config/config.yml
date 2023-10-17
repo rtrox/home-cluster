@@ -127,7 +127,7 @@ cameras:
         objects: []
       backyard:
         coordinates: 193,214,215,114,217,0,147,0,153,125,0,162,0,223
-      carport:
+      under_carport:
         coordinates: 0,166,0,480,640,480,640,0,447,0,442,105,222,107,200,130,107,143
     detect:
       width: 640
