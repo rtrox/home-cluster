@@ -68,6 +68,9 @@ ui:
   use_experimental: false
 
 go2rtc:
+  rtsp:
+    username: "admin"
+    password: ${FRIGATE_RTSP_PASSWORD}
   streams:
     carport_hq:
       - ${CARPORT_CAM_PATH_HQ}
