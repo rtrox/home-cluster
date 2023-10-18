@@ -121,10 +121,18 @@ cameras:
         - dog
         - cat
         - package
+    record:
+      events:
+        required_zones:
+          - backyard
+          - under_carport
+      snapshots:
+        required_zones:
+          - backyard
+          - under_carport
     zones:
       neighbors:
         coordinates: 132,0,139,129,0,170,0,0
-        objects: []
       backyard:
         coordinates: 193,214,215,114,217,0,147,0,153,125,0,162,0,223
       under_carport:
@@ -138,6 +146,15 @@ cameras:
     enabled: true
     live:
       stream_name: frontdoor_hq
+    record:
+      events:
+        required_zones:
+          - driveway
+          - yard
+      snapshots:
+        required_zones:
+          - driveway
+          - yard
     ffmpeg:
       inputs:
         # - path: ${CARPORT_CAM_PATH_LQ}
@@ -162,7 +179,6 @@ cameras:
         coordinates: 613,318,720,335,720,384,531,326
       street:
         coordinates: 0,0,720,0,720,328,629,312,530,330,246,343,101,342,0,368,0,374
-        objects: []
       yard:
         coordinates: 536,325,720,386,720,576,0,576,0,381,105,337,224,350,269,354
     detect:
@@ -193,6 +209,13 @@ cameras:
         - dog
         - cat
         - package
+    record:
+      events:
+        required_zones:
+          - under_carport
+      snapshots:
+        required_zones:
+          - under_carport
     zones:
       under_carport:
         coordinates: 568,353,720,329,720,576,0,576,0,318,111,310,321,351
