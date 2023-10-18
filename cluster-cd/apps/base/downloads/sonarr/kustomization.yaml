@@ -15,7 +15,7 @@ images:
   - name: ghcr.io/onedr0p/sonarr-develop
     newTag: "4.0.0.700"
   - name: ghcr.io/onedr0p/exportarr
-    newTag: v1.5.5
+    newTag: v1.6.0
 
 commonLabels:
   app.kubernetes.io/part-of: sonarr
