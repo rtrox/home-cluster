@@ -10,6 +10,7 @@ resources:
   # - cilium-lb-ip-pool.yaml
   - cloudflare-token-secret.cho.yaml
   - cloudflared-tunnel-creds.cho.yaml
+  - nvidia-config.yaml
 
 configMapGenerator:
   - name: cilium-cluster-values
