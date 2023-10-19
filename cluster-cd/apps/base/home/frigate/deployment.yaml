@@ -123,9 +123,8 @@ spec:
           persistentVolumeClaim:
             claimName: frigate-data
         - name: media
-          nfs:
-            server: ${NFS_SERVER}
-            path: /volume1/frigate
+          persistentVolumeClaim:
+            claimName: frigate-media
         - name: mounted-config
           emptyDir: {}
         - name: frigate-config
@@ -140,4 +139,3 @@ spec:
                     operator: In
                     values:
                       - "true"
-                    affinity:
