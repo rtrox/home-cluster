@@ -94,6 +94,9 @@ go2rtc:
     cosmo_cam_hq:
       - ${COSMO_CAM_PATH_HQ}#backchannel=0
       - "ffmpeg:cosmo_cam_hq#audio=opus"
+    cosmo_cam_lq:
+      - ${COSMO_CAM_PATH_LQ}#backchannel=0
+      - "ffmpeg:cosmo_cam_hq#audio=opus"
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
