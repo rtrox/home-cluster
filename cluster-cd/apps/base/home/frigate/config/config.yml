@@ -145,7 +145,6 @@ cameras:
     detect:
       width: 640
       height: 480
-      fps: 10
 
   frontdoor:
     enabled: true
@@ -189,7 +188,6 @@ cameras:
     detect:
       width: 720
       height: 576
-      fps: 10
 
   backdoor:
     enabled: true
@@ -230,7 +228,6 @@ cameras:
     detect:
       width: 720
       height: 576
-      fps: 10
 
   cosmo_cam:
     enabled: true
@@ -252,4 +249,3 @@ cameras:
     detect:
       width: 640
       height: 480
-      fps: 10
