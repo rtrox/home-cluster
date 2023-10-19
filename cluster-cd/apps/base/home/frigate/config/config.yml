@@ -63,7 +63,7 @@ objects:
       threshold: 0.7
 
 ui:
-  live_mode: mse
+  live_mode: webrtc
   use_experimental: false
 
 go2rtc:
