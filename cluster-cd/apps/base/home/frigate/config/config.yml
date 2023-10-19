@@ -39,8 +39,8 @@ record:
     days: 3
     mode: all
   events:
-    pre_capture: 20
-    post_capture: 15
+    pre_capture: 10
+    post_capture: 10
     retain:
       default: 7
       mode: active_objects
@@ -108,6 +108,7 @@ cameras:
     live:
       stream_name: carport_hq
     ffmpeg:
+      retry_interval: 20
       inputs:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
@@ -160,6 +161,7 @@ cameras:
         - driveway
         - yard
     ffmpeg:
+      retry_interval: 20
       inputs:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
@@ -194,6 +196,7 @@ cameras:
     live:
       stream_name: backdoor_hq
     ffmpeg:
+      retry_interval: 20
       inputs:
         # - path: ${CARPORT_CAM_PATH_LQ}
         #   roles:
@@ -234,6 +237,7 @@ cameras:
     live:
       stream_name: cosmo_cam_hq
     ffmpeg:
+      retry_interval: 20
       inputs:
         - path: rtsp://127.0.0.1:8554/cosmo_cam_lq
           input_args: preset-rtsp-restream
