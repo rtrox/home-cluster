@@ -104,12 +104,3 @@ spec:
             path: /volume1/media
         - name: transcodes
           emptyDir: {}
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: feature.node.kubernetes.io/nvidia-gpu
-                    operator: In
-                    values:
-                      - "true"
