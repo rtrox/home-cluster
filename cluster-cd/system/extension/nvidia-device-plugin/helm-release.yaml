@@ -23,6 +23,9 @@ spec:
     image:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.14.1
+    config:
+      name: time-slicing-config
+      default: any
     runtimeClassName: nvidia
     nodeSelector:
       feature.node.kubernetes.io/nvidia-gpu: "true"
