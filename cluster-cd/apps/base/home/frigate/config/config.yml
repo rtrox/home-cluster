@@ -91,6 +91,9 @@ go2rtc:
     backdoor_lq:
       - ${BACKDOOR_CAM_PATH_LQ}#backchannel=0
       - "ffmpeg:backdoor_lq#audio=opus"
+    cosmo_cam_hq:
+      - ${COSMO_CAM_PATH_HQ}#backchannel=0
+      - "ffmpeg:cosmo_cam_hq#audio=opus"
   webrtc:
     candidates:
       - FRIGATE_SERVICE_HOST:FRIGATE_SERVICE_PORT_WEBRTCTCP
@@ -225,4 +228,26 @@ cameras:
     detect:
       width: 720
       height: 576
+      fps: 10
+
+  cosmo_cam:
+    enabled: true
+    live:
+      stream_name: cosmo_cam_hq
+    ffmpeg:
+      inputs:
+        - path: rtsp://127.0.0.1:8554/cosmo_cam_lq
+          input_args: preset-rtsp-restream
+          roles:
+            - detect
+        - path: rtsp://127.0.0.1:8554/cosmo_cam_hq
+          input_args: preset-rtsp-restream
+          roles:
+            - record
+    objects:
+      track:
+        - dog
+    detect:
+      width: 640
+      height: 480
       fps: 10
