@@ -39,7 +39,7 @@ record:
     days: 3
     mode: all
   events:
-    pre_capture: 10
+    pre_capture: 5
     post_capture: 10
     retain:
       default: 7
