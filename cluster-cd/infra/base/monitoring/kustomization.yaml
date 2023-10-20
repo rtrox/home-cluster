@@ -12,3 +12,4 @@ resources:
   - thanos
   - fluxcd-monitoringconfig
   - alertmanager-discord
+  - goldilocks
