@@ -6,3 +6,4 @@ resources:
   - cluster
   - operator
   - namespace.yaml
+  - toolbox-deploy.yaml
