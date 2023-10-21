@@ -8,6 +8,7 @@ resources:
   - service.yaml
   - service-monitor.yaml
   - bedroom-deploy.yaml
+  - basement-deploy.yaml
   - kitchen-deploy.yaml
   - office-1-deploy.yaml
   - office-2-deploy.yaml
