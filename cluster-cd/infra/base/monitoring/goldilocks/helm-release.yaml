@@ -38,6 +38,10 @@ spec:
       replicaCount: 1
       ingress:
         enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          kubernetes.io/tls-acme: "true"
+          ingress: "externaldns"
         ingressClassName: nginx
         hosts:
           - host: &host goldilocks.${SECRET_DOMAIN}
