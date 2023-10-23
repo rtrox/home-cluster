@@ -134,7 +134,7 @@ spec:
       tls:
         - hosts:
             - *graf_host
-          secretName: grafana-tls
+          secretName: grafana2-tls
 
     persistence:
       enabled: true
