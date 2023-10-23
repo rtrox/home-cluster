@@ -226,6 +226,7 @@ grafana:
       jsonData:
         customQueryParameters: max_source_resolution=1h
   ingress:
+    ingressClassName: nginx
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       kubernetes.io/tls-acme: 'true'
