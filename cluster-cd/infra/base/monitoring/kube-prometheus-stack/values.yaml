@@ -218,6 +218,13 @@ grafana:
       type: alertmanager
       url: 'http://alertmanager.monitoring.svc.cluster.local'
       access: proxy
+    - name: Prometheus Test
+      type: prometheus
+      access: proxy
+      url: http://thanos-query:9090/
+      isDefault: true
+      jsonData:
+        customQueryParameters: max_source_resolution=1h
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
