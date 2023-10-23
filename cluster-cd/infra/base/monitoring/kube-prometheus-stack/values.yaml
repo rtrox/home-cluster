@@ -208,6 +208,8 @@ grafana:
       access: proxy
       url: http://thanos-query:9090/
       isDefault: true
+      jsonData:
+        customQueryParameters: max_source_resolution=1h
     - name: Loki
       type: loki
       access: proxy
