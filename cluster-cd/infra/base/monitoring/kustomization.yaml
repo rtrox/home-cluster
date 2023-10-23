@@ -13,3 +13,4 @@ resources:
   - fluxcd-monitoringconfig
   - alertmanager-discord
   - goldilocks
+  - grafana
