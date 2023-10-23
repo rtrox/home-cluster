@@ -19,6 +19,17 @@ configMapGenerator:
     namespace: blocky
     files:
       - config.yaml=blocky-config.yaml
+  - name: blocky-dashboard
+    namespace: blocky
+    files:
+      - dashboards/blocky-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: blocky
+        app.kubernetes.io/component: monitoring
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
 
 images:
   - name: spx01/blocky
