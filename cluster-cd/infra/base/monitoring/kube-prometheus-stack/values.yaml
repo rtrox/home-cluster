@@ -169,6 +169,9 @@ alertmanager:
     create: true
     name: alertmanager
 
+grafana:
+  enabled: false
+
 kubeProxy:
   enabled: false
 kubeControllerManager:
