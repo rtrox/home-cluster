@@ -24,14 +24,14 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 41,
+  "id": 25,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -167,12 +167,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(increase(blocky_query_total[$__range]))",
@@ -184,7 +184,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "avg(blocky_cache_entry_count)",
@@ -196,7 +196,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(increase(blocky_cache_hit_count[$__range]))",
@@ -207,7 +207,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(increase(blocky_cache_miss_count[$__range]))",
@@ -219,7 +219,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(blocky_prefetch_domain_name_cache_count)",
@@ -234,7 +234,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -395,12 +395,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -415,7 +415,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "builder",
           "exemplar": false,
@@ -429,7 +429,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.5, sum(rate(blocky_request_duration_ms_bucket[5m])) by (le))",
@@ -440,7 +440,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "avg(time() - blocky_last_list_group_refresh)",
@@ -452,7 +452,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "builder",
           "expr": "sum(blocky_error_total)",
@@ -467,7 +467,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "description": "",
       "fieldConfig": {
@@ -540,12 +540,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -562,7 +562,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "description": "",
       "fieldConfig": {
@@ -635,12 +635,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -657,7 +657,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "description": "",
       "fieldConfig": {
@@ -704,12 +704,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "builder",
           "exemplar": false,
@@ -726,7 +726,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "description": "",
       "fieldConfig": {
@@ -786,12 +786,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -808,7 +808,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "description": "",
       "fieldConfig": {
@@ -868,12 +868,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -890,7 +890,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "description": "",
       "fieldConfig": {
@@ -950,12 +950,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -972,7 +972,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "description": "",
       "fieldConfig": {
@@ -1032,12 +1032,12 @@
         },
         "textMode": "auto"
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1054,7 +1054,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1112,12 +1112,12 @@
           "reverse": false
         }
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1135,7 +1135,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1156,6 +1156,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1213,7 +1214,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(blocky_request_duration_ms_bucket{response_type =~\"CACHED|BLOCKED\"}) by (le))",
@@ -1225,7 +1226,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "histogram_quantile(0.95, sum(blocky_request_duration_ms_bucket{response_type !~\"CACHED|BLOCKED\"}) by (le))",
@@ -1241,7 +1242,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1292,7 +1293,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(increase(blocky_query_total[$__range])) by (type)",
@@ -1307,7 +1308,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1358,7 +1359,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(increase(blocky_response_total[$__range])) by (response_code)",
@@ -1373,7 +1374,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1424,7 +1425,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(increase(blocky_response_total[$__range])) by (response_type)",
@@ -1439,7 +1440,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "P88B4C6B642FA0579"
+        "uid": "${psds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1460,6 +1461,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1518,7 +1520,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "P88B4C6B642FA0579"
+            "uid": "${psds}"
           },
           "editorMode": "code",
           "format": "time_series",
@@ -1550,7 +1552,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "PED04140C711A11BA"
+        "uid": "${ds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1571,6 +1573,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1625,7 +1628,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PED04140C711A11BA"
+            "uid": "${ds}"
           },
           "editorMode": "code",
           "expr": "sum(increase(blocky_response_total[$__interval])) by (response_type)",
@@ -1640,7 +1643,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "P88B4C6B642FA0579"
+        "uid": "${psds}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1661,6 +1664,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1720,7 +1724,7 @@
         {
           "datasource": {
             "type": "postgres",
-            "uid": "P88B4C6B642FA0579"
+            "uid": "${psds}"
           },
           "editorMode": "code",
           "format": "table",
@@ -1752,7 +1756,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "P88B4C6B642FA0579"
+        "uid": "${psds}"
       },
       "description": "",
       "fieldConfig": {
@@ -1762,7 +1766,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -1788,8 +1794,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "lcd-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "lcd",
+                  "type": "gauge"
+                }
               },
               {
                 "id": "color",
@@ -1815,8 +1824,10 @@
                 "value": 200
               },
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -1837,8 +1848,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -1860,8 +1873,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -1883,7 +1898,9 @@
       "id": 27,
       "interval": "5m",
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -1892,12 +1909,12 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "P88B4C6B642FA0579"
+            "uid": "${psds}"
           },
           "editorMode": "code",
           "format": "table",
@@ -1966,7 +1983,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "P88B4C6B642FA0579"
+        "uid": "${psds}"
       },
       "description": "",
       "fieldConfig": {
@@ -1976,7 +1993,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -2002,8 +2021,11 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "lcd-gauge"
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "lcd",
+                  "type": "gauge"
+                }
               },
               {
                 "id": "color",
@@ -2025,8 +2047,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2055,8 +2079,10 @@
                 }
               },
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               }
             ]
           }
@@ -2071,7 +2097,9 @@
       "id": 28,
       "interval": "5m",
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -2080,12 +2108,12 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "P88B4C6B642FA0579"
+            "uid": "${psds}"
           },
           "editorMode": "code",
           "format": "table",
@@ -2155,7 +2183,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "P88B4C6B642FA0579"
+        "uid": "${psds}"
       },
       "description": "",
       "fieldConfig": {
@@ -2165,7 +2193,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -2191,8 +2221,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2218,8 +2250,10 @@
                 "value": 200
               },
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2240,8 +2274,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2263,8 +2299,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2285,8 +2323,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2303,8 +2343,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2325,8 +2367,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2352,7 +2396,9 @@
       "id": 29,
       "interval": "5m",
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -2361,12 +2407,12 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "P88B4C6B642FA0579"
+            "uid": "${psds}"
           },
           "editorMode": "code",
           "format": "table",
@@ -2464,7 +2510,7 @@
     {
       "datasource": {
         "type": "postgres",
-        "uid": "P88B4C6B642FA0579"
+        "uid": "${psds}"
       },
       "description": "",
       "fieldConfig": {
@@ -2474,7 +2520,9 @@
           },
           "custom": {
             "align": "auto",
-            "displayMode": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
             "inspect": false
           },
           "mappings": [],
@@ -2500,8 +2548,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2523,8 +2573,10 @@
                 "value": 200
               },
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2545,8 +2597,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "color",
@@ -2567,8 +2621,10 @@
             },
             "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
               },
               {
                 "id": "custom.width",
@@ -2593,7 +2649,9 @@
       "id": 30,
       "interval": "5m",
       "options": {
+        "cellHeight": "sm",
         "footer": {
+          "countRows": false,
           "fields": "",
           "reducer": [
             "sum"
@@ -2602,12 +2660,12 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "9.3.6",
+      "pluginVersion": "10.1.5",
       "targets": [
         {
           "datasource": {
             "type": "postgres",
-            "uid": "P88B4C6B642FA0579"
+            "uid": "${psds}"
           },
           "editorMode": "code",
           "format": "table",
@@ -2703,11 +2761,49 @@
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 37,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus (chongus)",
+          "value": "P2AF30C786CBB33F1"
+        },
+        "description": "The Prometheus Data Source to use for query results",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data Source",
+        "multi": false,
+        "name": "ds",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "PostgreSQL",
+          "value": "c25e51dc-6ed6-4dc8-86f7-6bb29e21e40d"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "psds",
+        "options": [],
+        "query": "postgres",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      }
+    ]
   },
   "time": {
     "from": "now-30m",
@@ -2715,8 +2811,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Blocky",
-  "uid": "g96bkxb4z",
-  "version": 15,
+  "title": "Blocky Dev",
+  "uid": "g96bkxb4d",
+  "version": 4,
   "weekStart": ""
 }
