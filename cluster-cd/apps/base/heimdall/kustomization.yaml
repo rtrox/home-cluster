@@ -13,4 +13,4 @@ resources:
 
 images:
   - name: linuxserver/heimdall
-    newTag: 2.5.6
+    newTag: 2.5.7
