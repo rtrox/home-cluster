@@ -99,7 +99,7 @@ spec:
               name: media
             - mountPath: /generated
               name: generated
-            - cache: /cache
+            - mountPath: /cache
               name: cache
             - name: metadata
               mountPath: /metadata
