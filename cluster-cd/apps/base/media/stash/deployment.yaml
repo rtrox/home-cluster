@@ -28,13 +28,6 @@ spec:
         backup.velero.io/backup-volumes-excludes: media
     spec:
       runtimeClassName: nvidia
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: "OnRootMismatch"
-        supplementalGroups:
-          - 100
       containers:
         - name: stash
           image: stashapp/stash:v0.23.1@sha256:96d4e778a9fb7199da28983413c9767617bafc69db781bf7d00cd2667344b76d
@@ -47,8 +40,6 @@ spec:
               memory: 4Gi
               nvidia.com/gpu: 1
           securityContext:
-            allowPrivilegeEscalation: false
-            runAsUser: 568
             seccompProfile:
               type: RuntimeDefault
             capabilities:
@@ -103,6 +94,8 @@ spec:
               name: cache
             - name: metadata
               mountPath: /metadata
+            - name: blobs
+              mountPath: /blobs
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -119,5 +112,9 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/media/.homework/metadata/
+        - name: blobs
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/media/.homework/blobs/
         - name: cache
           emptyDir: {}
