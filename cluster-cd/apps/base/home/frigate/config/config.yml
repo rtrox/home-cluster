@@ -16,7 +16,7 @@ database:
 detectors:
   coral:
     type: edgetpu
-    device: usb
+    device: pci
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]

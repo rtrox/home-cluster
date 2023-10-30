@@ -139,10 +139,6 @@ spec:
                     operator: In
                     values:
                       - "true"
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 10
-              preference:
-                matchExpressions:
                   - key: google.feature.node.kubernetes.io/coral-type
                     operator: In
                     values:
