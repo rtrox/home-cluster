@@ -10,7 +10,7 @@ resources:
 
 images:
   - name: stashapp/stash
-    newTag: v0.23.1@sha256:96d4e778a9fb7199da28983413c9767617bafc69db781bf7d00cd2667344b76d4
+    newTag: v0.23.1@sha256:96d4e778a9fb7199da28983413c9767617bafc69db781bf7d00cd2667344b76d
 
 commonLabels:
   app.kubernetes.io/part-of: stash
