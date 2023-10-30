@@ -60,6 +60,7 @@ blocking:
         ad.doubleclick.net
         clickserve.dartsearch.net
         t.myvisualiq.net
+        stashdb.org
 
   clientGroupsBlock:
     default:
