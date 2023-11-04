@@ -8,4 +8,3 @@ resources:
   - cloudnative-pg
   - monitoring
   - velero
-  - kube-virt/ks.yaml
