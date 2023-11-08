@@ -6,6 +6,7 @@ resources:
   - ../base/blocky
   - ../base/calibre
   - ../base/downloads
+  - ../base/fileshelter
   - ../base/garbage-api
   - ../base/home
   - ../base/informer-devel
@@ -14,7 +15,6 @@ resources:
   - ../base/prometheus-awair-exporter
   - ../base/prometheus-snmp-exporter
   - ../base/prometheus-speedtest-exporter
-  - ../base/fileshelter
   - ../base/spotify-sentry
   - ../base/starbound-frackin-u
   - ../base/vikunja
@@ -24,6 +24,7 @@ resources:
   - home-assistant-secret.cho.yaml
   - informer-webhook-token.cho.yaml
   - kavita-email-secret.cho.yaml
+  - lidarr-secret.cho.yaml
   - mosquitto-secret.cho.yaml
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml
