@@ -6,6 +6,15 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
+    nginx.ingress.kubernetes.io/auth-url: |-
+        http://ak-outpost-calibreweb.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+    # If you're using domain-level auth, use the authentication URL instead of the application URL
+    nginx.ingress.kubernetes.io/auth-signin: |-
+        https://books.cho.rtrox.com/outpost.goauthentik.io/start?rd=$escaped_request_uri
+    nginx.ingress.kubernetes.io/auth-response-headers: |-
+        Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+    nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Host $http_host;
   labels:
     app.kubernetes.io/instance: &name calibre-web
     app.kubernetes.io/name: *name
