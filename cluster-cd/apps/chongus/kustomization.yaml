@@ -6,6 +6,7 @@ resources:
   - ../base/blocky
   - ../base/calibre
   - ../base/downloads
+  - ../base/echo-server
   - ../base/fileshelter
   - ../base/garbage-api
   - ../base/home
