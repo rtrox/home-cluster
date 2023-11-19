@@ -31,7 +31,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-        - name: heimdall
+        - name: echo
           image: docker.io/jmalloc/echo-server:0.3.6
           imagePullPolicy: IfNotPresent
           resources:

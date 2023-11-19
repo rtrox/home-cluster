@@ -37,7 +37,7 @@ metadata:
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
     nginx.ingress.kubernetes.io/auth-url: |-
-        http://ak-outpost-echoserver.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+        http://ak-outpost-echosecure.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
     # If you're using domain-level auth, use the authentication URL instead of the application URL
     nginx.ingress.kubernetes.io/auth-signin: |-
         https://echo-secure.cho.rtrox.com/outpost.goauthentik.io/start?rd=$escaped_request_uri
