@@ -48,6 +48,9 @@ spec:
           enabled: true
       config:
         enable-real-ip: true
+        proxy-buffer-size: "128k"
+        proxy-buffers: "4 256k"
+        proxy-busy-buffer-size: "256k"
         forwarded-for-header: proxy_protocol
         log-format-escape-json: "true"
         log-format-upstream: '{"timestamp": "$time_iso8601", "requestID": "$req_id", "proxyUpstreamName":
