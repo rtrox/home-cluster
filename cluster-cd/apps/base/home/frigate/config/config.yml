@@ -60,7 +60,7 @@ objects:
     - car
   filters:
     person:
-      threshold: 0.7
+      threshold: 0.75
 
 ui:
   live_mode: webrtc
