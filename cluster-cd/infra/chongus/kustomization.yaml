@@ -9,6 +9,7 @@ resources:
   - loki-ceph-bucket.yaml
   - thanos-ceph-bucket.yaml
   - cloudnative-pg-secret.cho.yaml
+  - keycloak-secret.cho.yaml
 
 configMapGenerator:
   - name: thanos-cluster-values
