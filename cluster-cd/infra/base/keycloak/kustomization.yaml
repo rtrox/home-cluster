@@ -5,3 +5,12 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - helm-release.yaml
+
+configMapGenerator:
+  - name: keycloak-values
+    namespace: auth
+    files:
+      - values.yaml=values.yaml
+
+configurations:
+  - kustomizeconfig.yaml
