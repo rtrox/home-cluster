@@ -85,15 +85,16 @@ spec:
         enabled: false
       auth.generic_oauth:
         enabled: true
-        name: Authentik
-        client_id: ${GRAFANA_AUTHENTIK_CLIENT_ID}
-        client_secret: ${GRAFANA_AUTHENTIK_CLIENT_SECRET}
+        name: Keycloak
+        allow_sign_up: true
+        client_id: ${GRAFANA_KEYCLOAK_CLIENT_ID}
+        client_secret: ${GRAFANA_KEYCLOAK_CLIENT_SECRET}
         scopes: "openid profile email"
-        auth_url: https://authentik.${SECRET_DOMAIN}/application/o/authorize/
-        token_url: https://authentik.${SECRET_DOMAIN}/application/o/token/
-        api_url: https://authentik.${SECRET_DOMAIN}/application/o/userinfo/
+        auth_url: https://auth.${SECRET_DOMAIN}/realms/master/protocol/openid-connect/auth
+        token_url: https://${SECRET_DOMAIN}/realms/master/protocol/openid-connect/token
+        api_url: https://${SECRET_DOMAIN}/realms/master/protocol/openid-connect/userinfo
         allow_assign_grafana_admin: true
-        role_attribute_path: "contains(groups[*], 'Grafana Server Admins') && 'GrafanaAdmin' || contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
+        role_attribute_path: "contains(roles[*], 'grafana-server-admin') && 'GrafanaAdmin' || contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-editor') && 'Editor' || 'Viewer'"
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
