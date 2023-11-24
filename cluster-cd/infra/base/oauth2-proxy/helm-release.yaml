@@ -36,7 +36,7 @@ spec:
       email-domain: "*"
       cookie-domain: .${SECRET_DOMAIN}
       whitelist-domain: .${SECRET_DOMAIN}
-      oidc-issure-url: https://auth.${SECRET_DOMAIN}/auth/realms/master
+      oidc-issuer-url: https://auth.${SECRET_DOMAIN}/auth/realms/master
     sessionStorage:
       type: redis
     redis:
