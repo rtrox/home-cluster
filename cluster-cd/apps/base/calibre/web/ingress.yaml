@@ -57,7 +57,7 @@ spec:
         paths:
           - backend:
               service:
-                name: *name
+                name: calibre-web
                 port:
                   name: http
             path: /kobo
