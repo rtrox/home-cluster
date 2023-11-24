@@ -32,6 +32,7 @@ spec:
       tls:
       - hosts:
         - *host
+        secretName: oauth2-proxy-tls
     extraArgs:
       provider: keycloak-oidc
       skip-provider-button:
