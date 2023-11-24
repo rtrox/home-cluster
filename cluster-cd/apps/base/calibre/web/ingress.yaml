@@ -7,12 +7,12 @@ metadata:
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
     nginx.ingress.kubernetes.io/auth-url: |-
-        https://auth-proxy.${SECRET_DOMAIN}/oauth2/auth
+        https://$host/oauth2/auth
     # If you're using domain-level auth, use the authentication URL instead of the application URL
     nginx.ingress.kubernetes.io/auth-signin: |-
-         https://auth-proxy.${SECRET_DOMAIN}/oauth2/start?rd=$escaped_request_uri
+         https://$host/oauth2/start?rd=$escaped_request_uri
     nginx.ingress.kubernetes.io/auth-response-headers: |-
-        Set-Cookie,Authorization,X-Auth-Request-User,X-Auth-REquest-Email,X-Auth-Request-Groups,X-Auth-Request-Preferred-Username
+        Set-Cookie,Authorization,X-Auth-Request-User,X-Auth-Request-Email,X-Auth-Request-Groups,X-Auth-Request-Preferred-Username
     nginx.ingress.kubernetes.io/auth-snippet: |
         proxy_set_header X-Forwarded-Host $http_host;
         proxy_set_header X-Scheme $scheme;
@@ -33,6 +33,36 @@ spec:
                   name: http
             path: /
             pathType: Prefix
+  tls:
+    - hosts:
+        - *host
+      secretName: calibre-web-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: "true"
+    ingress: "externaldns"
+  labels:
+    app.kubernetes.io/instance: &name calibre-web
+    app.kubernetes.io/name: *name
+  name: *name
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host books.${SECRET_DOMAIN}
+      http:
+        paths:
+        - backend:
+            service:
+              name: oauth2-proxy
+              namespace: auth
+              port:
+                number: 80
+          path: /oauth2
+          pathType: ImplementationSpecific
   tls:
     - hosts:
         - *host
