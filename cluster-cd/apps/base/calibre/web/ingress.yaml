@@ -46,7 +46,7 @@ metadata:
     kubernetes.io/tls-acme: "true"
     ingress: "externaldns"
   labels:
-    app.kubernetes.io/instance: &name calibre-web
+    app.kubernetes.io/instance: &name calibre-web-suth
     app.kubernetes.io/name: *name
   name: *name
 spec:
