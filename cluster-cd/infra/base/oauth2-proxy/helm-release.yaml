@@ -32,6 +32,7 @@ spec:
       provider: keycloak-oidc
       skip-provider-button:
       pass-authorization-header:
+      set-xauthrequest:
       email-domain: "*"
       cookie-domain: .${SECRET_DOMAIN}
       whitelist-domain: .${SECRET_DOMAIN}
