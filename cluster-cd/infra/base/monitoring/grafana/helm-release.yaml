@@ -94,7 +94,9 @@ spec:
         token_url: https://auth.${SECRET_DOMAIN}/auth/realms/master/protocol/openid-connect/token
         api_url: https://auth.${SECRET_DOMAIN}/auth/realms/master/protocol/openid-connect/userinfo
         allow_assign_grafana_admin: true
-        role_attribute_path: "contains(roles[*], 'grafana-server-admin') && 'GrafanaAdmin' || contains(roles[*], 'grafana-admin') && 'Admin' || contains(roles[*], 'grafana-editor') && 'Editor' || 'Viewer'"
+        login_attribute_path: username
+        email_attribute_path: email
+        role_attribute_path: "contains(grafana.roles[*], 'grafana-server-admin') && 'GrafanaAdmin' || contains(grafana.roles[*], 'grafana-admin') && 'Admin' || contains(grafana.roles[*], 'grafana-editor') && 'Editor' || 'Viewer'"
       analytics:
         check_for_updates: false
         check_for_plugin_updates: false
