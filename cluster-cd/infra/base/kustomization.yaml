@@ -9,3 +9,4 @@ resources:
   - monitoring
   - velero
   - keycloak
+  - oauth2-proxy

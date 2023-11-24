@@ -18,6 +18,7 @@ resources:
   - metallb-charts.yaml
   - nfs-subdir-external-provisioner-charts.yaml
   - nvidia-device-plugin-charts.yaml
+  - oauth2-proxy-charts.yaml
   - prometheus-community-charts.yaml
   - rook-ceph-charts.yaml
   - stakater-charts.yaml

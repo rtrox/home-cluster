@@ -10,6 +10,7 @@ resources:
   - thanos-ceph-bucket.yaml
   - cloudnative-pg-secret.cho.yaml
   - keycloak-secret.cho.yaml
+  - oauth2-proxy-secret.cho.yaml
 
 configMapGenerator:
   - name: thanos-cluster-values
