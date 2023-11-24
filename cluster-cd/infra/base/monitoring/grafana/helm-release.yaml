@@ -90,9 +90,9 @@ spec:
         client_id: ${GRAFANA_KEYCLOAK_CLIENT_ID}
         client_secret: ${GRAFANA_KEYCLOAK_CLIENT_SECRET}
         scopes: "openid profile email"
-        auth_url: https://auth.${SECRET_DOMAIN}/realms/master/protocol/openid-connect/auth
-        token_url: https://${SECRET_DOMAIN}/realms/master/protocol/openid-connect/token
-        api_url: https://${SECRET_DOMAIN}/realms/master/protocol/openid-connect/userinfo
+        auth_url: https://auth.${SECRET_DOMAIN}/auth/realms/master/protocol/openid-connect/auth
+        token_url: https://${SECRET_DOMAIN}/auth/realms/master/protocol/openid-connect/token
+        api_url: https://${SECRET_DOMAIN}/auth/realms/master/protocol/openid-connect/userinfo
         allow_assign_grafana_admin: true
         role_attribute_path: "contains(roles[*], 'grafana-server-admin') && 'GrafanaAdmin' || contains(groups[*], 'grafana-admin') && 'Admin' || contains(groups[*], 'grafana-editor') && 'Editor' || 'Viewer'"
       analytics:
