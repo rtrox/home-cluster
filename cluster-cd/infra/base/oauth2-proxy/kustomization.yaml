@@ -6,3 +6,4 @@ namespace: auth
 
 resources:
   - helm-release.yaml
+  - calibre-web-ingress.yaml
