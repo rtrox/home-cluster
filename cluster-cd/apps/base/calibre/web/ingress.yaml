@@ -37,3 +37,32 @@ spec:
     - hosts:
         - *host
       secretName: calibre-web-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header X-Forwarded-Host $http_host;
+        proxy_set_header X-Scheme $scheme;
+  labels:
+    app.kubernetes.io/instance: &namekobo calibre-web-kobo
+    app.kubernetes.io/name: *namekobo
+  name: *namekobo
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: &host books.${SECRET_DOMAIN}
+      http:
+        paths:
+          - backend:
+              service:
+                name: *name
+                port:
+                  name: http
+            path: /kobo
+            pathType: Prefix
+  tls:
+    - hosts:
+        - *host
+      secretName: calibre-web-tls

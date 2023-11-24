@@ -1,3 +1,4 @@
+replicas: 2
 image:
   repository: quay.io/keycloak/keycloak
   tag: "22.0.5"
