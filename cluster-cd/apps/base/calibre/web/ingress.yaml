@@ -13,9 +13,6 @@ metadata:
          https://$host/oauth2/start?rd=$escaped_request_uri
     nginx.ingress.kubernetes.io/auth-response-headers: |-
         Set-Cookie,Authorization,X-Auth-Request-User,X-Auth-Request-Email,X-Auth-Request-Groups,X-Auth-Request-Preferred-Username
-    nginx.ingress.kubernetes.io/auth-snippet: |
-        proxy_set_header X-Forwarded-Host $http_host;
-        proxy_set_header X-Scheme $scheme;
   labels:
     app.kubernetes.io/instance: &name calibre-web
     app.kubernetes.io/name: *name
@@ -41,10 +38,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-        proxy_set_header X-Forwarded-Host $http_host;
-        proxy_set_header X-Scheme $scheme;
   labels:
     app.kubernetes.io/instance: &namekobo calibre-web-kobo
     app.kubernetes.io/name: *namekobo
