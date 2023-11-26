@@ -53,8 +53,8 @@ spec:
                 name: calibre-web
                 port:
                   name: http
-            path: /kobo/.*
-            pathType: ImplementationSpecific
+            path: /kobo
+            pathType: Prefix
   tls:
     - hosts:
         - *host
