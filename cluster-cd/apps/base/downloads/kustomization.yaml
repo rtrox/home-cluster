@@ -12,6 +12,5 @@ resources:
   - radarr
   - sonarr
   - recyclarr
-  - whisparr
   - readarr
   - lidarr
