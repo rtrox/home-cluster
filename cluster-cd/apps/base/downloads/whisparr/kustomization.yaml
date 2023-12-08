@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: downloads
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - pvc.yaml
+
+images:
+  - name: docker.io/hotio/whisparr
+    newTag: nightly-6a44c0d
+commonLabels:
+  app.kubernetes.io/part-of: whisparr
+  k8s-app: whisparr

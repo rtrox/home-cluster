@@ -33,6 +33,7 @@ resources:
   - radarr-form-auth-test
   - radarr-secret.cho.yaml
   - readarr-secret.cho.yaml
+  - whisparr-secret.cho.yaml
   - redis-password.cho.yaml
   - sabnzbd-secret.cho.yaml
   - sonarr-secret.cho.yaml
