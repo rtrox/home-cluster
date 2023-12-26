@@ -22,27 +22,7 @@ spec:
       configmap.reloader.stakater.com/reload: grafana
 
     replicas: 1
-    dashboards:
-      kubernetes-pods:
-        gnetId: 15760
-        revision: 26
-        datasource: Prometheus (${CLUSTER_NAME})
-      kubernetes-global:
-        gnetId: 15757
-        revision: 33
-        datasource: Prometheus (${CLUSTER_NAME})
-      kubernetes-namespace:
-        gnetId: 15758
-        revision: 31
-        datasource: Prometheus (${CLUSTER_NAME})
-      kubernetes-node:
-        gnetId: 15759
-        revision: 24
-        datasource: Prometheus (${CLUSTER_NAME})
-      kubernetes-api:
-        gnetId: 15761
-        revision: 14
-        datasource: Prometheus (${CLUSTER_NAME})
+
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
