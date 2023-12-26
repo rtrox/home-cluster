@@ -38,7 +38,7 @@ spec:
       skip-provider-button:
       pass-authorization-header:
       set-xauthrequest:
-      skip-auth-route: ^/kobo([/?].*)?$
+      skip-auth-route: ^/(static|kobo)([/?].*)?$
       email-domain: "*"
       cookie-domain: .${SECRET_DOMAIN}
       whitelist-domain: .${SECRET_DOMAIN}
