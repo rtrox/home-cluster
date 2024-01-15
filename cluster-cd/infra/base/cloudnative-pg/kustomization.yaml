@@ -3,7 +3,21 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: database
+
 resources:
   - ./namespace.yaml
   - ./helmrelease.yaml
   - cluster
+
+configMapGenerator:
+  - name: cloudnative-pg-dashboard
+    namespace: monitoring
+    files:
+      - dashboards/dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/part-of: cloudnative-pg
+        app.kubernetes.io/component: cloudnative-pg
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
