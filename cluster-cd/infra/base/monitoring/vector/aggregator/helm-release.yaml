@@ -158,7 +158,7 @@ spec:
               {{`{{ k8s_node }}`}}
             k8s_pod: >-
               {{`{{ k8s_pod }}`}}
-            cluster: >-
+            k8s_cluster: >-
               ${CLUSTER_NAME}
         loki_journal:
           type: loki
