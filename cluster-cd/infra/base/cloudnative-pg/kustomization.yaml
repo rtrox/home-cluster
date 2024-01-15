@@ -13,7 +13,7 @@ configMapGenerator:
   - name: cloudnative-pg-dashboard
     namespace: monitoring
     files:
-      - dashboards/dashboard.json
+      - dashboards/cloudnative-pg-dashboard.json
     options:
       labels:
         grafana_dashboard: "1"
