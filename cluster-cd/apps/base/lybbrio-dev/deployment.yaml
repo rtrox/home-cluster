@@ -27,12 +27,31 @@ spec:
         runAsUser: 10001
         runAsGroup: 10001
         fsGroup: 10001
+      initContainers:
+        - name: initdb
+          image: ghcr.io/onedr0p/postgres-init:14.8
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsUser: 10001
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          env:
+            - name: INIT_POSTGRES_SUPER_PASS
+              value: ${POSTGRES_SUPER_PASSWORD}
+          envFrom:
+            - secretRef:
+                name: lybbrio-dev-env-secret
       containers:
         - name: lybbrio-dev
           image: 'ghcr.io/rtrox/lybbrio-dev:sha-89a6fc1-20240120042029'
           envFrom:
             - secretRef:
-                name: lybbrio-dev-env
+                name: lybbrio-dev-env-secret
           imagePullPolicy: IfNotPresent
           resources:
             limits:

@@ -11,6 +11,7 @@ resources:
   - ../base/garbage-api
   - ../base/home
   - ../base/informer-devel
+  - ../base/lybbrio-dev
   - ../base/media
   - ../base/necesse
   - ../base/prometheus-awair-exporter
@@ -26,6 +27,8 @@ resources:
   - informer-webhook-token.cho.yaml
   - kavita-email-secret.cho.yaml
   - lidarr-secret.cho.yaml
+  - lybbrio-dev-env-secret.cho.yaml
+  - lybbrio-dev-webhook-token.cho.yaml
   - mosquitto-secret.cho.yaml
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml
@@ -33,13 +36,13 @@ resources:
   - radarr-form-auth-test
   - radarr-secret.cho.yaml
   - readarr-secret.cho.yaml
-  - whisparr-secret.cho.yaml
   - redis-password.cho.yaml
   - sabnzbd-secret.cho.yaml
   - sonarr-secret.cho.yaml
   - spotify-sentry-registry-creds.cho.yaml
   - spotify-sentry-secret.cho.yaml
   - vikunja-secret.cho.yaml
+  - whisparr-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
 
 

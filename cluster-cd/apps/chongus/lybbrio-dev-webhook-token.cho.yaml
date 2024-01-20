@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-    name: lybbrio-webhook-token
+    name: lybbrio-dev-webhook-token
     namespace: flux-system
 stringData:
     token: ENC[AES256_GCM,data:zQp4KXDb6P72y05eTCRE6LBexacQVil2AqK07D59lZ77SlrMy7WzOA==,iv:hVATu1Q9ehYS/0L6Uw0/WZkrQZ5HSLqIrj1F0Izckh0=,tag:0oYI1+6OOaj69xy/Wkrwvw==,type:str]
@@ -48,8 +48,8 @@ sops:
             S3l4Rld2NWFPeTBTdndqUVRSZm9TbVUK2Cg49WKx3GICosssP0JKh93Wux3EmGpY
             toHSl2EEoUpP34c5U3RkCyOOwC5/4H2aUJOh0+vZvPZtB/fKdQ9y2A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-01-20T04:27:50Z"
-    mac: ENC[AES256_GCM,data:ASw1SCakOV6eaLJxIYPauau3/wj2yWUmvBbsF5mihxuy7+N7Vj9SWhdvMYI8exmJM1YPgD+UuRexGD2BTazHI1gZufe8gP2C5zndYqmrnPIx9CuJxp4yXDbtM8t+lwHsoby5/b/aqUOSnE3gkVJy7KZiTCIjM+A2SooZT4nfsmg=,iv:ofAA0HQpz22/W1mkfnVP9tpaJZC+YZenRwpSu/czCLs=,tag:ZXtKS0kOFqPBkudB5/fHcg==,type:str]
+    lastmodified: "2024-01-20T05:13:58Z"
+    mac: ENC[AES256_GCM,data:XNKAE4GInUateZa+tECJpZjmQ+VKRr1ABU6IM4FNB4bi1xZ0qsaSFjXrOBIR+gSmFmyIM8TqnY9r+Ryb/O2Nqz6KoHIG55dRDh5ImO30nJG8efMKZ3it109x4mDd8OtT0506Qjc0Re3ulU8/7lFF+XzHkNw9cUymXx6bNpRlqa4=,iv:ascZL+0quwjveKaoNvAOl9SUYspzVRcY9EMF0PWP+O0=,tag:Mt0i5tMopn5b6eZepCMBmQ==,type:str]
     pgp: []
     encrypted_regex: ^(data|stringData)$
     version: 3.8.0
