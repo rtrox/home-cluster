@@ -31,6 +31,7 @@ metadata:
 spec:
   type: github
   events:
+    - "ping"
     - "package"
   secretRef:
     name: lybbrio-dev-webhook-token
