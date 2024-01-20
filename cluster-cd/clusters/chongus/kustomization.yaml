@@ -9,3 +9,4 @@ resources:
   - system.yaml
   - infra.yaml
   - apps.yaml
+  - image-update-automation.yaml
