@@ -10,10 +10,6 @@ metadata:
   name: lybbrio-dev
 spec:
   internalTrafficPolicy: Cluster
-  ipFamilies:
-    - IPv4
-    - IPv6
-  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 8080
