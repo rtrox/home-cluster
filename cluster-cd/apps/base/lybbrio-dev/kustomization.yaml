@@ -4,6 +4,4 @@ kind: Kustomization
 
 bases:
   - image-automation.yaml
-
-resources:
-  - app
+  - ks.yaml
