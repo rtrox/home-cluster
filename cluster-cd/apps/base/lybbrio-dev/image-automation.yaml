@@ -1,0 +1,39 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: lybbrio
+  namespace: flux-system
+spec:
+  image: ghcr.io/rtrox/lybbrio-dev
+  interval: 5m
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: lybbrio
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: lybbrio
+  filterTags:
+    pattern: '^sha-[a-fA-F0-9]+-(?P<ts>.*)'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: notification.toolkit.fluxcd.io/v1
+kind: Receiver
+metadata:
+  name: lybbrio-webhook
+  namespace: flux-system
+spec:
+  type: github
+  events:
+    - "package"
+  secretRef:
+    name: lybbrio-webhook-token
+  resources:
+    - kind: ImageRepository
+      name: lybbrio

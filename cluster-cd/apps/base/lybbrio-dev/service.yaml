@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: &name lybbrio-dev
+    app.kubernetes.io/instance: *name
+    app.kubernetes.io/part-of: *name
+    jobLabel: *name
+  name: lybbrio-dev
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+    - IPv6
+  ipFamilyPolicy: PreferDualStack
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: *name
+    app.kubernetes.io/instance: *name
+  sessionAffinity: None
+  type: ClusterIP
