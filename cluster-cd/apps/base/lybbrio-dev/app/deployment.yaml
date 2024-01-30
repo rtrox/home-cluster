@@ -47,7 +47,7 @@ spec:
                 name: lybbrio-dev-env-secret
       containers:
         - name: lybbrio-dev
-          image: 'ghcr.io/rtrox/lybbrio-dev:sha-0ffdc0a-20240130053203' # {"$imagepolicy": "flux-system:lybbrio-dev"}
+          image: 'ghcr.io/rtrox/lybbrio-dev:sha-605943b-20240130053905' # {"$imagepolicy": "flux-system:lybbrio-dev"}
           envFrom:
             - secretRef:
                 name: lybbrio-dev-env-secret
