@@ -22,6 +22,7 @@ resources:
   - ../base/vikunja
   - ../base/vpn-gateway
   - ../base/yaddu
+  - ./external-secrets
   - garbage-api-secret.cho.yaml
   - home-assistant-secret.cho.yaml
   - informer-webhook-token.cho.yaml
@@ -33,7 +34,6 @@ resources:
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml
   - prowlarr-secret.cho.yaml
-  - radarr-form-auth-test
   - radarr-secret.cho.yaml
   - readarr-secret.cho.yaml
   - redis-password.cho.yaml
@@ -44,7 +44,6 @@ resources:
   - vikunja-secret.cho.yaml
   - whisparr-secret.cho.yaml
   - yaddu-config-secret.cho.yaml
-
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml
