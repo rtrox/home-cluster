@@ -11,7 +11,6 @@ resources:
   - ../base/garbage-api
   - ../base/home
   - ../base/informer-devel
-  - ../base/lybbrio-dev
   - ../base/media
   - ../base/necesse
   - ../base/prometheus-awair-exporter
@@ -22,14 +21,13 @@ resources:
   - ../base/vikunja
   - ../base/vpn-gateway
   - ../base/yaddu
+  - ./default
   - ./external-secrets
   - garbage-api-secret.cho.yaml
   - home-assistant-secret.cho.yaml
   - informer-webhook-token.cho.yaml
   - kavita-email-secret.cho.yaml
   - lidarr-secret.cho.yaml
-  - lybbrio-dev-env-secret.cho.yaml
-  - lybbrio-dev-webhook-token.cho.yaml
   - mosquitto-secret.cho.yaml
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml

@@ -8,3 +8,4 @@ bases:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
+  - lybbrio-dev-env-secret.cho.yaml

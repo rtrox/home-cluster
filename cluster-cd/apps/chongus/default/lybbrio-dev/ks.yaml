@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname lybbrio-dev
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  interval: 10m
+  path: "./cluster-cd/apps/base/lybbrio-dev/app"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: v1
+      kind: Pod
+      name: lybbrio-dev
+      namespace: default
+    - apiVersion: v1
+      kind: Service
+      name: lybbrio-dev
+      namespace: default
+    - apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      name: lybbrio-dev
+      namespace: default
+  dependsOn:
+    - name: system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &appname lybbrio-dev-image-automation
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *appname
+  interval: 10m
+  path: "./cluster-cd/apps/base/lybbrio-dev/image-automation"
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
