@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   interval: 10m
-  path: "./cluster-cd/apps/base/lybbrio-dev/app"
+  path: "./cluster-cd/apps/chongus/default/lybbrio-dev/app"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -43,7 +43,7 @@ spec:
     labels:
       app.kubernetes.io/name: *appname
   interval: 10m
-  path: "./cluster-cd/apps/base/lybbrio-dev/image-automation"
+  path: "./cluster-cd/apps/chongus/default/lybbrio-dev/image-automation"
   prune: true
   wait: true
   sourceRef:
