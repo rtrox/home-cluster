@@ -17,7 +17,7 @@ spec:
     kind: GitRepository
     name: flux-system
   healthChecks:
-    - apiVersion: v1
+    - apiVersion: apps/v1
       kind: Deployment
       name: lybbrio-dev
       namespace: default
