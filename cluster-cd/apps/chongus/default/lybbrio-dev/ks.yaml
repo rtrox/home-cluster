@@ -18,7 +18,7 @@ spec:
     name: flux-system
   healthChecks:
     - apiVersion: v1
-      kind: Pod
+      kind: Deployment
       name: lybbrio-dev
       namespace: default
     - apiVersion: v1
