@@ -12,5 +12,5 @@ resources:
   - service-monitor.yaml
 
 images:
-  - name: zwavejs/zwave-js-ui
+  - name: ghcr.io/zwave-js/zwave-js-ui
     newTag: 9.8.2

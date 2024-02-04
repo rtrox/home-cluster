@@ -23,6 +23,7 @@ resources:
   - ../base/yaddu
   - ./default
   - ./external-secrets
+  - ./home
   - garbage-api-secret.cho.yaml
   - home-assistant-secret.cho.yaml
   - informer-webhook-token.cho.yaml

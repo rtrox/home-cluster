@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - mosquitto
-  - zwavejs
   - home-assistant
   - frigate
   # - app-daemon
