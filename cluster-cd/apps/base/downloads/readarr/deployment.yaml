@@ -32,7 +32,6 @@ spec:
         post.hook.backup.velero.io/container: fsfreeze
         post.hook.backup.velero.io/command: '["/sbin/fsfreeze", "--unfreeze", "/config"]'
     spec:
-
       securityContext:
         fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
@@ -73,30 +72,30 @@ spec:
           envFrom:
             - secretRef:
                 name: readarr-secret
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 10
-            failureThreshold: 5
-            timeoutSeconds: 2
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 10
-            failureThreshold: 5
-            timeoutSeconds: 2
-          startupProbe:
-            httpGet:
-              path: /
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 10
-            failureThreshold: 5
-            timeoutSeconds: 2
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
+          # startupProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #     scheme: HTTP
+          #   initialDelaySeconds: 10
+          #   failureThreshold: 5
+          #   timeoutSeconds: 2
           volumeMounts:
             - mountPath: /config
               name: config
