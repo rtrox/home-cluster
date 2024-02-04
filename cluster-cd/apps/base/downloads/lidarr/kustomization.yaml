@@ -14,7 +14,7 @@ resources:
 images:
   # TODO: non-nightly image to let renovate pick it up
   - name: ghcr.io/onedr0p/lidarr-plugins
-    newTag: "2.0.2.3773@sha256:cf3127c2329f9eea50c4d66cbc46e4ffab77cdacd50ff3277a8a5bb8c0e56147"
+    newTag: "2.0.7.3848@sha256:939b5a692bf64b04fecbd99bb9d23474b7c82ad26491373f57f623047c4ff53d"
   - name: ghcr.io/onedr0p/exportarr
     newTag: v1.6.1
 commonLabels:
