@@ -8,7 +8,7 @@ spec:
   interval: 30m
   url: https://github.com/metallb/metallb.git
   ref:
-    tag: v0.13.12
+    tag: v0.14.3
   ignore: |
     # exclude all
     /*
