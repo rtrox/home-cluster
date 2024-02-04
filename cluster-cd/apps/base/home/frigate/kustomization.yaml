@@ -19,7 +19,7 @@ configMapGenerator:
 
 images:
   - name: ghcr.io/blakeblackshear/frigate
-    newTag: 0.13.0-beta2
+    newTag: "0.13.1"
 
 commonLabels:
   app.kubernetes.io/part-of: frigate
