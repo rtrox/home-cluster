@@ -16,7 +16,7 @@ images:
   - name: ghcr.io/onedr0p/radarr-develop
     newTag: "5.1.3.8246"
   - name: ghcr.io/onedr0p/exportarr
-    newTag: v1.6.0
+    newTag: v1.6.1
 commonLabels:
   app.kubernetes.io/part-of: radarr
   k8s-app: radarr

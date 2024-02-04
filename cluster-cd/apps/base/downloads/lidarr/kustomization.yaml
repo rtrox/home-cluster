@@ -16,7 +16,7 @@ images:
   - name: ghcr.io/onedr0p/lidarr-plugins
     newTag: "2.0.2.3773@sha256:cf3127c2329f9eea50c4d66cbc46e4ffab77cdacd50ff3277a8a5bb8c0e56147"
   - name: ghcr.io/onedr0p/exportarr
-    newTag: v1.6.0
+    newTag: v1.6.1
 commonLabels:
   app.kubernetes.io/part-of: lidarr
   k8s-app: lidarr
