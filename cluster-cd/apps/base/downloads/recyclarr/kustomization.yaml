@@ -19,7 +19,7 @@ generatorOptions:
 
 images:
   - name: ghcr.io/onedr0p/alpine
-    newTag: 3.18.5
+    newTag: 3.19.1
   - name: ghcr.io/recyclarr/recyclarr
     newTag: 6.0.2
 
