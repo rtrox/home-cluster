@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ingress-nginx
   - ingress-nginx-external
-  - cilium
+  # - cilium
   - cert-manager
   - reloader
   - descheduler

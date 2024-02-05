@@ -12,7 +12,7 @@ spec:
     - name: sources
     - name: crds
   path: ./cluster-cd/system/chongus
-  prune: true
+  prune: false
   wait: true
   sourceRef:
     kind: GitRepository
