@@ -21,9 +21,9 @@ spec:
   upgrade:
     remediation:
       retries: 3
-  dependsOn:
-    - name: cilium
-      namespace: kube-system
+  # dependsOn:
+  #   - name: cilium
+  #     namespace: kube-system
   valuesFrom:
     - kind: ConfigMap
       name: metallb-values
