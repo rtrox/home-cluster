@@ -17,4 +17,4 @@ images:
   - name: ghcr.io/onedr0p/home-assistant
     newTag: "2024.1.6"
   - name: codercom/code-server
-    newTag: "4.20.1"
+    newTag: "4.21.0"
