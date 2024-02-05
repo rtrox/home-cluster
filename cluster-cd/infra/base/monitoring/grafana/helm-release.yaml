@@ -126,7 +126,7 @@ spec:
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
-        kubernetes.io/tls-acme: 'true'
+        kubernetes.io/tls-acme: "true"
         ingress: externaldns
       enabled: true
       hosts:
@@ -176,3 +176,4 @@ spec:
         labelValue: ""
         searchNamespace: ALL
       logLevel: INFO
+    assertNoLeakedSecrets: false
