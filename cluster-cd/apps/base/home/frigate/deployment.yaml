@@ -20,7 +20,6 @@ spec:
       annotations:
         backup.velero.io/backup-volumes: frigate-data
     spec:
-      runtimeClassName: nvidia
       initContainers:
         - name: config
           image: alpine
@@ -92,11 +91,9 @@ spec:
             limits:
               memory: 10000Mi
               cpu: "8"
-              nvidia.com/gpu: 1
             requests:
               cpu: "8"
               memory: 6000Mi
-              nvidia.com/gpu: 1
           securityContext:
             allowPrivilegeEscalation: true
             privileged: true
