@@ -12,6 +12,7 @@ resources:
   - pvc.yaml
   - service-monitor.yaml
   - prometheus-rule.yaml
+  - replicationsource.yaml
 
 images:
   - name: ghcr.io/onedr0p/home-assistant

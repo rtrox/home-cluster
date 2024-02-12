@@ -10,6 +10,7 @@ resources:
   - ingress.yaml
   - media-pvc.yaml
   - pvc.yaml
+  - replicationsource.yaml
 
 configMapGenerator:
   - name: frigate-config
