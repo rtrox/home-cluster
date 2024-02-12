@@ -7,7 +7,6 @@ resources:
   - ../base/calibre
   - ../base/downloads
   - ../base/echo-server
-  - ../base/fileshelter
   - ../base/garbage-api
   - ../base/home
   - ../base/informer-devel
