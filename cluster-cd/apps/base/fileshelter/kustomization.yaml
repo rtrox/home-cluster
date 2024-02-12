@@ -9,6 +9,7 @@ bases:
   - service.yaml
   - ingress.yaml
   - pvc.yaml
+  # - replicationsource.yaml
 
 images:
   - name: epoupon/fileshelter

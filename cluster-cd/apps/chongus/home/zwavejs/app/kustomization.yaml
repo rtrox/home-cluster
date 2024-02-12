@@ -10,6 +10,7 @@ resources:
   - ingress-ws.yaml
   - pvc.yaml
   - service-monitor.yaml
+  - replicationsource.yaml
 
 images:
   - name: ghcr.io/zwave-js/zwave-js-ui

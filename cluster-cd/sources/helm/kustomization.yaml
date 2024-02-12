@@ -5,6 +5,7 @@ resources:
   - angelnu-charts.yaml
   - authentik-charts.yaml
   - bitnami-charts.yaml
+  - backube.yaml
   - bitsbeats-charts.yaml
   - bjw-s-charts.yaml
   - cilium-charts.yaml
