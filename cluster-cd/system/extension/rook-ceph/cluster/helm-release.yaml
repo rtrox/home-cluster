@@ -63,11 +63,11 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes: []
-    # cephBlockPoolsVolumeSnapshotClass:
-    #   enabled: true
-    #   name: csi-rbdplugin-snapclass
-    #   annotations:
-    #     velero.io/csi-volumesnapshot-class: "true"
+    cephBlockPoolsVolumeSnapshotClass:
+      enabled: true
+      name: csi-ceph-blockpool
+      annotations:
+        velero.io/csi-volumesnapshot-class: "true"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
