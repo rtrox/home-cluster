@@ -36,7 +36,7 @@ spec:
     repository: "zwavejs-volsync-b2-secret"
     volumeSnapshotClassName: "${VOLSYNC_SNAPSHOTCLASS:-csi-ceph-blockpool}"
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:-4Gi}"
-    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-ceph-blockpool}"
+    cacheStorageClassName: "${VOLSYNC_CACHE_SNAPSHOTCLASS:-ceph-block}"
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:-ReadWriteOnce}"]
     storageClassName: "${VOLSYNC_STORAGECLASS:-ceph-block}"
     accessModes: ["${VOLSYNC_ACCESSMODES:-ReadWriteOnce}"]
