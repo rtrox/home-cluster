@@ -5,3 +5,4 @@ kind: Kustomization
 
 resources:
   - ./clustersecretstore.yaml
+  - ./doppler-token.cho.yaml
