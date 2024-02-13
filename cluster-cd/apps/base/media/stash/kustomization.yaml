@@ -7,6 +7,7 @@ resources:
   - service.yaml
   - ingress.yaml
   - pvc.yaml
+  - replicationsource.yaml
 
 images:
   - name: stashapp/stash

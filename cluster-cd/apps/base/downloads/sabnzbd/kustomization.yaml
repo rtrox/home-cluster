@@ -10,6 +10,7 @@ resources:
   - servicemonitor.yaml
   - ingress.yaml
   - pvc.yaml
+  - replicationsource.yaml
 
 images:
   - name: ghcr.io/onedr0p/sabnzbd

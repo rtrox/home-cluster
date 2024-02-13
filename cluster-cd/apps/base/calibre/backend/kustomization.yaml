@@ -9,6 +9,7 @@ resources:
   - service.yaml
   - ingress.yaml
   - pvc.yaml
+  - replicationsource.yaml
 
 images:
   # TODO: non-nightly image to let renovate pick it up
