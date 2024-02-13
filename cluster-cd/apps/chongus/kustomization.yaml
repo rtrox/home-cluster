@@ -22,7 +22,6 @@ resources:
   - ./volsync
   - garbage-api-secret.cho.yaml
   - home-assistant-secret.cho.yaml
-  - informer-webhook-token.cho.yaml
   - kavita-email-secret.cho.yaml
   - lidarr-secret.cho.yaml
   - mosquitto-secret.cho.yaml
@@ -36,9 +35,7 @@ resources:
   - sonarr-secret.cho.yaml
   - spotify-sentry-registry-creds.cho.yaml
   - spotify-sentry-secret.cho.yaml
-  - vikunja-secret.cho.yaml
   - whisparr-secret.cho.yaml
-  - yaddu-config-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml

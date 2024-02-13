@@ -61,8 +61,8 @@ spec:
             - name: TZ
               value: ${LOCAL_TZ}
           # envFrom:
-            # - secretRef:
-            #     name: jellyfin-secret
+          # - secretRef:
+          #     name: jellyfin-secret
           livenessProbe:
             httpGet:
               path: /
