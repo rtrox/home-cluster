@@ -23,7 +23,6 @@ resources:
   - garbage-api-secret.cho.yaml
   - home-assistant-secret.cho.yaml
   - kavita-email-secret.cho.yaml
-  - lidarr-secret.cho.yaml
   - mosquitto-secret.cho.yaml
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml
