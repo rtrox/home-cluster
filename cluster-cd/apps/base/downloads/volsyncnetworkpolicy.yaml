@@ -3,7 +3,7 @@ app.kubernetes.io/created-by=volsync
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: in-cluster-egress-only
+  name: volsync-b2-destinations-only
   namespace: downloads
 spec:
   endpointSelector:
