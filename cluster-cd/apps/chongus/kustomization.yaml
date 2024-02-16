@@ -6,8 +6,6 @@ resources:
   - ../base/blocky
   - ../base/calibre
   - ../base/downloads
-  - ../base/garbage-api
-  - ../base/home
   - ../base/media
   - ../base/necesse
   - ../base/prometheus-awair-exporter
@@ -20,10 +18,7 @@ resources:
   - ./external-secrets
   - ./home
   - ./volsync
-  - garbage-api-secret.cho.yaml
-  - home-assistant-secret.cho.yaml
   - kavita-email-secret.cho.yaml
-  - mosquitto-secret.cho.yaml
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml
   - prowlarr-secret.cho.yaml
