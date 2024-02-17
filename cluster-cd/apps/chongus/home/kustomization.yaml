@@ -6,4 +6,4 @@ resources:
   # Pre Flux-Kustomizations
   # - ./namespace.yaml # Currently conflicts as this was moved. re-enable when deleted elsewhere.
   # Flux-Kustomizations
-  - ./zwavejs/ks.yaml
+  # - ./zwavejs/ks.yaml
