@@ -8,8 +8,8 @@ resources:
   - namespace.yaml
   - networkpolicy.yaml
   - volsyncnetworkpolicy.yaml
-  - sabnzbd
-  - prowlarr
+  # - sabnzbd
+  # - prowlarr
   - radarr
   - sonarr
   - recyclarr
