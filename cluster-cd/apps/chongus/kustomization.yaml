@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ../base/blocky
   - ../base/calibre
-  - ../base/downloads
+  # - ../base/downloads
   - ../base/media
   - ../base/necesse
   - ../base/prometheus-awair-exporter
@@ -21,15 +21,15 @@ resources:
   - kavita-email-secret.cho.yaml
   - pod-gateway-config.cho.yaml
   - postgres-config.cho.yaml
-  - prowlarr-secret.cho.yaml
-  - radarr-secret.cho.yaml
-  - readarr-secret.cho.yaml
-  - redis-password.cho.yaml
-  - sabnzbd-secret.cho.yaml
-  - sonarr-secret.cho.yaml
+  # - prowlarr-secret.cho.yaml
+  # - radarr-secret.cho.yaml
+  # - readarr-secret.cho.yaml
+  # - redis-password.cho.yaml
+  # - sabnzbd-secret.cho.yaml
+  # - sonarr-secret.cho.yaml
   - spotify-sentry-registry-creds.cho.yaml
   - spotify-sentry-secret.cho.yaml
-  - whisparr-secret.cho.yaml
+  # - whisparr-secret.cho.yaml
 
 patchesStrategicMerge:
   - blocky-service-ipv6-patch.yaml

@@ -10,7 +10,7 @@ resources:
   - volsyncnetworkpolicy.yaml
   # - sabnzbd
   # - prowlarr
-  - radarr
-  - sonarr
-  - recyclarr
-  - readarr
+  # - radarr
+  # - sonarr
+  # - recyclarr
+  # - readarr
