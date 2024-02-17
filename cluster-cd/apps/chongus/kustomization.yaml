@@ -16,7 +16,7 @@ resources:
   - ../base/vpn-gateway
   - ./default
   - ./external-secrets
-  - ./home
+  # - ./home
   - ./volsync
   - kavita-email-secret.cho.yaml
   - pod-gateway-config.cho.yaml
